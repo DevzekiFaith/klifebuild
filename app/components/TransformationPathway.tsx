@@ -155,51 +155,51 @@ export default function TransformationPathway({
           })}
         </div>
 
-        {/* Minimalist Active Stage Breakdown Box */}
-        <div className="p-8 sm:p-12 bg-[#141414] text-white rounded-3xl border border-zinc-800 space-y-8 shadow-2xl relative overflow-hidden">
+        {/* Minimalist Active Stage Breakdown Box (Clean White Editorial Card) */}
+        <div className="p-8 sm:p-12 bg-white text-black rounded-3xl border border-gray-200 space-y-8 shadow-xl relative overflow-hidden">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border border-zinc-800 bg-zinc-900 text-[#d4af37]">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border border-gray-200 bg-gray-100 text-black">
                   {currentStage.stepNumber} • TRANSFORMATION STAGE
                 </span>
 
-                <h3 className="font-serif-headline text-3xl sm:text-4xl text-white font-normal leading-tight">
+                <h3 className="font-serif-headline text-3xl sm:text-4xl text-zinc-950 font-normal leading-tight">
                   {currentStage.title}
                 </h3>
 
-                <p className="text-xs font-mono text-zinc-400 italic">
+                <p className="text-xs font-mono text-zinc-500 italic">
                   "{currentStage.scripture}"
                 </p>
               </div>
 
-              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed font-light">
                 {currentStage.description}
               </p>
 
               <div className="pt-2">
                 <button
                   onClick={onOpenRegister}
-                  className="px-6 py-3.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-gray-200 transition-all flex items-center gap-2 cursor-pointer shadow-md"
+                  className="px-6 py-3.5 rounded-full bg-black text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
                 >
                   <span>Begin Your Transformation Journey</span>
-                  <ArrowRight className="w-4 h-4 text-black" />
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </button>
               </div>
             </div>
 
             {/* Minimalist Deliverables Column */}
-            <div className="lg:col-span-5 p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 space-y-4">
-              <h4 className="font-mono text-xs font-bold text-[#d4af37] uppercase tracking-wider border-b border-zinc-800 pb-2">
+            <div className="lg:col-span-5 p-6 bg-gray-50/80 rounded-2xl border border-gray-200 space-y-4">
+              <h4 className="font-mono text-xs font-bold text-black uppercase tracking-wider border-b border-gray-200 pb-2">
                 Key Stage Deliverables
               </h4>
 
-              <ul className="space-y-3 text-xs text-zinc-300 font-light">
+              <ul className="space-y-3 text-xs text-zinc-700 font-light">
                 {currentStage.keyOutputs.map((output, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-white shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-black shrink-0 mt-0.5" />
                     <span>{output}</span>
                   </li>
                 ))}
