@@ -25,7 +25,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 120 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 54:12.
+            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 120 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
                 </div>
                 <h4 className="font-heading font-bold text-base text-black">Grounding & Devotional Focus</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Stripping away workweek noise. Centering mind and spirit in worship, gratitude, and divine perspective under Isaiah 54.
+                  Stripping away workweek noise. Centering mind and spirit in worship, gratitude, and divine perspective under Isaiah 58:12.
                 </p>
               </div>
 

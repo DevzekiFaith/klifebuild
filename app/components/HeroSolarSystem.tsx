@@ -29,8 +29,8 @@ const PILLARS: PlanetPillar[] = [
   {
     id: "sun",
     name: "Divine Calling",
-    tagline: "Isaiah 54:12 Core Catalyst",
-    description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 54:12.",
+    tagline: "Isaiah 58:12 Core Catalyst",
+    description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 58:12.",
     size: 56,
     orbitRadius: 0,
     orbitSpeed: 0,
@@ -38,7 +38,7 @@ const PILLARS: PlanetPillar[] = [
     specs: {
       orbitPeriod: "Central Anchor",
       foundationalFocus: "Spiritual Grounding & Vision",
-      biblicalAnchor: "Isaiah 54:12",
+      biblicalAnchor: "Isaiah 58:12",
     },
   },
   {
@@ -141,7 +141,7 @@ export default function HeroSolarSystem({
             {/* Tagline Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
               <span className="w-2 h-2 rounded-full bg-[#3b2262]"></span>
-              <span>Isaiah 54:12 Mandate • 4Tribe Network</span>
+              <span>Isaiah 58:12 Mandate • 4Tribe Network</span>
             </div>
 
             {/* Headline */}
@@ -208,7 +208,7 @@ export default function HeroSolarSystem({
                 />
               ))}
 
-              {/* Central Sun Element (Isaiah 54 Core) */}
+              {/* Central Sun Element (Isaiah 58:12 Core) */}
               <div
                 onClick={() => setSelectedPlanet(PILLARS[0])}
                 className="absolute z-20 cursor-pointer rounded-full bg-black text-white p-1 shadow-xl flex items-center justify-center transition-transform hover:scale-110"
@@ -276,7 +276,7 @@ export default function HeroSolarSystem({
             </div>
             <h3 className="font-heading font-bold text-sm text-black">01. REBUILDING</h3>
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
-              Reconstructing broken walls, business systems, and economic foundations under Isaiah 54.
+              Reconstructing broken walls, business systems, and economic foundations under Isaiah 58:12.
             </p>
           </div>
 

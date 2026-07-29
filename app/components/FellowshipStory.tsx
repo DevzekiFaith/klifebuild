@@ -14,7 +14,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
     <section id="vision" className="relative w-full bg-[#141414] text-white py-28 border-t border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         
-        {/* Full-width High Contrast Showcase Grid (Featuring 4T Emblem & Isaiah 54 Mission) */}
+        {/* Full-width High Contrast Showcase Grid (Featuring 4T Emblem & Isaiah 58:12 Mission) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Official 4T Emblem Badge & Pass Preview */}
@@ -27,7 +27,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   4TribeNetwork
                 </span>
                 <span className="text-[10px] font-mono uppercase bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded font-bold">
-                  Isaiah 54:12
+                  Isaiah 58:12
                 </span>
               </div>
 
@@ -65,7 +65,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 4T
               </span>
               <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest">
-                Isaiah 54:12 Mandate • 4T Conference
+                Isaiah 58:12 Mandate • 4T Conference
               </span>
             </div>
 
@@ -86,7 +86,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
 
             {/* Description Paragraph */}
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 54:12, Lifebuild is a 15-year God-given mandate to rebuild broken walls across human lives, organizations, and ecosystems. Through weekly gatherings and our annual <strong>4T Conference</strong>, we equip leaders to rebuild, restore, repair, and replenish.
+              Driven by Isaiah 58:12, Lifebuild is a 15-year God-given mandate to rebuild broken walls across human lives, organizations, and ecosystems. Through weekly gatherings and our annual <strong>4T Conference</strong>, we equip leaders to rebuild, restore, repair, and replenish.
             </p>
 
             {/* Action Link */}
