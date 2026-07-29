@@ -181,6 +181,19 @@ export default function Navbar({
               <QrCode className="w-4 h-4" />
               Service Entrance Scanner
             </button>
+
+            {onOpenDashboard && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenDashboard();
+                }}
+                className="text-left py-1 text-xs font-mono text-black font-bold uppercase flex items-center gap-2"
+              >
+                <Users className="w-4 h-4 text-black" />
+                <span>Admin Live Headcount</span>
+              </button>
+            )}
           </nav>
 
           <div className="pt-4 border-t border-gray-100">

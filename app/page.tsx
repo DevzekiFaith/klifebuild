@@ -222,6 +222,7 @@ export default function Home() {
       <Footer
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenPass={() => (currentMember ? setIsPassOpen(true) : setIsRegisterOpen(true))}
+        onOpenDashboard={handleOpenDashboardRequest}
       />
 
       {/* Modals */}

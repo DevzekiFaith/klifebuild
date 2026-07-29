@@ -2,14 +2,15 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Lock } from "lucide-react";
 
 interface FooterProps {
   onOpenRegister: () => void;
   onOpenPass: () => void;
+  onOpenDashboard?: () => void;
 }
 
-export default function Footer({ onOpenRegister, onOpenPass }: FooterProps) {
+export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -37,7 +38,7 @@ export default function Footer({ onOpenRegister, onOpenPass }: FooterProps) {
               </span>
             </div>
             <p className="text-xs text-zinc-500 max-w-sm font-light">
-              Rebuilding everywhere you go. A 15-year God-given vision to build people and rebuild lives.
+              Rebuilding everywhere you go. A propelling movement to build people and rebuild lives under Isaiah 58:12.
             </p>
           </div>
 
@@ -64,6 +65,17 @@ export default function Footer({ onOpenRegister, onOpenPass }: FooterProps) {
             >
               My QR Pass
             </button>
+
+            {onOpenDashboard && (
+              <button
+                onClick={onOpenDashboard}
+                className="hover:text-black font-bold text-black transition-colors cursor-pointer flex items-center gap-1"
+                title="Admin Live Headcount"
+              >
+                <Lock className="w-3 h-3 text-[#d4af37]" />
+                <span>Admin Headcount</span>
+              </button>
+            )}
           </div>
 
         </div>
