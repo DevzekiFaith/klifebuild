@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowUpRight, Star, Hammer, Key, HeartHandshake, RefreshCw, Layers } from "lucide-react";
+import { ArrowUpRight, Star, Hammer, Key, HeartHandshake, RefreshCw } from "lucide-react";
 
 interface FellowshipStoryProps {
   onOpenRegister?: () => void;
@@ -17,7 +17,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
         {/* Full-width High Contrast Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Custom Minimalist 4T Framework UI Emblem Card */}
+          {/* Left Column: Pure White & Simple Minimalist 4T Framework Card */}
           <div className="lg:col-span-6 flex justify-center">
             <div className="relative w-full max-w-md bg-white text-black p-8 rounded-3xl shadow-2xl space-y-6 border border-gray-200">
               
@@ -42,81 +42,81 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                     </span>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-zinc-900 text-white px-2 py-0.5 rounded">
+                <span className="text-[10px] font-mono font-bold bg-zinc-100 border border-zinc-300 text-zinc-800 px-2 py-0.5 rounded">
                   Isaiah 58:12
                 </span>
               </div>
 
-              {/* Custom 2x2 4T Framework Grid Graphic */}
-              <div className="relative p-4 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-3 text-white">
+              {/* Pure White & Simple 2x2 4T Framework Grid */}
+              <div className="relative p-5 bg-gray-50/70 rounded-2xl border border-gray-200 space-y-4 text-black">
                 
                 <div className="grid grid-cols-2 gap-3 relative">
                   
-                  {/* Rebuilding */}
-                  <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/30 flex flex-col justify-between space-y-3">
+                  {/* 01. REBUILDING */}
+                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
                     <div className="flex items-center justify-between">
-                      <Hammer className="w-5 h-5 text-amber-400" />
-                      <span className="text-[9px] font-mono text-amber-300 uppercase font-bold">01</span>
+                      <Hammer className="w-4 h-4 text-zinc-800" />
+                      <span className="text-[10px] font-mono text-zinc-400 font-bold">01</span>
                     </div>
                     <div>
-                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-amber-200 block">
+                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-black block">
                         REBUILDING
                       </span>
-                      <span className="text-[9px] text-zinc-400 font-mono">Walls & Systems</span>
+                      <span className="text-[9px] text-zinc-500 font-mono block">Walls & Systems</span>
                     </div>
                   </div>
 
-                  {/* Restoring */}
-                  <div className="p-4 rounded-xl bg-blue-950/40 border border-blue-500/30 flex flex-col justify-between space-y-3">
+                  {/* 02. RESTORING */}
+                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
                     <div className="flex items-center justify-between">
-                      <Key className="w-5 h-5 text-blue-400" />
-                      <span className="text-[9px] font-mono text-blue-300 uppercase font-bold">02</span>
+                      <Key className="w-4 h-4 text-zinc-800" />
+                      <span className="text-[10px] font-mono text-zinc-400 font-bold">02</span>
                     </div>
                     <div>
-                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-blue-200 block">
+                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-black block">
                         RESTORING
                       </span>
-                      <span className="text-[9px] text-zinc-400 font-mono">Identity & Calling</span>
+                      <span className="text-[9px] text-zinc-500 font-mono block">Identity & Calling</span>
                     </div>
                   </div>
 
-                  {/* Repairing */}
-                  <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex flex-col justify-between space-y-3">
+                  {/* 03. REPAIRING */}
+                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
                     <div className="flex items-center justify-between">
-                      <HeartHandshake className="w-5 h-5 text-emerald-400" />
-                      <span className="text-[9px] font-mono text-emerald-300 uppercase font-bold">03</span>
+                      <HeartHandshake className="w-4 h-4 text-zinc-800" />
+                      <span className="text-[10px] font-mono text-zinc-400 font-bold">03</span>
                     </div>
                     <div>
-                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-emerald-200 block">
+                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-black block">
                         REPAIRING
                       </span>
-                      <span className="text-[9px] text-zinc-400 font-mono">Community Fabric</span>
+                      <span className="text-[9px] text-zinc-500 font-mono block">Community Fabric</span>
                     </div>
                   </div>
 
-                  {/* Replenishing */}
-                  <div className="p-4 rounded-xl bg-yellow-950/40 border border-yellow-500/30 flex flex-col justify-between space-y-3">
+                  {/* 04. REPLENISHING */}
+                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
                     <div className="flex items-center justify-between">
-                      <RefreshCw className="w-5 h-5 text-yellow-400" />
-                      <span className="text-[9px] font-mono text-yellow-300 uppercase font-bold">04</span>
+                      <RefreshCw className="w-4 h-4 text-zinc-800" />
+                      <span className="text-[10px] font-mono text-zinc-400 font-bold">04</span>
                     </div>
                     <div>
-                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-yellow-200 block">
+                      <span className="font-heading font-extrabold text-xs tracking-wider uppercase text-black block">
                         REPLENISHING
                       </span>
-                      <span className="text-[9px] text-zinc-400 font-mono">Overflow & Legacy</span>
+                      <span className="text-[9px] text-zinc-500 font-mono block">Overflow & Legacy</span>
                     </div>
                   </div>
 
-                  {/* Central Badge Overlay */}
-                  <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-white text-black font-heading font-black text-sm flex items-center justify-center border-2 border-zinc-900 shadow-xl pointer-events-none">
+                  {/* Central 4T Badge Overlay */}
+                  <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-white text-black font-heading font-black text-sm flex items-center justify-center border-2 border-black shadow-md pointer-events-none">
                     4T
                   </div>
 
                 </div>
 
                 {/* Sub-Tagline */}
-                <div className="pt-2 text-center border-t border-zinc-800 text-[10px] font-mono text-zinc-400 font-bold uppercase tracking-widest">
+                <div className="pt-2 text-center border-t border-gray-200 text-[10px] font-mono text-zinc-600 font-bold uppercase tracking-wider">
                   4TribeNetwork • Raising Mighties • Transforming Communities
                 </div>
 
