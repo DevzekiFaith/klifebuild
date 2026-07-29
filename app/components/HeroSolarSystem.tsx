@@ -29,8 +29,8 @@ const PILLARS: PlanetPillar[] = [
   {
     id: "sun",
     name: "Divine Calling",
-    tagline: "Isaiah 54 Core Catalyst",
-    description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 54.",
+    tagline: "Isaiah 54:12 Core Catalyst",
+    description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 54:12.",
     size: 56,
     orbitRadius: 0,
     orbitSpeed: 0,
@@ -38,7 +38,7 @@ const PILLARS: PlanetPillar[] = [
     specs: {
       orbitPeriod: "Central Anchor",
       foundationalFocus: "Spiritual Grounding & Vision",
-      biblicalAnchor: "Isaiah 54:1-4",
+      biblicalAnchor: "Isaiah 54:12",
     },
   },
   {
@@ -141,7 +141,7 @@ export default function HeroSolarSystem({
             {/* Tagline Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
               <span className="w-2 h-2 rounded-full bg-[#3b2262]"></span>
-              <span>Isaiah 54 Mandate • 4Tribe Network</span>
+              <span>Isaiah 54:12 Mandate • 4Tribe Network</span>
             </div>
 
             {/* Headline */}

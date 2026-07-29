@@ -25,7 +25,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 120 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 54.
+            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 120 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 54:12.
           </p>
         </div>
 

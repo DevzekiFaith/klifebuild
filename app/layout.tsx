@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Lifebuild • Rebuilding Everywhere You Go | 4Tribe Network",
-  description: "A 15-year God-given vision driven by Isaiah 54 to build people and rebuild lives. Join our weekly founders fellowship and 4T Conference.",
+  description: "A 15-year God-given vision driven by Isaiah 54:12 to build people and rebuild lives. Join our weekly founders fellowship and 4T Conference.",
 };
 
 export default function RootLayout({

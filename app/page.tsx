@@ -70,7 +70,7 @@ export default function Home() {
           {/* Section Header */}
           <div className="max-w-3xl space-y-4">
             <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
-              Isaiah 54 • 4Tribe Network
+              Isaiah 54:12 • 4Tribe Network
             </span>
 
             <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
@@ -78,7 +78,7 @@ export default function Home() {
             </h2>
 
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 54, our core mission is focused on rebuilding broken walls across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
+              Driven by Isaiah 54:12, our core mission is focused on rebuilding broken walls across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
             </p>
           </div>
 
