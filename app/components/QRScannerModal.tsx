@@ -223,21 +223,37 @@ https://github.com/DevzekiFaith/klifebuild`;
               </div>
             </div>
 
-            {/* Manual Hand Count Button for Elderly Attendees */}
-            <div className="p-3 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-between">
+            {/* Manual Hand Count Buttons for Children & Elderly Attendees */}
+            <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Heart className="w-4 h-4 text-amber-700 shrink-0" />
                 <span className="text-xs font-mono text-amber-900 font-bold">
-                  Elderly / Non-Digital Guest?
+                  Child or Elderly Non-Digital Guest?
                 </span>
               </div>
-              <button
-                onClick={handleElderlyManualCheckin}
-                className="px-3 py-1.5 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>+1 Elder Entry</span>
-              </button>
+              
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={async () => {
+                    setScannedResult(null);
+                    const logs = await recordManualBatchHeadcount(1, "Child Sanctuary Attendee", "Child Sanctuary");
+                    setManualSuccessMsg(`Logged Child Sanctuary Check-In at ${logs[0].checkInTime}`);
+                    setTimeout(() => setManualSuccessMsg(null), 4000);
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+1 Child</span>
+                </button>
+
+                <button
+                  onClick={handleElderlyManualCheckin}
+                  className="px-3 py-1.5 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+1 Elder</span>
+                </button>
+              </div>
             </div>
 
             {manualSuccessMsg && (

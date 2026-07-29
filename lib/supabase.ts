@@ -208,22 +208,26 @@ export async function recordSundayAttendance(
  */
 export async function recordManualBatchHeadcount(
   count: number = 1,
-  categoryLabel: string = "Elderly Attendee / Walk-in Guest"
+  categoryLabel: string = "Elderly Attendee / Walk-in Guest",
+  roleTag: string = "Elder / Walk-in Guest"
 ): Promise<SundayAttendanceLog[]> {
   const newLogs: SundayAttendanceLog[] = [];
   const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const serviceDate = new Date().toISOString().split("T")[0];
+  const isChild = categoryLabel.toLowerCase().includes("child");
 
   for (let i = 0; i < count; i++) {
     const log: SundayAttendanceLog = {
       id: `ATT-MANUAL-${Date.now()}-${i}-${Math.floor(Math.random() * 100)}`,
       serviceDate,
-      memberId: `WALKIN-ELDER-${Math.floor(1000 + Math.random() * 9000)}`,
+      memberId: isChild
+        ? `CHILD-${Math.floor(1000 + Math.random() * 9000)}`
+        : `WALKIN-ELDER-${Math.floor(1000 + Math.random() * 9000)}`,
       fullName: categoryLabel,
-      role: "Elder / Walk-in Guest",
+      role: isChild ? "Child Sanctuary" : roleTag,
       attendanceType: "IN_PERSON",
       checkInTime: timeStr,
-      checkedInBy: "MANUAL_HAND_COUNT",
+      checkedInBy: isChild ? "CHILDREN_MINISTRY_COUNTER" : "MANUAL_HAND_COUNT",
     };
     newLogs.push(log);
   }

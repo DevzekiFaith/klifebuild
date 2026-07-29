@@ -77,9 +77,13 @@ export default function AdminAttendanceDashboard({
     }
   }, [isOpen]);
 
-  const handleQuickManualAdd = async (countToAdd: number = 1, label: string = "Elderly Attendee / Walk-in Guest") => {
+  const handleQuickManualAdd = async (
+    countToAdd: number = 1,
+    label: string = "Elderly Attendee / Walk-in Guest",
+    roleTag: string = "Elder / Walk-in Guest"
+  ) => {
     setIsLoading(true);
-    const newLogs = await recordManualBatchHeadcount(countToAdd, label);
+    const newLogs = await recordManualBatchHeadcount(countToAdd, label, roleTag);
     setSummary((prev) => {
       if (!prev) return null;
       const updated = [...newLogs, ...prev.attendees];
@@ -208,14 +212,14 @@ export default function AdminAttendanceDashboard({
 
         </div>
 
-        {/* Manual Hand Count & Elder Care Entry Bar (Protocol Usher Control) */}
+        {/* Manual Hand Count & Elder / Child Care Entry Bar (Protocol Usher Control) */}
         <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-2xl space-y-3">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <Heart className="w-4 h-4 text-amber-700 shrink-0" />
               <div>
                 <h5 className="font-mono text-xs font-bold text-amber-950 uppercase tracking-wider">
-                  Manual Hand Count (Elderly & Non-Digital Guests)
+                  Manual Hand Count (Elderly, Children & Non-Digital Guests)
                 </h5>
                 <p className="text-[11px] font-mono text-amber-800">
                   Tally walk-in elderly attendees, children, or visitors without QR phones.
@@ -223,13 +227,21 @@ export default function AdminAttendanceDashboard({
               </div>
             </div>
 
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <button
-                onClick={() => handleQuickManualAdd(1, "Elderly Attendee / Walk-in Guest")}
+                onClick={() => handleQuickManualAdd(1, "Child Sanctuary Attendee", "Child Sanctuary")}
+                className="px-3 py-2 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>+1 Child</span>
+              </button>
+
+              <button
+                onClick={() => handleQuickManualAdd(1, "Elderly Attendee / Walk-in Guest", "Elder / Walk-in Guest")}
                 className="px-3 py-2 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>+1 Elder Check-In</span>
+                <span>+1 Elder</span>
               </button>
 
               <button
