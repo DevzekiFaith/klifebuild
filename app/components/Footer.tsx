@@ -58,7 +58,7 @@ export default function Footer({ onOpenRegister, onOpenPass }: FooterProps) {
 
         {/* Bottom Metadata */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
-          <p>© 2011 - {new Date().getFullYear()} Lifebuild. Est. 2011.</p>
+          <p suppressHydrationWarning>© 2011 - {new Date().getFullYear()} Lifebuild. Est. 2011.</p>
           
           <button
             onClick={scrollToTop}
