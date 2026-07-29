@@ -137,11 +137,12 @@ export default function AdminAttendanceDashboard({
                 logoutAuthRole();
                 onLogout();
               }}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer shrink-0"
               title="Lock Admin Session"
             >
               <LogOut className="w-3.5 h-3.5 text-red-500" />
-              <span>Lock Session</span>
+              <span className="hidden sm:inline">Lock Session</span>
+              <span className="sm:hidden">Log Out</span>
             </button>
           </div>
         </div>
@@ -286,7 +287,7 @@ export default function AdminAttendanceDashboard({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-gray-100">
           <button
             onClick={loadAttendance}
             className="text-xs font-mono text-zinc-600 hover:text-black flex items-center gap-1.5 cursor-pointer"
@@ -295,12 +296,25 @@ export default function AdminAttendanceDashboard({
             <span>Refresh Live Headcount</span>
           </button>
 
-          <button
-            onClick={onClose}
-            className="px-6 py-2.5 rounded-full bg-black text-white text-xs font-mono font-medium hover:bg-zinc-800 cursor-pointer"
-          >
-            Close Dashboard
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                logoutAuthRole();
+                onLogout();
+              }}
+              className="px-4 py-2.5 rounded-full border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 text-xs font-mono font-bold flex items-center gap-1.5 cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Log Out</span>
+            </button>
+
+            <button
+              onClick={onClose}
+              className="px-5 py-2.5 rounded-full bg-black text-white text-xs font-mono font-medium hover:bg-zinc-800 cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
         </div>
 
       </div>
