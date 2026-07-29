@@ -204,6 +204,58 @@ export async function recordSundayAttendance(
 }
 
 /**
+ * Record Manual Headcount (For Elderly Attendees, Children & Walk-in Guests without QR Code)
+ */
+export async function recordManualBatchHeadcount(
+  count: number = 1,
+  categoryLabel: string = "Elderly Attendee / Walk-in Guest"
+): Promise<SundayAttendanceLog[]> {
+  const newLogs: SundayAttendanceLog[] = [];
+  const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const serviceDate = new Date().toISOString().split("T")[0];
+
+  for (let i = 0; i < count; i++) {
+    const log: SundayAttendanceLog = {
+      id: `ATT-MANUAL-${Date.now()}-${i}-${Math.floor(Math.random() * 100)}`,
+      serviceDate,
+      memberId: `WALKIN-ELDER-${Math.floor(1000 + Math.random() * 9000)}`,
+      fullName: categoryLabel,
+      role: "Elder / Walk-in Guest",
+      attendanceType: "IN_PERSON",
+      checkInTime: timeStr,
+      checkedInBy: "MANUAL_HAND_COUNT",
+    };
+    newLogs.push(log);
+  }
+
+  try {
+    const existing = localStorage.getItem("lifebuild_sunday_logs");
+    const logs: SundayAttendanceLog[] = existing ? JSON.parse(existing) : [];
+    localStorage.setItem("lifebuild_sunday_logs", JSON.stringify([...newLogs, ...logs]));
+  } catch (err) {
+    console.warn("Local storage sync error:", err);
+  }
+
+  try {
+    const dbPayload = newLogs.map((l) => ({
+      service_date: serviceDate,
+      member_id: l.memberId,
+      full_name: l.fullName,
+      role: l.role,
+      attendance_type: "IN_PERSON",
+      check_in_time: new Date().toISOString(),
+      checked_in_by: "MANUAL_HAND_COUNT",
+    }));
+
+    await supabase.from("sunday_attendance").insert(dbPayload);
+  } catch (err) {
+    console.warn("Supabase manual insert notice:", err);
+  }
+
+  return newLogs;
+}
+
+/**
  * Fetch Sunday Attendance Summary & Headcount
  */
 export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary> {

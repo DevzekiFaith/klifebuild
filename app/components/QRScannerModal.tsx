@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
-import { X, QrCode, CheckCircle2, Camera, RefreshCw, UserCheck, ShieldCheck, Download } from "lucide-react";
+import { X, QrCode, CheckCircle2, Camera, RefreshCw, UserCheck, ShieldCheck, Download, Plus, Heart } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
-import { recordSundayAttendance } from "../../lib/supabase";
+import { recordSundayAttendance, recordManualBatchHeadcount } from "../../lib/supabase";
 
 interface QRScannerModalProps {
   isOpen: boolean;
@@ -29,6 +29,7 @@ export default function QRScannerModal({
   const [activeTab, setActiveTab] = useState<"PASS" | "SCANNER">("PASS");
   const [isScanning, setIsScanning] = useState(false);
   const [scannedResult, setScannedResult] = useState<AttendanceLog | null>(null);
+  const [manualSuccessMsg, setManualSuccessMsg] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -55,6 +56,7 @@ https://github.com/DevzekiFaith/klifebuild`;
   const handleSimulateScan = () => {
     setIsScanning(true);
     setScannedResult(null);
+    setManualSuccessMsg(null);
 
     setTimeout(async () => {
       const newLog: AttendanceLog = {
@@ -76,6 +78,15 @@ https://github.com/DevzekiFaith/klifebuild`;
       setScannedResult(newLog);
       setIsScanning(false);
     }, 1000);
+  };
+
+  const handleElderlyManualCheckin = async () => {
+    setScannedResult(null);
+    const logs = await recordManualBatchHeadcount(1, "Elderly Attendee / Guest");
+    setManualSuccessMsg(`Logged Elderly Attendee Check-In at ${logs[0].checkInTime}`);
+    setTimeout(() => {
+      setManualSuccessMsg(null);
+    }, 4000);
   };
 
   return (
@@ -211,6 +222,30 @@ https://github.com/DevzekiFaith/klifebuild`;
                 </span>
               </div>
             </div>
+
+            {/* Manual Hand Count Button for Elderly Attendees */}
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Heart className="w-4 h-4 text-amber-700 shrink-0" />
+                <span className="text-xs font-mono text-amber-900 font-bold">
+                  Elderly / Non-Digital Guest?
+                </span>
+              </div>
+              <button
+                onClick={handleElderlyManualCheckin}
+                className="px-3 py-1.5 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>+1 Elder Entry</span>
+              </button>
+            </div>
+
+            {manualSuccessMsg && (
+              <div className="p-3 bg-amber-100 border border-amber-300 rounded-xl text-amber-900 text-xs font-mono font-bold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>{manualSuccessMsg}</span>
+              </div>
+            )}
 
             {scannedResult && (
               <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl text-emerald-200 space-y-1 flex items-center justify-between">

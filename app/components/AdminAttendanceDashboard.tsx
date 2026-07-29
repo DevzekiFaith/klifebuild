@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { X, Users, UserCheck, Search, Filter, Calendar, MapPin, Globe, RefreshCw, CheckCircle2, ShieldCheck, Radio } from "lucide-react";
-import { fetchSundayAttendanceSummary, subscribeToSundayAttendance, logoutAuthRole, AttendanceSummary, SundayAttendanceLog, AuthRole } from "../../lib/supabase";
-import { LogOut, Lock } from "lucide-react";
+import { fetchSundayAttendanceSummary, subscribeToSundayAttendance, logoutAuthRole, recordManualBatchHeadcount, AttendanceSummary, SundayAttendanceLog, AuthRole } from "../../lib/supabase";
+import { LogOut, Lock, Plus, UserPlus, Heart } from "lucide-react";
 
 interface AdminAttendanceDashboardProps {
   isOpen: boolean;
@@ -23,6 +23,9 @@ export default function AdminAttendanceDashboard({
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"ALL" | "IN_PERSON" | "GLOBAL_STREAM">("ALL");
   const [isLoading, setIsLoading] = useState(true);
+  const [isManualAdding, setIsManualAdding] = useState(false);
+  const [customManualCount, setCustomManualCount] = useState(1);
+  const [customCategory, setCustomCategory] = useState("Elderly Attendee / Walk-in Guest");
 
   // Usher Privacy Data Masking Helper
   const maskName = (name: string) => {
@@ -74,6 +77,24 @@ export default function AdminAttendanceDashboard({
     }
   }, [isOpen]);
 
+  const handleQuickManualAdd = async (countToAdd: number = 1, label: string = "Elderly Attendee / Walk-in Guest") => {
+    setIsLoading(true);
+    const newLogs = await recordManualBatchHeadcount(countToAdd, label);
+    setSummary((prev) => {
+      if (!prev) return null;
+      const updated = [...newLogs, ...prev.attendees];
+      return {
+        ...prev,
+        totalAttendees: updated.length,
+        inPersonCount: updated.filter((a) => a.attendanceType === "IN_PERSON").length,
+        streamCount: updated.filter((a) => a.attendanceType === "GLOBAL_STREAM").length,
+        attendees: updated,
+      };
+    });
+    setIsLoading(false);
+    setIsManualAdding(false);
+  };
+
   if (!isOpen) return null;
 
   const filteredAttendees = summary?.attendees.filter((log) => {
@@ -96,54 +117,47 @@ export default function AdminAttendanceDashboard({
     >
       <div className="relative w-full max-w-3xl bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[90vh] overflow-y-auto space-y-6">
         
-        {/* Prominent High-Contrast Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-gray-100 hover:bg-black hover:text-white text-zinc-600 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-          title="Close Dashboard"
-        >
-          <X className="w-4 h-4" />
-        </button>
-
-        {/* Modal Header */}
-        <div className="flex items-center gap-3 border-b border-gray-100 pb-4 pr-8">
-          <div className="relative w-10 h-10 flex items-center justify-center bg-transparent shrink-0">
-            <Image
-              src="/images/logo_icon_nobg.png"
-              alt="Lifebuild Logo"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
-          </div>
-          <div className="flex-1 flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-                  {authRole === "MASTER_ADMIN" ? "Convener Master Access" : "Protocol Usher Privacy View"}
-                </span>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-mono font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                  REALTIME SYNC
-                </span>
-              </div>
-              <h3 className="font-serif-headline text-2xl text-zinc-950">
-                Live Sunday Attendance Dashboard
-              </h3>
+        {/* Header Strip */}
+        <div className="flex items-start justify-between border-b border-gray-100 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="relative w-10 h-10 flex items-center justify-center">
+              <Image
+                src="/images/logo_icon_nobg.png"
+                alt="Lifebuild Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
             </div>
+            <div className="flex-1 flex items-center justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
+                    {authRole === "MASTER_ADMIN" ? "Convener Master Access" : "Protocol Usher Privacy View"}
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-mono font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                    REALTIME SYNC
+                  </span>
+                </div>
+                <h3 className="font-serif-headline text-2xl text-zinc-950">
+                  Live Sunday Attendance Dashboard
+                </h3>
+              </div>
 
-            <button
-              onClick={() => {
-                logoutAuthRole();
-                onLogout();
-              }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer shrink-0"
-              title="Lock Admin Session"
-            >
-              <LogOut className="w-3.5 h-3.5 text-red-500" />
-              <span className="hidden sm:inline">Lock Session</span>
-              <span className="sm:hidden">Log Out</span>
-            </button>
+              <button
+                onClick={() => {
+                  logoutAuthRole();
+                  onLogout();
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer shrink-0 ml-2"
+                title="Lock Admin Session"
+              >
+                <LogOut className="w-3.5 h-3.5 text-red-500" />
+                <span className="hidden sm:inline">Lock Session</span>
+                <span className="sm:hidden">Log Out</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -174,7 +188,7 @@ export default function AdminAttendanceDashboard({
               {summary ? summary.inPersonCount : 0}
             </h4>
             <p className="text-[10px] font-mono text-emerald-600 font-bold">
-              ● Gate Verified
+              ● Gate & Manual Count
             </p>
           </div>
 
@@ -192,6 +206,75 @@ export default function AdminAttendanceDashboard({
             </p>
           </div>
 
+        </div>
+
+        {/* Manual Hand Count & Elder Care Entry Bar (Protocol Usher Control) */}
+        <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-2xl space-y-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Heart className="w-4 h-4 text-amber-700 shrink-0" />
+              <div>
+                <h5 className="font-mono text-xs font-bold text-amber-950 uppercase tracking-wider">
+                  Manual Hand Count (Elderly & Non-Digital Guests)
+                </h5>
+                <p className="text-[11px] font-mono text-amber-800">
+                  Tally walk-in elderly attendees, children, or visitors without QR phones.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <button
+                onClick={() => handleQuickManualAdd(1, "Elderly Attendee / Walk-in Guest")}
+                className="px-3 py-2 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>+1 Elder Check-In</span>
+              </button>
+
+              <button
+                onClick={() => setIsManualAdding(!isManualAdding)}
+                className="px-3 py-2 rounded-xl bg-white border border-amber-300 text-amber-900 font-mono text-xs font-bold hover:bg-amber-100 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+              >
+                <UserPlus className="w-3.5 h-3.5" />
+                <span>Batch Count</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Batch Count Sub-Panel */}
+          {isManualAdding && (
+            <div className="pt-3 border-t border-amber-200/80 flex flex-wrap items-center gap-3 animate-fadeIn">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono text-amber-900 font-bold">Count:</span>
+                <input
+                  type="number"
+                  min="1"
+                  max="100"
+                  value={customManualCount}
+                  onChange={(e) => setCustomManualCount(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="w-16 p-2 rounded-lg border border-amber-300 text-xs font-mono bg-white text-black"
+                />
+              </div>
+
+              <div className="flex-1 min-w-[200px]">
+                <input
+                  type="text"
+                  value={customCategory}
+                  onChange={(e) => setCustomCategory(e.target.value)}
+                  placeholder="Category label e.g. Elderly Guests"
+                  className="w-full p-2 rounded-lg border border-amber-300 text-xs font-mono bg-white text-black"
+                />
+              </div>
+
+              <button
+                onClick={() => handleQuickManualAdd(customManualCount, customCategory)}
+                className="px-4 py-2 rounded-lg bg-black text-white font-mono text-xs font-bold hover:bg-zinc-800 cursor-pointer"
+              >
+                Record {customManualCount} Attendees
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Roster Controls: Search & Filters */}
