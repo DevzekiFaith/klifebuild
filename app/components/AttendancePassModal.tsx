@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
-import { X, Download, ShieldCheck, QrCode, Check, Copy, Calendar } from "lucide-react";
+import { X, Download, ShieldCheck, QrCode, Check, Copy, Calendar, Info } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 
 interface AttendancePassModalProps {
@@ -23,16 +23,23 @@ export default function AttendancePassModal({
 
   if (!isOpen || !member) return null;
 
-  const qrPayload = JSON.stringify({
-    org: "LIFEBUILD",
-    type: "ATTENDANCE_PASS",
-    id: member.memberId,
-    name: member.fullName,
-    email: member.email,
-    role: member.role,
-    mode: member.attendanceMode,
-    timestamp: new Date().toISOString(),
-  });
+  // Complete Fellowship Meeting Information embedded in the QR Code
+  const fellowshipMeetingInfo = `LIFEBUILD FOUNDER FELLOWSHIP & 4T CONFERENCE
+--------------------------------------------
+MEMBER: ${member.fullName}
+ID: ${member.memberId}
+ROLE: ${member.role}
+MODE: ${member.attendanceMode}
+
+SUNDAY FELLOWSHIP DETAILS:
+• Gathering Time: Every Sunday @ 5:00 PM GMT+1
+• Location: Lifebuild Center & Global Stream
+• Convener: Zeki Ubor
+• Scriptural Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
+• 4T Pillars: Rebuilding • Restoring • Repairing • Replenishing
+--------------------------------------------
+Rebuilding Everywhere You Go
+https://github.com/DevzekiFaith/klifebuild`;
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(member.memberId);
@@ -41,19 +48,25 @@ export default function AttendancePassModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-md bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-6 space-y-6">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-fadeIn"
+    >
+      <div className="relative w-full max-w-md bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[88vh] overflow-y-auto space-y-6">
         
-        {/* Close Button */}
+        {/* Prominent High-Contrast Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-zinc-400 hover:text-black hover:bg-gray-100 transition-colors"
+          className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-gray-100 hover:bg-black hover:text-white text-zinc-600 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+          title="Close Modal"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {/* Badge Header */}
-        <div className="space-y-1">
+        <div className="space-y-1 pr-8">
           <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
             Official Credential
           </span>
@@ -117,19 +130,24 @@ export default function AttendancePassModal({
             </div>
           </div>
 
-          {/* QR Barcode Section */}
+          {/* Real Scannable QR Code containing Fellowship Meeting Info */}
           <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 space-y-2">
             <QRCodeSVG
-              value={qrPayload}
-              size={150}
-              level="H"
+              value={fellowshipMeetingInfo}
+              size={165}
+              level="M"
               includeMargin={true}
               fgColor="#111111"
               bgColor="#ffffff"
             />
-            <span className="text-[9px] font-mono text-zinc-900 font-bold uppercase tracking-wider text-center pt-1 border-t border-zinc-100 w-full">
-              SCAN AT SUNDAY SERVICE ENTRANCE
-            </span>
+            <div className="text-center space-y-0.5 pt-1 border-t border-zinc-100 w-full">
+              <span className="text-[9px] font-mono text-zinc-900 font-bold uppercase tracking-wider block">
+                SCAN WITH PHONE CAMERA
+              </span>
+              <span className="text-[8px] font-mono text-zinc-500 block">
+                Contains Sunday Fellowship & 4T Meeting Info
+              </span>
+            </div>
           </div>
 
           {/* Card Footer */}
@@ -146,25 +164,24 @@ export default function AttendancePassModal({
 
         {/* Action Buttons */}
         <div className="space-y-2.5">
-          <button
-            onClick={onOpenScanner}
-            className="w-full py-3 rounded-full bg-black text-white font-mono font-semibold text-xs flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer"
-          >
-            <QrCode className="w-4 h-4 text-[#d4af37]" />
-            <span>Test Service Entrance Scanner</span>
-          </button>
+          <div className="p-3 bg-zinc-50 border border-gray-200 rounded-xl flex items-start gap-2.5 text-xs text-zinc-600">
+            <Info className="w-4 h-4 text-black shrink-0 mt-0.5" />
+            <p className="leading-snug">
+              Point any smartphone camera at this QR code to view your Sunday Fellowship Gathering credentials and meeting details.
+            </p>
+          </div>
 
           <div className="flex gap-2">
             <button
               onClick={() => alert(`Attendance Pass ID: ${member.memberId}\nSaved in local storage.`)}
-              className="flex-1 py-2.5 rounded-full border border-gray-200 text-zinc-700 hover:border-black text-xs font-mono flex items-center justify-center gap-2 cursor-pointer"
+              className="flex-1 py-3 rounded-full bg-black text-white text-xs font-mono font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Save Pass</span>
+              <span>Save Pass Credentials</span>
             </button>
             <button
               onClick={onClose}
-              className="px-5 py-2.5 rounded-full text-zinc-500 hover:text-black text-xs font-mono cursor-pointer"
+              className="px-6 py-3 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
             >
               Close
             </button>

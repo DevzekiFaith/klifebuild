@@ -69,19 +69,25 @@ export default function QRScannerModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-6 space-y-6">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-fadeIn"
+    >
+      <div className="relative w-full max-w-lg bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[88vh] overflow-y-auto space-y-6">
         
-        {/* Close Button */}
+        {/* Prominent High-Contrast Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-zinc-400 hover:text-black hover:bg-gray-100 transition-colors"
+          className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-gray-100 hover:bg-black hover:text-white text-zinc-600 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+          title="Close Modal"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {/* Modal Header with Lifebuild Logo */}
-        <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
+        <div className="flex items-center gap-3 border-b border-gray-100 pb-4 pr-8">
           <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-gray-300 p-0.5 bg-white shrink-0 shadow-xs">
             <Image
               src="/images/logo.jpg"
@@ -129,64 +135,21 @@ export default function QRScannerModal({
           </div>
         </div>
 
-        {/* Scan Result */}
-        {scannedResult && (
-          <div className="p-4 rounded-2xl bg-zinc-100 border border-zinc-300 text-zinc-900 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-              <div>
-                <h4 className="font-heading font-bold text-sm text-black">
-                  APPROVED: {scannedResult.name}
-                </h4>
-                <span className="text-xs font-mono text-zinc-600">
-                  ID: {scannedResult.id} • {scannedResult.role}
-                </span>
-              </div>
-            </div>
-            <span className="text-[10px] font-mono font-bold bg-black text-white px-2 py-0.5 rounded">
-              VERIFIED
-            </span>
-          </div>
-        )}
-
-        {/* Action Controls */}
-        <div className="flex gap-3">
+        {/* Scan Action Controls */}
+        <div className="flex gap-2">
           <button
             onClick={handleSimulateScan}
-            className="flex-1 py-3 rounded-full bg-black text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="flex-1 py-3 rounded-full bg-black text-white font-mono text-xs flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
           >
-            <UserCheck className="w-4 h-4" />
-            <span>Scan Pass</span>
+            <RefreshCw className={`w-3.5 h-3.5 ${isScanning ? "animate-spin" : ""}`} />
+            <span>Simulate Scan Pass</span>
           </button>
           <button
-            onClick={() => setScannedResult(null)}
-            className="px-4 py-3 rounded-full border border-gray-200 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
-            title="Reset"
+            onClick={onClose}
+            className="px-6 py-3 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
           >
-            <RefreshCw className="w-4 h-4" />
+            Close
           </button>
-        </div>
-
-        {/* Live Service Entry Logs */}
-        <div className="space-y-2 pt-2 border-t border-gray-100">
-          <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-            Live Service Entry Log
-          </span>
-          <div className="space-y-1.5 max-h-32 overflow-y-auto pr-1">
-            {logs.map((log, idx) => (
-              <div
-                key={idx}
-                className="p-2 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-between text-xs font-mono"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                  <span className="font-bold text-black">{log.name}</span>
-                  <span className="text-zinc-400">({log.id})</span>
-                </div>
-                <span className="text-zinc-500 text-[10px]">{log.timestamp}</span>
-              </div>
-            ))}
-          </div>
         </div>
 
       </div>
