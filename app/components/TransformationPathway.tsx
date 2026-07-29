@@ -13,7 +13,6 @@ interface TransformationStage {
   scripture: string;
   description: string;
   keyOutputs: string[];
-  colorBadge: string;
 }
 
 export default function TransformationPathway({
@@ -28,7 +27,7 @@ export default function TransformationPathway({
       id: "01",
       stepNumber: "STAGE 01",
       title: "The Ruins & Breaches",
-      subtitle: "Acknowledging Disarray & Systemic Gaps",
+      subtitle: "Acknowledging Disarray & Gaps",
       icon: Compass,
       scripture: "Isaiah 58:12a — 'Your people will rebuild the ancient ruins'",
       description:
@@ -38,13 +37,12 @@ export default function TransformationPathway({
         "Discerning spiritual disarray",
         "Surrendering to divine direction",
       ],
-      colorBadge: "border-red-500/40 text-red-400 bg-red-950/30",
     },
     {
       id: "02",
       stepNumber: "STAGE 02",
       title: "Grounding in God's Presence",
-      subtitle: "Spiritual Alignment at Sunday Sanctuary",
+      subtitle: "Spiritual Alignment at Sanctuary",
       icon: Sparkles,
       scripture: "Isaiah 61:3 — 'Beauty for ashes, oil of joy for mourning'",
       description:
@@ -54,7 +52,6 @@ export default function TransformationPathway({
         "Character purification & peace",
         "Divine wisdom for decision-making",
       ],
-      colorBadge: "border-[#d4af37]/40 text-[#d4af37] bg-yellow-950/30",
     },
     {
       id: "03",
@@ -71,13 +68,12 @@ export default function TransformationPathway({
         "Repairing character & relationship breaches",
         "Replenishing stewardship & overflow",
       ],
-      colorBadge: "border-blue-500/40 text-blue-400 bg-blue-950/30",
     },
     {
       id: "04",
       stepNumber: "STAGE 04",
-      title: "The Mighty & Generational Restorer",
-      subtitle: "Transforming Communities & Leaving Legacy",
+      title: "The Mighty & Restorer",
+      subtitle: "Transforming Communities & Legacy",
       icon: ShieldCheck,
       scripture: "Isaiah 58:12b — 'You will be called Repairer of Broken Walls, Restorer of Streets with Dwellings'",
       description:
@@ -87,7 +83,6 @@ export default function TransformationPathway({
         "Deploying resources to transform communities",
         "Leaving generational inheritance and overflow",
       ],
-      colorBadge: "border-emerald-500/40 text-emerald-400 bg-emerald-950/30",
     },
   ];
 
@@ -108,9 +103,9 @@ export default function TransformationPathway({
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
-        {/* Section Header */}
+        {/* Minimalist Section Header */}
         <div className="max-w-3xl space-y-4">
-          <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
+          <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
             Isaiah 58:12 Transformation Roadmap
           </span>
 
@@ -123,7 +118,7 @@ export default function TransformationPathway({
           </p>
         </div>
 
-        {/* 4-Stage Interactive Stepper */}
+        {/* Minimalist 4-Stage Stepper */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stages.map((stage) => {
             const Icon = stage.icon;
@@ -134,20 +129,24 @@ export default function TransformationPathway({
                 onClick={() => setActiveStageId(stage.id)}
                 className={`p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between space-y-4 ${
                   isActive
-                    ? "bg-black text-white border-black shadow-xl scale-[1.02]"
-                    : "bg-gray-50/60 text-black border-gray-200 hover:border-gray-400"
+                    ? "bg-black text-white border-black shadow-xl"
+                    : "bg-white text-black border-gray-200 hover:border-black"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border ${stage.colorBadge}`}>
+                  <span className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border ${
+                    isActive
+                      ? "bg-white/10 border-white/20 text-white"
+                      : "bg-zinc-100 border-zinc-200 text-zinc-600"
+                  }`}>
                     {stage.stepNumber}
                   </span>
-                  <Icon className={`w-5 h-5 ${isActive ? "text-[#d4af37]" : "text-zinc-500"}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#d4af37]" : "text-zinc-400"}`} />
                 </div>
 
                 <div className="space-y-1">
-                  <h3 className="font-heading font-bold text-lg leading-tight">{stage.title}</h3>
-                  <p className={`text-xs font-mono ${isActive ? "text-zinc-400" : "text-zinc-500"}`}>
+                  <h3 className="font-heading font-bold text-base leading-tight">{stage.title}</h3>
+                  <p className={`text-xs font-mono font-light ${isActive ? "text-zinc-400" : "text-zinc-500"}`}>
                     {stage.subtitle}
                   </p>
                 </div>
@@ -156,17 +155,14 @@ export default function TransformationPathway({
           })}
         </div>
 
-        {/* Active Stage Detailed Breakdown Box */}
-        <div className="p-8 sm:p-12 bg-zinc-950 text-white rounded-3xl border border-zinc-800 space-y-8 shadow-2xl relative overflow-hidden">
+        {/* Minimalist Active Stage Breakdown Box */}
+        <div className="p-8 sm:p-12 bg-[#141414] text-white rounded-3xl border border-zinc-800 space-y-8 shadow-2xl relative overflow-hidden">
           
-          {/* Subtle Background Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#3b2262]/20 blur-3xl pointer-events-none"></div>
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border ${currentStage.colorBadge}`}>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border border-zinc-800 bg-zinc-900 text-[#d4af37]">
                   {currentStage.stepNumber} • TRANSFORMATION STAGE
                 </span>
 
@@ -174,7 +170,7 @@ export default function TransformationPathway({
                   {currentStage.title}
                 </h3>
 
-                <p className="text-xs font-mono text-[#d4af37] italic">
+                <p className="text-xs font-mono text-zinc-400 italic">
                   "{currentStage.scripture}"
                 </p>
               </div>
@@ -194,16 +190,16 @@ export default function TransformationPathway({
               </div>
             </div>
 
-            {/* Key Spiritual & Life Outputs Column */}
+            {/* Minimalist Deliverables Column */}
             <div className="lg:col-span-5 p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 space-y-4">
               <h4 className="font-mono text-xs font-bold text-[#d4af37] uppercase tracking-wider border-b border-zinc-800 pb-2">
-                Key Stage Deliverables & Milestones
+                Key Stage Deliverables
               </h4>
 
               <ul className="space-y-3 text-xs text-zinc-300 font-light">
                 {currentStage.keyOutputs.map((output, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-white shrink-0 mt-0.5" />
                     <span>{output}</span>
                   </li>
                 ))}
