@@ -1,65 +1,206 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Navbar from "./components/Navbar";
+import HeroSolarSystem from "./components/HeroSolarSystem";
+import FellowshipStory from "./components/FellowshipStory";
+import WeeklyMeeting from "./components/WeeklyMeeting";
+import RegistrationForm, { MemberData } from "./components/RegistrationForm";
+import AttendancePassModal from "./components/AttendancePassModal";
+import QRScannerModal from "./components/QRScannerModal";
+import Footer from "./components/Footer";
+import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight, Sparkles } from "lucide-react";
 
 export default function Home() {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isPassOpen, setIsPassOpen] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
+
+  useEffect(() => {
+    try {
+      const savedPass = localStorage.getItem("lifebuild_member_pass");
+      if (savedPass) {
+        setCurrentMember(JSON.parse(savedPass));
+      }
+    } catch (err) {
+      console.error("Error reading saved pass:", err);
+    }
+  }, []);
+
+  const handleRegistrationSuccess = (newMember: MemberData) => {
+    setCurrentMember(newMember);
+    setIsRegisterOpen(false);
+    setIsPassOpen(true);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
+      {/* Navbar */}
+      <Navbar
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        onOpenPass={() => setIsPassOpen(true)}
+        onOpenScanner={() => setIsScannerOpen(true)}
+        hasPass={!!currentMember}
+      />
+
+      {/* Hero Solar System Section */}
+      <HeroSolarSystem
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        onOpenScanner={() => setIsScannerOpen(true)}
+      />
+
+      {/* High-Contrast Featured Showcase Block with 4T Emblem */}
+      <FellowshipStory
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        onOpenPass={() => setIsPassOpen(true)}
+      />
+
+      {/* Weekly Meeting & 4T Conference */}
+      <WeeklyMeeting
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        onOpenScanner={() => setIsScannerOpen(true)}
+      />
+
+      {/* Core 4T Pillars Section (Clean White Editorial Grid) */}
+      <section id="pillars" className="relative w-full bg-white text-black py-28 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16">
+          
+          {/* Section Header */}
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
+              Isaiah 54 • 4Tribe Network
+            </span>
+
+            <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
+              The 4T Pillars of Lifebuild.
+            </h2>
+
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
+              Driven by Isaiah 54, our core mission is focused on rebuilding broken walls across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
+            </p>
+          </div>
+
+          {/* 4T Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Pillar 01: REBUILDING */}
+            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+              <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                <span className="font-bold text-black flex items-center gap-1.5">
+                  <Hammer className="w-4 h-4 text-amber-800" />
+                  01 / REBUILDING
+                </span>
+                <span>ISAIAH 58:12</span>
+              </div>
+              <h3 className="font-heading font-bold text-2xl text-black">Rebuilding Walls & Systems</h3>
+              <p className="text-sm text-zinc-600 leading-relaxed font-light">
+                Reconstructing broken walls, organizational systems, business models, and economic foundations. Raising up the foundations of many generations.
+              </p>
+            </div>
+
+            {/* Pillar 02: RESTORING */}
+            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+              <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                <span className="font-bold text-black flex items-center gap-1.5">
+                  <Key className="w-4 h-4 text-blue-800" />
+                  02 / RESTORING
+                </span>
+                <span>ISAIAH 61:3</span>
+              </div>
+              <h3 className="font-heading font-bold text-2xl text-black">Restoring Identity & Calling</h3>
+              <p className="text-sm text-zinc-600 leading-relaxed font-light">
+                Unlocking divine keys to human identity, restoring dignity, spiritual authority, and peace to leaders, families, and communities.
+              </p>
+            </div>
+
+            {/* Pillar 03: REPAIRING */}
+            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+              <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                <span className="font-bold text-black flex items-center gap-1.5">
+                  <HeartHandshake className="w-4 h-4 text-emerald-800" />
+                  03 / REPAIRING
+                </span>
+                <span>NEHEMIAH 4:6</span>
+              </div>
+              <h3 className="font-heading font-bold text-2xl text-black">Repairing Breaches & Community</h3>
+              <p className="text-sm text-zinc-600 leading-relaxed font-light">
+                Repairing systemic breaches, unifying builders, healing character gaps, and weaving a strong community fabric for mutual accountability.
+              </p>
+            </div>
+
+            {/* Pillar 04: REPLENISHING */}
+            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+              <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                <span className="font-bold text-black flex items-center gap-1.5">
+                  <RefreshCw className="w-4 h-4 text-yellow-800" />
+                  04 / REPLENISHING
+                </span>
+                <span>PSALMS 112:3</span>
+              </div>
+              <h3 className="font-heading font-bold text-2xl text-black">Replenishing Overflow & Legacy</h3>
+              <p className="text-sm text-zinc-600 leading-relaxed font-light">
+                Unlocking sustainable stewardship, economic overflow, and generational inheritance that outlasts your lifetime for decades ahead.
+              </p>
+            </div>
+
+          </div>
+
+          {/* 4T Conference Banner Callout */}
+          <div className="p-10 sm:p-14 bg-[#141414] text-white rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-8">
+            <div className="space-y-2 text-center sm:text-left">
+              <span className="text-xs font-mono text-[#d4af37] uppercase tracking-widest block">
+                Annual Event • 4Tribe Network
+              </span>
+              <h3 className="font-serif-headline text-3xl sm:text-4xl text-white font-normal">
+                Register for the 4T Conference & Weekly Sanctuary.
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 font-light max-w-xl">
+                Gather with fellow visionaries to rebuild broken walls. Apply for membership to receive your official Attendance Pass with your unique QR Barcode.
+              </p>
+            </div>
+
+            <button
+              onClick={() => (currentMember ? setIsPassOpen(true) : setIsRegisterOpen(true))}
+              className="px-8 py-4 rounded-full bg-white text-black font-medium text-xs uppercase tracking-wider hover:bg-gray-200 transition-all shrink-0 flex items-center gap-2 cursor-pointer"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <span>{currentMember ? "View My Attendance Pass" : "Apply For Pass & 4T Conf"}</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </div>
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Footer */}
+      <Footer
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        onOpenPass={() => (currentMember ? setIsPassOpen(true) : setIsRegisterOpen(true))}
+      />
+
+      {/* Modals */}
+      <RegistrationForm
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+        onSuccess={handleRegistrationSuccess}
+      />
+
+      <AttendancePassModal
+        isOpen={isPassOpen}
+        member={currentMember}
+        onClose={() => setIsPassOpen(false)}
+        onOpenScanner={() => {
+          setIsPassOpen(false);
+          setIsScannerOpen(true);
+        }}
+      />
+
+      <QRScannerModal
+        isOpen={isScannerOpen}
+        onClose={() => setIsScannerOpen(false)}
+        currentMember={currentMember}
+      />
+    </main>
   );
 }
