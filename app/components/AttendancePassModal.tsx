@@ -20,6 +20,7 @@ export default function AttendancePassModal({
   onOpenScanner,
 }: AttendancePassModalProps) {
   const [copied, setCopied] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   if (!isOpen || !member) return null;
 
@@ -45,6 +46,125 @@ https://github.com/DevzekiFaith/klifebuild`;
     navigator.clipboard.writeText(member.memberId);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // High-Resolution PNG Pass Card Generator & Downloader
+  const handleDownloadPng = () => {
+    setIsDownloading(true);
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 800;
+      canvas.height = 1080;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      // 1. Dark Background
+      ctx.fillStyle = "#141414";
+      ctx.fillRect(0, 0, 800, 1080);
+
+      // Gold Border Frame
+      ctx.strokeStyle = "#d4af37";
+      ctx.lineWidth = 6;
+      ctx.strokeRect(20, 20, 760, 1040);
+
+      // 2. Header Strip
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 36px sans-serif";
+      ctx.fillText("lifebuild.", 60, 90);
+
+      ctx.fillStyle = "#d4af37";
+      ctx.font = "bold 18px monospace";
+      ctx.fillText("SUNDAY FELLOWSHIP PASS", 460, 90);
+
+      // Divider Line
+      ctx.strokeStyle = "#333333";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(60, 120);
+      ctx.lineTo(740, 120);
+      ctx.stroke();
+
+      // 3. Member Info
+      ctx.fillStyle = "#888888";
+      ctx.font = "14px monospace";
+      ctx.fillText("MEMBER NAME", 60, 170);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 34px Georgia, serif";
+      ctx.fillText(member.fullName, 60, 215);
+
+      ctx.fillStyle = "#888888";
+      ctx.font = "14px monospace";
+      ctx.fillText("MEMBER ID", 60, 270);
+      ctx.fillStyle = "#d4af37";
+      ctx.font = "bold 22px monospace";
+      ctx.fillText(member.memberId, 60, 305);
+
+      ctx.fillStyle = "#888888";
+      ctx.font = "14px monospace";
+      ctx.fillText("ROLE / CALLING", 450, 270);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 20px sans-serif";
+      ctx.fillText(member.role, 450, 305);
+
+      // 4. Sunday Gathering Callout Box
+      ctx.fillStyle = "#1e1e24";
+      ctx.fillRect(60, 350, 680, 130);
+      ctx.strokeStyle = "#3b2262";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(60, 350, 680, 130);
+
+      ctx.fillStyle = "#d4af37";
+      ctx.font = "bold 16px monospace";
+      ctx.fillText("SUNDAY SANCTUARY & 4T CONFERENCE", 90, 390);
+
+      ctx.fillStyle = "#dddddd";
+      ctx.font = "16px sans-serif";
+      ctx.fillText("Gathering: Every Sunday @ 5:00 PM (GMT+1)", 90, 425);
+      ctx.fillText("Mandate: Isaiah 58:12 Rebuilding Broken Walls", 90, 455);
+
+      // 5. Draw QR Code from DOM SVG
+      const svgEl = document.getElementById("pass-qr-code-svg");
+      if (svgEl) {
+        const svgData = new XMLSerializer().serializeToString(svgEl);
+        const img = new window.Image();
+        img.onload = () => {
+          // White QR Container Box
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(250, 510, 300, 300);
+
+          ctx.drawImage(img, 260, 520, 280, 280);
+
+          // Footer Text
+          ctx.fillStyle = "#888888";
+          ctx.font = "14px monospace";
+          ctx.textAlign = "center";
+          ctx.fillText("SCAN WITH PHONE CAMERA FOR ENTRANCE & FELLOWSHIP VERIFICATION", 400, 860);
+
+          ctx.fillStyle = "#10b981";
+          ctx.font = "bold 16px monospace";
+          ctx.fillText("● VERIFIED LIFEBUILD FELLOWSHIP MEMBER", 400, 900);
+
+          ctx.fillStyle = "#555555";
+          ctx.font = "13px monospace";
+          ctx.fillText("4Tribe Network • Convener Zeki Ubor", 400, 940);
+          ctx.fillText("https://github.com/DevzekiFaith/klifebuild", 400, 970);
+
+          // Trigger PNG download
+          const link = document.createElement("a");
+          link.download = `Lifebuild_Attendance_Pass_${member.memberId}.png`;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+          setIsDownloading(false);
+        };
+        img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+      } else {
+        setIsDownloading(false);
+      }
+    } catch (err) {
+      console.error("Error generating pass PNG:", err);
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -133,6 +253,7 @@ https://github.com/DevzekiFaith/klifebuild`;
           {/* Real Scannable QR Code containing Fellowship Meeting Info */}
           <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 space-y-2">
             <QRCodeSVG
+              id="pass-qr-code-svg"
               value={fellowshipMeetingInfo}
               size={165}
               level="M"
@@ -173,15 +294,16 @@ https://github.com/DevzekiFaith/klifebuild`;
 
           <div className="flex gap-2">
             <button
-              onClick={() => alert(`Attendance Pass ID: ${member.memberId}\nSaved in local storage.`)}
-              className="flex-1 py-3 rounded-full bg-black text-white text-xs font-mono font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
+              onClick={handleDownloadPng}
+              disabled={isDownloading}
+              className="flex-1 py-3.5 rounded-full bg-black text-white text-xs font-mono font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-md disabled:opacity-50"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Save Pass Credentials</span>
+              <Download className="w-4 h-4 text-[#d4af37]" />
+              <span>{isDownloading ? "Generating PNG..." : "Download Pass (PNG)"}</span>
             </button>
             <button
               onClick={onClose}
-              className="px-6 py-3 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
+              className="px-6 py-3.5 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
             >
               Close
             </button>

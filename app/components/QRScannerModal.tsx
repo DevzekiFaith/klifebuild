@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { X, QrCode, CheckCircle2, Camera, RefreshCw, UserCheck } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
+import { X, QrCode, CheckCircle2, Camera, RefreshCw, UserCheck, ShieldCheck, Download } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 
 interface QRScannerModalProps {
@@ -24,46 +25,46 @@ export default function QRScannerModal({
   onClose,
   currentMember,
 }: QRScannerModalProps) {
-  const [isScanning, setIsScanning] = useState(true);
+  const [activeTab, setActiveTab] = useState<"PASS" | "SCANNER">("PASS");
+  const [isScanning, setIsScanning] = useState(false);
   const [scannedResult, setScannedResult] = useState<AttendanceLog | null>(null);
-  const [logs, setLogs] = useState<AttendanceLog[]>([
-    {
-      id: "LB-2026-8812",
-      name: "Marcus Vance",
-      role: "Founder & CEO",
-      timestamp: "04:52 PM • In-Person",
-      status: "VERIFIED",
-    },
-    {
-      id: "LB-2026-4190",
-      name: "Dr. Elena Rostova",
-      role: "Executive Leader",
-      timestamp: "04:55 PM • In-Person",
-      status: "VERIFIED",
-    },
-  ]);
 
   if (!isOpen) return null;
+
+  const memberId = currentMember ? currentMember.memberId : "LB-2026-9041";
+  const memberName = currentMember ? currentMember.fullName : "Zeki Ubor (Founder)";
+  const memberRole = currentMember ? currentMember.role : "Founder & Executive";
+  const memberMode = currentMember ? currentMember.attendanceMode : "In-Person Sanctuary";
+
+  const fellowshipMeetingInfo = `LIFEBUILD FELLOWSHIP GATHERING & 4T CONFERENCE
+--------------------------------------------
+MEMBER: ${memberName}
+ID: ${memberId}
+ROLE: ${memberRole}
+MODE: ${memberMode}
+
+SUNDAY FELLOWSHIP DETAILS:
+• Time: Every Sunday @ 5:00 PM GMT+1
+• Location: Lifebuild Center & Global Stream
+• Convener: Zeki Ubor
+• Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
+--------------------------------------------
+https://github.com/DevzekiFaith/klifebuild`;
 
   const handleSimulateScan = () => {
     setIsScanning(true);
     setScannedResult(null);
 
     setTimeout(() => {
-      const targetName = currentMember ? currentMember.fullName : "Alexander Cross";
-      const targetId = currentMember ? currentMember.memberId : "LB-2026-9041";
-      const targetRole = currentMember ? currentMember.role : "Tech Builder";
-
       const newLog: AttendanceLog = {
-        id: targetId,
-        name: targetName,
-        role: targetRole,
-        timestamp: `${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} • Gate 1`,
+        id: memberId,
+        name: memberName,
+        role: memberRole,
+        timestamp: `${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} • Gate 1 Sanctuary`,
         status: "VERIFIED",
       };
 
       setScannedResult(newLog);
-      setLogs((prev) => [newLog, ...prev]);
       setIsScanning(false);
     }, 1000);
   };
@@ -99,54 +100,140 @@ export default function QRScannerModal({
           </div>
           <div>
             <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-              Gate Verification Tool
+              Sunday Sanctuary Entrance
             </span>
             <h3 className="font-serif-headline text-2xl text-zinc-950">
-              Sunday Service Entrance Scanner
+              Fellowship Pass & Scanner
             </h3>
           </div>
         </div>
 
-        {/* Scanner Viewfinder Box with Logo Watermark Overlay */}
-        <div className="relative w-full aspect-video rounded-2xl bg-zinc-950 flex flex-col items-center justify-center overflow-hidden border border-zinc-800">
+        {/* Tab Selection */}
+        <div className="flex bg-gray-100 p-1 rounded-full text-xs font-mono">
+          <button
+            onClick={() => setActiveTab("PASS")}
+            className={`flex-1 py-2.5 rounded-full font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === "PASS" ? "bg-black text-white shadow-xs" : "text-zinc-600 hover:text-black"
+            }`}
+          >
+            <QrCode className="w-3.5 h-3.5" />
+            <span>My Scannable QR Pass</span>
+          </button>
           
-          {/* Background Watermark Overlay */}
-          <div className="absolute inset-0 w-32 h-32 m-auto opacity-10 pointer-events-none">
-            <Image
-              src="/images/logo_icon.jpg"
-              alt="Lifebuild Overlay"
-              fill
-              className="object-contain filter invert"
-            />
-          </div>
-
-          {isScanning && (
-            <div className="absolute inset-x-0 h-0.5 bg-white animate-pulse shadow-[0_0_10px_#ffffff] top-1/2 -translate-y-1/2 z-10"></div>
-          )}
-
-          <div className="relative w-40 h-40 border border-dashed border-zinc-600 rounded-xl flex items-center justify-center z-10">
-            <Camera className="w-8 h-8 text-zinc-500 animate-pulse" />
-          </div>
-
-          <div className="absolute bottom-3 inset-x-0 text-center z-10">
-            <span className="text-[10px] font-mono text-zinc-300 bg-black/80 px-3 py-1 rounded-full border border-zinc-700">
-              {isScanning ? "Scanning QR Code..." : "Scan Complete"}
-            </span>
-          </div>
+          <button
+            onClick={() => {
+              setActiveTab("SCANNER");
+              handleSimulateScan();
+            }}
+            className={`flex-1 py-2.5 rounded-full font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === "SCANNER" ? "bg-black text-white shadow-xs" : "text-zinc-600 hover:text-black"
+            }`}
+          >
+            <Camera className="w-3.5 h-3.5" />
+            <span>Gate Scanner</span>
+          </button>
         </div>
 
-        {/* Scan Action Controls */}
-        <div className="flex gap-2">
-          <button
-            onClick={handleSimulateScan}
-            className="flex-1 py-3 rounded-full bg-black text-white font-mono text-xs flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isScanning ? "animate-spin" : ""}`} />
-            <span>Simulate Scan Pass</span>
-          </button>
+        {/* TAB 1: PASS QR CODE DISPLAY */}
+        {activeTab === "PASS" && (
+          <div className="space-y-6">
+            <div className="bg-[#141414] text-white p-6 rounded-2xl border border-zinc-800 space-y-4 text-center">
+              
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest block">
+                  SUNDAY SANCTUARY ENTRANCE
+                </span>
+                <h4 className="font-serif-headline text-2xl text-white font-normal">
+                  {memberName}
+                </h4>
+                <p className="text-xs font-mono text-zinc-400">
+                  {memberId} • {memberRole}
+                </p>
+              </div>
+
+              {/* Scannable QR Code */}
+              <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 my-2 space-y-2">
+                <QRCodeSVG
+                  value={fellowshipMeetingInfo}
+                  size={180}
+                  level="M"
+                  includeMargin={true}
+                  fgColor="#111111"
+                  bgColor="#ffffff"
+                />
+                <span className="text-[9px] font-mono text-zinc-900 font-bold uppercase tracking-wider block pt-1 border-t border-zinc-100 w-full">
+                  SCAN WITH ANY PHONE CAMERA
+                </span>
+              </div>
+
+              <div className="text-[11px] font-mono text-zinc-400 pt-1">
+                Every Sunday @ 5:00 PM (GMT+1) • Isaiah 58:12 Mandate
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: GATE ENTRANCE CAMERA SCANNER */}
+        {activeTab === "SCANNER" && (
+          <div className="space-y-4">
+            <div className="relative w-full aspect-video rounded-2xl bg-zinc-950 flex flex-col items-center justify-center overflow-hidden border border-zinc-800">
+              
+              {/* Background Watermark Overlay */}
+              <div className="absolute inset-0 w-32 h-32 m-auto opacity-10 pointer-events-none">
+                <Image
+                  src="/images/logo_icon_nobg.png"
+                  alt="Lifebuild Overlay"
+                  fill
+                  className="object-contain filter invert"
+                />
+              </div>
+
+              {isScanning && (
+                <div className="absolute inset-x-0 h-0.5 bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981] top-1/2 -translate-y-1/2 z-10"></div>
+              )}
+
+              <div className="relative w-40 h-40 border border-dashed border-zinc-600 rounded-xl flex items-center justify-center z-10">
+                <Camera className="w-8 h-8 text-zinc-500 animate-pulse" />
+              </div>
+
+              <div className="absolute bottom-3 inset-x-0 text-center z-10">
+                <span className="text-[10px] font-mono text-zinc-300 bg-black/80 px-3 py-1 rounded-full border border-zinc-700">
+                  {isScanning ? "Scanning Pass Barcode..." : "Gate Verification Active"}
+                </span>
+              </div>
+            </div>
+
+            {scannedResult && (
+              <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl text-emerald-200 space-y-1 flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-1.5 font-bold text-xs">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>ENTRANCE VERIFIED — ACCESS GRANTED</span>
+                  </div>
+                  <p className="text-[11px] font-mono text-emerald-300/80">
+                    {scannedResult.name} ({scannedResult.id}) • {scannedResult.timestamp}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Modal Action Footer */}
+        <div className="flex gap-2 pt-2">
+          {activeTab === "SCANNER" && (
+            <button
+              onClick={handleSimulateScan}
+              className="flex-1 py-3 rounded-full bg-black text-white font-mono text-xs flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isScanning ? "animate-spin" : ""}`} />
+              <span>Rescan Entrance Pass</span>
+            </button>
+          )}
+
           <button
             onClick={onClose}
-            className="px-6 py-3 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
+            className="w-full py-3 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
           >
             Close
           </button>
