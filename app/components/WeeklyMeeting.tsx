@@ -49,6 +49,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
               src="/images/worship_nigerian_african.png"
               alt="Single Black African Nigerian Worshipper in Reverence to God"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
               priority
             />

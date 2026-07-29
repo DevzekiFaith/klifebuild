@@ -21,9 +21,14 @@ export default function AdminAttendanceDashboard({
 
   const loadAttendance = async () => {
     setIsLoading(true);
-    const data = await fetchSundayAttendanceSummary();
-    setSummary(data);
-    setIsLoading(false);
+    try {
+      const data = await fetchSundayAttendanceSummary();
+      setSummary(data);
+    } catch (err) {
+      console.warn("Error refreshing live headcount:", err);
+    } finally {
+      setTimeout(() => setIsLoading(false), 400);
+    }
   };
 
   useEffect(() => {
