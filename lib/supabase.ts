@@ -27,6 +27,12 @@ export interface AttendanceSummary {
   attendees: SundayAttendanceLog[];
 }
 
+export interface CumulativeMetrics {
+  cumulativeTotalCheckIns: number;
+  availableServiceDates: string[];
+  averagePerSunday: number;
+}
+
 export interface RebuildingDeclaration {
   id: string;
   authorName: string;
@@ -248,7 +254,7 @@ export async function recordManualBatchHeadcount(
       role: l.role,
       attendance_type: "IN_PERSON",
       check_in_time: new Date().toISOString(),
-      checked_in_by: "MANUAL_HAND_COUNT",
+      checked_in_by: isChild ? "CHILDREN_MINISTRY_COUNTER" : "MANUAL_HAND_COUNT",
     }));
 
     await supabase.from("sunday_attendance").insert(dbPayload);
@@ -260,15 +266,16 @@ export async function recordManualBatchHeadcount(
 }
 
 /**
- * Fetch Sunday Attendance Summary & Headcount
+ * Fetch Sunday Attendance Summary & Headcount (Filtered by Service Date or Default to Today)
  */
-export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary> {
-  const serviceDate = new Date().toISOString().split("T")[0];
+export async function fetchSundayAttendanceSummary(targetDate?: string): Promise<AttendanceSummary> {
+  const todayDate = new Date().toISOString().split("T")[0];
+  const activeServiceDate = targetDate || todayDate;
 
   const initialLogs: SundayAttendanceLog[] = [
     {
       id: "ATT-101",
-      serviceDate,
+      serviceDate: todayDate,
       memberId: "LB-2026-8812",
       fullName: "Marcus Vance",
       role: "Founder & CEO",
@@ -278,7 +285,7 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     },
     {
       id: "ATT-102",
-      serviceDate,
+      serviceDate: todayDate,
       memberId: "LB-2026-4190",
       fullName: "Dr. Elena Rostova",
       role: "Executive Leader",
@@ -288,7 +295,7 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     },
     {
       id: "ATT-103",
-      serviceDate,
+      serviceDate: todayDate,
       memberId: "LB-2026-9041",
       fullName: "Zeki Ubor",
       role: "Founder & Convener",
@@ -298,7 +305,7 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     },
     {
       id: "ATT-104",
-      serviceDate,
+      serviceDate: todayDate,
       memberId: "LB-2026-3312",
       fullName: "David Chen",
       role: "Kingdom Strategist",
@@ -308,10 +315,10 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     },
   ];
 
-  let currentLogs: SundayAttendanceLog[] = initialLogs;
+  let allLogs: SundayAttendanceLog[] = initialLogs;
 
   try {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("sunday_attendance")
       .select("*")
       .order("created_at", { ascending: false });
@@ -319,15 +326,17 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     if (data && data.length > 0) {
       const dbLogs: SundayAttendanceLog[] = data.map((row) => ({
         id: row.id || `ATT-${row.member_id}`,
-        serviceDate: row.service_date || serviceDate,
+        serviceDate: row.service_date || todayDate,
         memberId: row.member_id,
         fullName: row.full_name,
         role: row.role || "Member",
         attendanceType: row.attendance_type || "IN_PERSON",
-        checkInTime: row.check_in_time ? new Date(row.check_in_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "05:00 PM",
+        checkInTime: row.check_in_time
+          ? new Date(row.check_in_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+          : "05:00 PM",
         checkedInBy: row.checked_in_by || "GATE_SCANNER",
       }));
-      currentLogs = [...dbLogs, ...initialLogs.filter((i) => !dbLogs.some((d) => d.memberId === i.memberId))];
+      allLogs = [...dbLogs, ...initialLogs.filter((i) => !dbLogs.some((d) => d.memberId === i.memberId))];
     }
   } catch (err) {
     console.warn("Supabase fetch notice:", err);
@@ -338,22 +347,61 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     if (local) {
       const parsed: SundayAttendanceLog[] = JSON.parse(local);
       if (parsed.length > 0) {
-        currentLogs = [...parsed, ...currentLogs.filter((i) => !parsed.some((p) => p.memberId === i.memberId))];
+        allLogs = [...parsed, ...allLogs.filter((i) => !parsed.some((p) => p.memberId === i.memberId))];
       }
     }
   } catch (err) {
     console.warn("Local storage read notice:", err);
   }
 
-  const inPersonCount = currentLogs.filter((l) => l.attendanceType === "IN_PERSON").length;
-  const streamCount = currentLogs.filter((l) => l.attendanceType === "GLOBAL_STREAM").length;
+  // Filter for the requested Sunday Service Date
+  const filteredForDate = allLogs.filter((l) => l.serviceDate === activeServiceDate);
+
+  const inPersonCount = filteredForDate.filter((l) => l.attendanceType === "IN_PERSON").length;
+  const streamCount = filteredForDate.filter((l) => l.attendanceType === "GLOBAL_STREAM").length;
 
   return {
-    serviceDate,
-    totalAttendees: currentLogs.length,
+    serviceDate: activeServiceDate,
+    totalAttendees: filteredForDate.length,
     inPersonCount,
     streamCount,
-    attendees: currentLogs,
+    attendees: filteredForDate,
+  };
+}
+
+/**
+ * Fetch All-Time Cumulative Attendance Metrics across all Sundays
+ */
+export async function fetchCumulativeAttendanceMetrics(): Promise<CumulativeMetrics> {
+  const todayDate = new Date().toISOString().split("T")[0];
+  let allLogs: SundayAttendanceLog[] = [];
+
+  try {
+    const summary = await fetchSundayAttendanceSummary();
+    allLogs = summary.attendees;
+  } catch (err) {
+    console.warn("Cumulative fetch error:", err);
+  }
+
+  try {
+    const { data } = await supabase.from("sunday_attendance").select("service_date");
+    if (data) {
+      const dates = Array.from(new Set(data.map((d) => d.service_date || todayDate)));
+      const uniqueDates = dates.length > 0 ? dates : [todayDate];
+      return {
+        cumulativeTotalCheckIns: Math.max(allLogs.length, data.length),
+        availableServiceDates: uniqueDates.sort().reverse(),
+        averagePerSunday: Math.round(data.length / uniqueDates.length) || allLogs.length,
+      };
+    }
+  } catch (err) {
+    console.warn("Supabase cumulative query notice:", err);
+  }
+
+  return {
+    cumulativeTotalCheckIns: Math.max(allLogs.length, 4),
+    availableServiceDates: [todayDate],
+    averagePerSunday: allLogs.length,
   };
 }
 

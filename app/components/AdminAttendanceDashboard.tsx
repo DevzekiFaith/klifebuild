@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, Users, UserCheck, Search, Filter, Calendar, MapPin, Globe, RefreshCw, CheckCircle2, ShieldCheck, Radio } from "lucide-react";
-import { fetchSundayAttendanceSummary, subscribeToSundayAttendance, logoutAuthRole, recordManualBatchHeadcount, AttendanceSummary, SundayAttendanceLog, AuthRole } from "../../lib/supabase";
+import { X, Users, UserCheck, Search, Filter, Calendar, MapPin, Globe, RefreshCw, CheckCircle2, ShieldCheck, Radio, ChevronDown, Layers } from "lucide-react";
+import { fetchSundayAttendanceSummary, fetchCumulativeAttendanceMetrics, subscribeToSundayAttendance, logoutAuthRole, recordManualBatchHeadcount, AttendanceSummary, CumulativeMetrics, SundayAttendanceLog, AuthRole } from "../../lib/supabase";
 import { LogOut, Lock, Plus, UserPlus, Heart } from "lucide-react";
 
 interface AdminAttendanceDashboardProps {
@@ -20,6 +20,8 @@ export default function AdminAttendanceDashboard({
   onLogout,
 }: AdminAttendanceDashboardProps) {
   const [summary, setSummary] = useState<AttendanceSummary | null>(null);
+  const [cumulative, setCumulative] = useState<CumulativeMetrics | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"ALL" | "IN_PERSON" | "GLOBAL_STREAM">("ALL");
   const [isLoading, setIsLoading] = useState(true);
@@ -37,11 +39,14 @@ export default function AdminAttendanceDashboard({
     return parts[0];
   };
 
-  const loadAttendance = async () => {
+  const loadAttendance = async (targetDate?: string) => {
     setIsLoading(true);
+    const dateToFetch = targetDate || selectedDate;
     try {
-      const data = await fetchSundayAttendanceSummary();
+      const data = await fetchSundayAttendanceSummary(dateToFetch);
+      const cumData = await fetchCumulativeAttendanceMetrics();
       setSummary(data);
+      setCumulative(cumData);
     } catch (err) {
       console.warn("Error refreshing live headcount:", err);
     } finally {
@@ -51,12 +56,14 @@ export default function AdminAttendanceDashboard({
 
   useEffect(() => {
     if (isOpen) {
-      loadAttendance();
+      loadAttendance(selectedDate);
 
       // Subscribe to Supabase Realtime WebSocket changes
       const unsubscribe = subscribeToSundayAttendance((newLog) => {
         setSummary((prev) => {
           if (!prev) return prev;
+          // Only append if the check-in belongs to the currently selected Sunday
+          if (newLog.serviceDate !== selectedDate) return prev;
           const exists = prev.attendees.some((a) => a.memberId === newLog.memberId);
           if (exists) return prev;
 
@@ -69,13 +76,21 @@ export default function AdminAttendanceDashboard({
             attendees: updatedAttendees,
           };
         });
+
+        setCumulative((prevCum) => {
+          if (!prevCum) return null;
+          return {
+            ...prevCum,
+            cumulativeTotalCheckIns: prevCum.cumulativeTotalCheckIns + 1,
+          };
+        });
       });
 
       return () => {
         unsubscribe();
       };
     }
-  }, [isOpen]);
+  }, [isOpen, selectedDate]);
 
   const handleQuickManualAdd = async (
     countToAdd: number = 1,
@@ -95,6 +110,13 @@ export default function AdminAttendanceDashboard({
         attendees: updated,
       };
     });
+    setCumulative((prevCum) => {
+      if (!prevCum) return null;
+      return {
+        ...prevCum,
+        cumulativeTotalCheckIns: prevCum.cumulativeTotalCheckIns + countToAdd,
+      };
+    });
     setIsLoading(false);
     setIsManualAdding(false);
   };
@@ -112,6 +134,8 @@ export default function AdminAttendanceDashboard({
     return matchesSearch;
   });
 
+  const isTodaySelected = selectedDate === new Date().toISOString().split("T")[0];
+
   return (
     <div
       onClick={(e) => {
@@ -119,10 +143,10 @@ export default function AdminAttendanceDashboard({
       }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-fadeIn"
     >
-      <div className="relative w-full max-w-3xl bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[90vh] overflow-y-auto space-y-6">
+      <div className="relative w-full max-w-4xl bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[90vh] overflow-y-auto space-y-6">
         
         {/* Header Strip */}
-        <div className="flex items-start justify-between border-b border-gray-100 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10 flex items-center justify-center">
               <Image
@@ -133,59 +157,81 @@ export default function AdminAttendanceDashboard({
                 className="object-contain"
               />
             </div>
-            <div className="flex-1 flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-                    {authRole === "MASTER_ADMIN" ? "Convener Master Access" : "Protocol Usher Privacy View"}
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-mono font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                    REALTIME SYNC
-                  </span>
-                </div>
-                <h3 className="font-serif-headline text-2xl text-zinc-950">
-                  Live Sunday Attendance Dashboard
-                </h3>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
+                  {authRole === "MASTER_ADMIN" ? "Convener Master Access" : "Protocol Usher Privacy View"}
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-mono font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                  REALTIME SYNC
+                </span>
               </div>
-
-              <button
-                onClick={() => {
-                  logoutAuthRole();
-                  onLogout();
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer shrink-0 ml-2"
-                title="Lock Admin Session"
-              >
-                <LogOut className="w-3.5 h-3.5 text-red-500" />
-                <span className="hidden sm:inline">Lock Session</span>
-                <span className="sm:hidden">Log Out</span>
-              </button>
+              <h3 className="font-serif-headline text-2xl text-zinc-950">
+                Live Sunday Attendance Dashboard
+              </h3>
             </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* Sunday Service Date Selector Dropdown */}
+            <div className="relative">
+              <select
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="pl-8 pr-8 py-2 rounded-full border border-gray-200 focus:border-black text-xs font-mono bg-gray-50 text-black font-bold appearance-none cursor-pointer"
+              >
+                <option value={new Date().toISOString().split("T")[0]}>
+                  Sunday, {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })} (Today's Service)
+                </option>
+                {cumulative?.availableServiceDates
+                  .filter((d) => d !== new Date().toISOString().split("T")[0])
+                  .map((d) => (
+                    <option key={d} value={d}>
+                      Sunday, {new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </option>
+                  ))}
+              </select>
+              <Calendar className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
+            </div>
+
+            <button
+              onClick={() => {
+                logoutAuthRole();
+                onLogout();
+              }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer shrink-0"
+              title="Lock Admin Session"
+            >
+              <LogOut className="w-3.5 h-3.5 text-red-500" />
+              <span className="hidden sm:inline">Lock Session</span>
+              <span className="sm:hidden">Log Out</span>
+            </button>
           </div>
         </div>
 
-        {/* Real-time Headcount Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Real-time & Cumulative Headcount Metric Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
-          {/* Total Headcount */}
+          {/* Selected Sunday Headcount (Fresh for each Sunday) */}
           <div className="p-5 bg-zinc-950 text-white rounded-2xl border border-zinc-800 space-y-1">
-            <div className="flex items-center justify-between text-xs font-mono text-[#d4af37]">
-              <span>TOTAL HEADCOUNT</span>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#d4af37]">
+              <span>{isTodaySelected ? "THIS SUNDAY" : "SELECTED SERVICE"}</span>
               <Users className="w-4 h-4" />
             </div>
             <h4 className="font-serif-headline text-4xl text-white font-normal">
               {summary ? summary.totalAttendees : 0}
             </h4>
             <p className="text-[10px] font-mono text-zinc-400">
-              Service Date: {summary?.serviceDate}
+              {isTodaySelected ? "Fresh Count Starting Today" : `Service Date: ${selectedDate}`}
             </p>
           </div>
 
           {/* In-Person Sanctuary */}
           <div className="p-5 bg-zinc-50 border border-gray-200 rounded-2xl space-y-1">
-            <div className="flex items-center justify-between text-xs font-mono text-zinc-500">
-              <span>IN-PERSON SANCTUARY</span>
+            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
+              <span>SANCTUARY HALL</span>
               <MapPin className="w-4 h-4 text-black" />
             </div>
             <h4 className="font-serif-headline text-4xl text-black font-normal">
@@ -198,7 +244,7 @@ export default function AdminAttendanceDashboard({
 
           {/* Global Stream */}
           <div className="p-5 bg-zinc-50 border border-gray-200 rounded-2xl space-y-1">
-            <div className="flex items-center justify-between text-xs font-mono text-zinc-500">
+            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
               <span>GLOBAL STREAM</span>
               <Globe className="w-4 h-4 text-black" />
             </div>
@@ -210,84 +256,100 @@ export default function AdminAttendanceDashboard({
             </p>
           </div>
 
+          {/* Cumulative All-Time Check-Ins Card */}
+          <div className="p-5 bg-zinc-50 border border-gray-200 rounded-2xl space-y-1">
+            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
+              <span>ALL-TIME CHECK-INS</span>
+              <Layers className="w-4 h-4 text-[#3b2262]" />
+            </div>
+            <h4 className="font-serif-headline text-4xl text-[#3b2262] font-normal">
+              {cumulative ? cumulative.cumulativeTotalCheckIns : 0}
+            </h4>
+            <p className="text-[10px] font-mono text-zinc-500">
+              Cumulative Total Across Sundays
+            </p>
+          </div>
+
         </div>
 
         {/* Manual Hand Count & Elder / Child Care Entry Bar (Protocol Usher Control) */}
-        <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-2xl space-y-3">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 text-amber-700 shrink-0" />
-              <div>
-                <h5 className="font-mono text-xs font-bold text-amber-950 uppercase tracking-wider">
-                  Manual Hand Count (Elderly, Children & Non-Digital Guests)
-                </h5>
-                <p className="text-[11px] font-mono text-amber-800">
-                  Tally walk-in elderly attendees, children, or visitors without QR phones.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-              <button
-                onClick={() => handleQuickManualAdd(1, "Child Sanctuary Attendee", "Child Sanctuary")}
-                className="px-3 py-2 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>+1 Child</span>
-              </button>
-
-              <button
-                onClick={() => handleQuickManualAdd(1, "Elderly Attendee / Walk-in Guest", "Elder / Walk-in Guest")}
-                className="px-3 py-2 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>+1 Elder</span>
-              </button>
-
-              <button
-                onClick={() => setIsManualAdding(!isManualAdding)}
-                className="px-3 py-2 rounded-xl bg-white border border-amber-300 text-amber-900 font-mono text-xs font-bold hover:bg-amber-100 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
-              >
-                <UserPlus className="w-3.5 h-3.5" />
-                <span>Batch Count</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Batch Count Sub-Panel */}
-          {isManualAdding && (
-            <div className="pt-3 border-t border-amber-200/80 flex flex-wrap items-center gap-3 animate-fadeIn">
+        {isTodaySelected && (
+          <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-2xl space-y-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-amber-900 font-bold">Count:</span>
-                <input
-                  type="number"
-                  min="1"
-                  max="100"
-                  value={customManualCount}
-                  onChange={(e) => setCustomManualCount(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-16 p-2 rounded-lg border border-amber-300 text-xs font-mono bg-white text-black"
-                />
+                <Heart className="w-4 h-4 text-amber-700 shrink-0" />
+                <div>
+                  <h5 className="font-mono text-xs font-bold text-amber-950 uppercase tracking-wider">
+                    Manual Hand Count (Elderly, Children & Non-Digital Guests)
+                  </h5>
+                  <p className="text-[11px] font-mono text-amber-800">
+                    Tally walk-in elderly attendees, children, or visitors without QR phones.
+                  </p>
+                </div>
               </div>
 
-              <div className="flex-1 min-w-[200px]">
-                <input
-                  type="text"
-                  value={customCategory}
-                  onChange={(e) => setCustomCategory(e.target.value)}
-                  placeholder="Category label e.g. Elderly Guests"
-                  className="w-full p-2 rounded-lg border border-amber-300 text-xs font-mono bg-white text-black"
-                />
-              </div>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <button
+                  onClick={() => handleQuickManualAdd(1, "Child Sanctuary Attendee", "Child Sanctuary")}
+                  className="px-3 py-2 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+1 Child</span>
+                </button>
 
-              <button
-                onClick={() => handleQuickManualAdd(customManualCount, customCategory)}
-                className="px-4 py-2 rounded-lg bg-black text-white font-mono text-xs font-bold hover:bg-zinc-800 cursor-pointer"
-              >
-                Record {customManualCount} Attendees
-              </button>
+                <button
+                  onClick={() => handleQuickManualAdd(1, "Elderly Attendee / Walk-in Guest", "Elder / Walk-in Guest")}
+                  className="px-3 py-2 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+1 Elder</span>
+                </button>
+
+                <button
+                  onClick={() => setIsManualAdding(!isManualAdding)}
+                  className="px-3 py-2 rounded-xl bg-white border border-amber-300 text-amber-900 font-mono text-xs font-bold hover:bg-amber-100 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <UserPlus className="w-3.5 h-3.5" />
+                  <span>Batch Count</span>
+                </button>
+              </div>
             </div>
-          )}
-        </div>
+
+            {/* Batch Count Sub-Panel */}
+            {isManualAdding && (
+              <div className="pt-3 border-t border-amber-200/80 flex flex-wrap items-center gap-3 animate-fadeIn">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-amber-900 font-bold">Count:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={customManualCount}
+                    onChange={(e) => setCustomManualCount(Math.max(1, parseInt(e.target.value) || 1))}
+                    className="w-16 p-2 rounded-lg border border-amber-300 text-xs font-mono bg-white text-black"
+                  />
+                </div>
+
+                <div className="flex-1 min-w-[200px]">
+                  <input
+                    type="text"
+                    value={customCategory}
+                    onChange={(e) => setCustomCategory(e.target.value)}
+                    placeholder="Category label e.g. Elderly Guests"
+                    className="w-full p-2 rounded-lg border border-amber-300 text-xs font-mono bg-white text-black"
+                  />
+                </div>
+
+                <button
+                  onClick={() => handleQuickManualAdd(customManualCount, customCategory)}
+                  className="px-4 py-2 rounded-lg bg-black text-white font-mono text-xs font-bold hover:bg-zinc-800 cursor-pointer"
+                >
+                  Record {customManualCount} Attendees
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Roster Controls: Search & Filters */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-gray-100">
@@ -304,70 +366,81 @@ export default function AdminAttendanceDashboard({
             />
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex bg-gray-100 p-1 rounded-full text-xs font-mono w-full sm:w-auto">
+          {/* Filter Pills & Refresh */}
+          <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
             <button
               onClick={() => setFilterType("ALL")}
-              className={`px-3 py-1.5 rounded-full font-bold transition-all ${
-                filterType === "ALL" ? "bg-black text-white" : "text-zinc-600 hover:text-black"
+              className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                filterType === "ALL" ? "bg-black text-white" : "bg-gray-100 text-zinc-600 hover:text-black"
               }`}
             >
-              All ({summary?.totalAttendees || 0})
+              All ({summary?.attendees.length || 0})
             </button>
+
             <button
               onClick={() => setFilterType("IN_PERSON")}
-              className={`px-3 py-1.5 rounded-full font-bold transition-all ${
-                filterType === "IN_PERSON" ? "bg-black text-white" : "text-zinc-600 hover:text-black"
+              className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                filterType === "IN_PERSON" ? "bg-black text-white" : "bg-gray-100 text-zinc-600 hover:text-black"
               }`}
             >
-              Sanctuary
+              Sanctuary ({summary?.inPersonCount || 0})
             </button>
+
             <button
               onClick={() => setFilterType("GLOBAL_STREAM")}
-              className={`px-3 py-1.5 rounded-full font-bold transition-all ${
-                filterType === "GLOBAL_STREAM" ? "bg-black text-white" : "text-zinc-600 hover:text-black"
+              className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                filterType === "GLOBAL_STREAM" ? "bg-black text-white" : "bg-gray-100 text-zinc-600 hover:text-black"
               }`}
             >
-              Stream
+              Online Stream ({summary?.streamCount || 0})
             </button>
           </div>
 
         </div>
 
-        {/* Attendees List Roster Table */}
-        <div className="space-y-3 pt-1">
-          <div className="flex items-center justify-between text-xs font-mono text-zinc-400 px-2 uppercase">
-            <span>Attendee Credentials</span>
-            <span>Check-in Status</span>
+        {/* Live Attendance Member Roster Table */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-xs font-mono text-zinc-500 border-b border-gray-100 pb-2">
+            <span>SUNDAY SANCTUARY ATTENDANCE LOG</span>
+            <span>SHOWING {filteredAttendees?.length || 0} RECORDS</span>
           </div>
 
-          <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-            {filteredAttendees && filteredAttendees.length > 0 ? (
+          <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+            {isLoading ? (
+              <div className="p-8 text-center text-xs font-mono text-zinc-400 animate-pulse">
+                Fetching live Sunday attendance logs...
+              </div>
+            ) : filteredAttendees && filteredAttendees.length > 0 ? (
               filteredAttendees.map((log) => (
                 <div
                   key={log.id}
-                  className="p-4 border border-gray-200 rounded-2xl flex items-center justify-between hover:border-black transition-colors bg-white shadow-xs"
+                  className="p-3 bg-gray-50/70 hover:bg-gray-100 rounded-xl border border-gray-100 transition-colors flex items-center justify-between gap-4 text-xs font-mono"
                 >
-                  <div className="space-y-0.5">
-                    <div className="flex items-center gap-2">
-                      <h5 className="font-heading font-bold text-sm text-black">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-8 h-8 rounded-full bg-zinc-200 text-zinc-700 font-bold flex items-center justify-center shrink-0">
+                      {log.fullName[0]?.toUpperCase() || "M"}
+                    </div>
+                    <div className="min-w-0">
+                      <h5 className="font-bold text-zinc-900 truncate">
                         {maskName(log.fullName)}
                       </h5>
-                      <span className="text-[9px] font-mono bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded font-bold">
-                        {log.memberId}
-                      </span>
+                      <p className="text-[10px] text-zinc-500 truncate">
+                        {log.memberId} • {log.role}
+                      </p>
                     </div>
-                    <p className="text-xs text-zinc-500 font-light">
-                      {log.role}
-                    </p>
                   </div>
 
-                  <div className="text-right space-y-0.5">
-                    <span className="text-xs font-mono font-bold text-emerald-600 flex items-center justify-end gap-1">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      {log.attendanceType === "IN_PERSON" ? "In-Person" : "Global Stream"}
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        log.attendanceType === "IN_PERSON"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : "bg-blue-100 text-blue-800"
+                      }`}
+                    >
+                      {log.attendanceType === "IN_PERSON" ? "IN-PERSON" : "STREAM"}
                     </span>
-                    <span className="text-[10px] font-mono text-zinc-400 block">
+                    <span className="text-[10px] text-zinc-400">
                       {log.checkInTime}
                     </span>
                   </div>
@@ -375,7 +448,7 @@ export default function AdminAttendanceDashboard({
               ))
             ) : (
               <div className="p-8 text-center border border-dashed border-gray-200 rounded-2xl text-xs font-mono text-zinc-400">
-                No attendance records matching filter criteria.
+                No attendance records matching filter criteria for this Sunday.
               </div>
             )}
           </div>
@@ -384,7 +457,7 @@ export default function AdminAttendanceDashboard({
         {/* Footer Actions */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-gray-100">
           <button
-            onClick={loadAttendance}
+            onClick={() => loadAttendance(selectedDate)}
             className="text-xs font-mono text-zinc-600 hover:text-black flex items-center gap-1.5 cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
