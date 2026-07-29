@@ -11,14 +11,15 @@ interface FellowshipStoryProps {
 
 export default function FellowshipStory({ onOpenRegister, onOpenPass }: FellowshipStoryProps) {
   return (
-    <section id="vision" className="relative w-full bg-[#141414] text-white py-28 border-t border-b border-zinc-800 overflow-hidden">
-      {/* Background Watermark Overlay (White Logo Outline on Dark Background) */}
-      <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.04] pointer-events-none select-none">
+    <section id="vision" className="relative w-full bg-white text-black py-28 border-t border-b border-gray-100 overflow-hidden">
+      
+      {/* Background Watermark Overlay */}
+      <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none">
         <Image
-          src="/images/logo_icon.jpg"
+          src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
           fill
-          className="object-contain filter invert"
+          className="object-contain filter grayscale"
         />
       </div>
 
@@ -151,16 +152,16 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
             
             {/* Minimal Brand Symbol */}
             <div className="space-y-2">
-              <span className="font-heading font-extrabold text-2xl text-white tracking-widest block border-b-2 border-white w-8 pb-1">
+              <span className="font-heading font-extrabold text-2xl text-black tracking-widest block border-b-2 border-black w-8 pb-1">
                 4T
               </span>
-              <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest">
+              <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest">
                 Isaiah 58:12 Mandate • 4T Conference
               </span>
             </div>
 
             {/* Serif Headline */}
-            <h2 className="font-serif-headline text-4xl sm:text-6xl text-white font-normal leading-tight">
+            <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
               Rebuilding the broken walls and raising up foundations for generations.
             </h2>
 
@@ -171,19 +172,19 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
               <Star className="w-4 h-4 fill-current" />
               <Star className="w-4 h-4 fill-current" />
               <Star className="w-4 h-4 fill-current" />
-              <span className="text-xs font-mono text-zinc-400 ml-2">15 Years of Silent Preparation</span>
+              <span className="text-xs font-mono text-zinc-600 font-bold ml-2">Propelled by Divine Mandate</span>
             </div>
 
             {/* Description Paragraph */}
-            <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 58:12, Lifebuild is a 15-year God-given mandate to rebuild broken walls across human lives, organizations, and ecosystems. Through weekly gatherings and our annual <strong>4T Conference</strong>, we equip leaders to rebuild, restore, repair, and replenish.
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
+              Driven by Isaiah 58:12, Lifebuild is a propelling movement to rebuild broken walls across human lives, organizations, and ecosystems. Through weekly gatherings and our annual <strong>4T Conference</strong>, we equip leaders to rebuild, restore, repair, and replenish.
             </p>
 
             {/* Action Link */}
             <div className="pt-4">
               <button
                 onClick={onOpenRegister || onOpenPass}
-                className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gray-300 transition-colors border-b border-white pb-1 group cursor-pointer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer"
               >
                 <span>Register for Fellowship & 4T Conference</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
