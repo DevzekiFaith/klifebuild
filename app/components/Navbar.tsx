@@ -32,22 +32,37 @@ export default function Navbar({
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-md border-b border-gray-200/80 py-4 shadow-sm"
-          : "bg-white/60 backdrop-blur-xs py-6"
+          ? "bg-white/90 backdrop-blur-md border-b border-gray-200/80 py-3 shadow-sm"
+          : "bg-white/60 backdrop-blur-xs py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <div className="flex items-center justify-between">
           
-          {/* Logo Identity (Jonny Czar style minimalist lower-case text branding) */}
-          <a href="#" className="flex items-center gap-2 group">
-            <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight group-hover:opacity-75 transition-opacity">
-              lifebuild<span className="text-[#3b2262]">.</span>
-            </span>
+          {/* Logo Identity (Featuring Official Lifebuild Logo Image + Text) */}
+          <a href="#" className="flex items-center gap-3 group">
+            <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-gray-300 p-0.5 bg-white shadow-xs group-hover:scale-105 transition-transform">
+              <Image
+                src="/images/logo.jpg"
+                alt="Lifebuild Logo"
+                width={36}
+                height={36}
+                className="object-contain rounded-lg"
+                priority
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight leading-none">
+                lifebuild<span className="text-[#3b2262]">.</span>
+              </span>
+              <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium">
+                Rebuilding Everywhere You Go
+              </span>
+            </div>
           </a>
 
-          {/* Right Navigation Links (Jonny Czar style: Work / About / Contact) */}
-          <nav className="hidden md:flex items-center gap-10 text-sm font-medium text-zinc-700">
+          {/* Right Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-700">
             <a
               href="#solar-system"
               className="hover:text-black transition-colors"
@@ -78,7 +93,7 @@ export default function Navbar({
             {hasPass ? (
               <button
                 onClick={onOpenPass}
-                className="px-4 py-1.5 rounded-full border border-zinc-900 bg-zinc-900 text-white text-xs font-medium hover:bg-black transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-1.5 rounded-full border border-zinc-900 bg-zinc-900 text-white text-xs font-medium hover:bg-black transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37]" />
                 <span>My QR Pass</span>

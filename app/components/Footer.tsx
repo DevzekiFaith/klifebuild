@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 
 interface FooterProps {
@@ -20,10 +21,21 @@ export default function Footer({ onOpenRegister, onOpenPass }: FooterProps) {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-gray-100">
           
           {/* Brand */}
-          <div className="space-y-2">
-            <span className="font-heading font-extrabold text-2xl text-black tracking-tight block">
-              lifebuild<span className="text-[#3b2262]">.</span>
-            </span>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-gray-300 p-0.5 bg-white shadow-xs">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="Lifebuild Logo"
+                  width={36}
+                  height={36}
+                  className="object-contain rounded-lg"
+                />
+              </div>
+              <span className="font-heading font-extrabold text-2xl text-black tracking-tight block">
+                lifebuild<span className="text-[#3b2262]">.</span>
+              </span>
+            </div>
             <p className="text-xs text-zinc-500 max-w-sm font-light">
               Rebuilding everywhere you go. A 15-year God-given vision to build people and rebuild lives.
             </p>

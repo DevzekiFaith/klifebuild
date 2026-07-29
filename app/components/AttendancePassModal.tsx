@@ -67,13 +67,24 @@ export default function AttendancePassModal({
           
           {/* Top Pass Strip */}
           <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-            <div className="flex items-center gap-2">
-              <span className="font-heading font-extrabold text-sm tracking-tight text-white">
-                lifebuild<span className="text-[#d4af37]">.</span>
-              </span>
-              <span className="text-[9px] font-mono text-zinc-400 block uppercase">
-                Founder Pass
-              </span>
+            <div className="flex items-center gap-2.5">
+              <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-zinc-700 p-0.5 bg-white shrink-0">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="Lifebuild Logo"
+                  width={28}
+                  height={28}
+                  className="object-contain rounded"
+                />
+              </div>
+              <div>
+                <span className="font-heading font-extrabold text-sm tracking-tight text-white block">
+                  lifebuild<span className="text-[#d4af37]">.</span>
+                </span>
+                <span className="text-[9px] font-mono text-zinc-400 block uppercase">
+                  Founder Pass
+                </span>
+              </div>
             </div>
 
             <button
