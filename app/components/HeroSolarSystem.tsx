@@ -31,7 +31,7 @@ const PILLARS: PlanetPillar[] = [
     name: "Divine Calling",
     tagline: "Isaiah 58:12 Core Catalyst",
     description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 58:12.",
-    size: 64,
+    size: 76,
     orbitRadius: 0,
     orbitSpeed: 0,
     color: "from-zinc-900 via-zinc-800 to-black",
@@ -150,7 +150,7 @@ export default function HeroSolarSystem({
             
             {/* Tagline Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
-              <div className="relative w-4 h-4 shrink-0 flex items-center justify-center">
+              <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
                 <Image
                   src="/images/logo_icon.jpg"
                   alt="Lifebuild emblem"
@@ -238,8 +238,8 @@ export default function HeroSolarSystem({
                 <Image
                   src="/images/logo_icon.jpg"
                   alt="Lifebuild Central Sun Emblem"
-                  width={48}
-                  height={48}
+                  width={64}
+                  height={64}
                   className="object-contain mix-blend-multiply"
                 />
               </div>

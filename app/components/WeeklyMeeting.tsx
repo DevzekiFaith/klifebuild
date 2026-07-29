@@ -46,8 +46,8 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           {/* Left Side: Worship Image */}
           <div className="lg:col-span-7 relative min-h-[320px] sm:min-h-[400px] w-full">
             <Image
-              src="/images/worship_minimal.png"
-              alt="Modern Minimalist Worship in Reverence to God"
+              src="/images/worship_nigerian_african.png"
+              alt="Single Black African Nigerian Worshipper in Reverence to God"
               fill
               className="object-cover"
               priority

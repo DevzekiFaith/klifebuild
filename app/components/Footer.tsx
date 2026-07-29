@@ -23,12 +23,12 @@ export default function Footer({ onOpenRegister, onOpenPass }: FooterProps) {
           {/* Brand */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="relative w-8 h-8 flex items-center justify-center bg-transparent">
+              <div className="relative w-12 h-12 flex items-center justify-center bg-transparent">
                 <Image
                   src="/images/logo_icon.jpg"
                   alt="Lifebuild Logo"
-                  width={32}
-                  height={32}
+                  width={48}
+                  height={48}
                   className="object-contain mix-blend-multiply"
                 />
               </div>
