@@ -14,6 +14,7 @@ import QRScannerModal from "./components/QRScannerModal";
 import AdminAttendanceDashboard from "./components/AdminAttendanceDashboard";
 import Footer from "./components/Footer";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
+import SundaySelfCheckInBanner from "./components/SundaySelfCheckInBanner";
 
 export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -49,6 +50,15 @@ export default function Home() {
         onOpenDashboard={() => setIsDashboardOpen(true)}
         hasPass={!!currentMember}
       />
+
+      {/* Live Sunday 1-Click Self Check-In Banner */}
+      <div className="pt-20">
+        <SundaySelfCheckInBanner
+          currentMember={currentMember}
+          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenPass={() => setIsPassOpen(true)}
+        />
+      </div>
 
       {/* Hero Solar System Section */}
       <HeroSolarSystem
