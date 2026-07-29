@@ -34,13 +34,13 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
               {/* Card Header with Official Lifebuild Logo */}
               <div className="flex items-center justify-between border-b border-gray-200 pb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="relative w-8 h-8 shrink-0 flex items-center justify-center">
+                  <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
                     <Image
-                      src="/images/logo_icon.jpg"
+                      src="/images/logo_icon_nobg.png"
                       alt="Lifebuild Logo"
-                      width={32}
-                      height={32}
-                      className="object-contain mix-blend-multiply"
+                      width={36}
+                      height={36}
+                      className="object-contain"
                     />
                   </div>
                   <div>
@@ -121,11 +121,11 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   {/* Central 4T Badge Overlay featuring Lifebuild Logo Icon */}
                   <div className="absolute inset-0 m-auto w-11 h-11 rounded-full bg-white text-black p-1 flex items-center justify-center border-2 border-black shadow-md pointer-events-none overflow-hidden">
                     <Image
-                      src="/images/logo_icon.jpg"
+                      src="/images/logo_icon_nobg.png"
                       alt="Lifebuild Emblem"
                       width={32}
                       height={32}
-                      className="object-contain mix-blend-multiply"
+                      className="object-contain"
                     />
                   </div>
 

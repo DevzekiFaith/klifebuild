@@ -81,7 +81,7 @@ export default function Home() {
         {/* Background Watermark Overlay */}
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none">
           <Image
-            src="/images/logo_icon.jpg"
+            src="/images/logo_icon_nobg.png"
             alt="Lifebuild Overlay"
             fill
             className="object-contain filter grayscale"

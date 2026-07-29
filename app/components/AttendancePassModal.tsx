@@ -81,13 +81,13 @@ https://github.com/DevzekiFaith/klifebuild`;
           {/* Top Pass Strip */}
           <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
             <div className="flex items-center gap-2.5">
-              <div className="relative w-7 h-7 flex items-center justify-center bg-white rounded-md shrink-0 p-0.5">
+              <div className="relative w-8 h-8 flex items-center justify-center bg-white rounded-md shrink-0 p-0.5">
                 <Image
-                  src="/images/logo_icon.jpg"
+                  src="/images/logo_icon_nobg.png"
                   alt="Lifebuild Logo"
-                  width={28}
-                  height={28}
-                  className="object-contain mix-blend-multiply"
+                  width={32}
+                  height={32}
+                  className="object-contain"
                 />
               </div>
               <div>

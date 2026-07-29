@@ -88,13 +88,13 @@ export default function QRScannerModal({
 
         {/* Modal Header with Lifebuild Logo */}
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4 pr-8">
-          <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-gray-300 p-0.5 bg-white shrink-0 shadow-xs">
+          <div className="relative w-10 h-10 flex items-center justify-center bg-transparent shrink-0">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo_icon_nobg.png"
               alt="Lifebuild Logo"
               width={40}
               height={40}
-              className="object-contain rounded-lg"
+              className="object-contain"
             />
           </div>
           <div>

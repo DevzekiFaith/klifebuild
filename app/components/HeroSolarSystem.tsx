@@ -131,9 +131,9 @@ export default function HeroSolarSystem({
       className="relative w-full min-h-screen pt-32 pb-20 bg-white text-black selection:bg-black selection:text-white overflow-hidden"
     >
       {/* Background Lifebuild Logo Watermark Overlay */}
-      <div className="absolute top-12 right-0 w-[450px] h-[450px] opacity-[0.03] pointer-events-none select-none">
+      <div className="absolute top-12 right-0 w-[450px] h-[450px] opacity-[0.04] pointer-events-none select-none">
         <Image
-          src="/images/logo_icon.jpg"
+          src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
           fill
           className="object-contain filter grayscale"
@@ -152,10 +152,10 @@ export default function HeroSolarSystem({
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
               <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
                 <Image
-                  src="/images/logo_icon.jpg"
+                  src="/images/logo_icon_nobg.png"
                   alt="Lifebuild emblem"
                   fill
-                  className="object-contain mix-blend-multiply"
+                  className="object-contain"
                 />
               </div>
               <span>Isaiah 58:12 Mandate • 4Tribe Network</span>
@@ -236,11 +236,11 @@ export default function HeroSolarSystem({
                 title="Lifebuild Central Anchor"
               >
                 <Image
-                  src="/images/logo_icon.jpg"
+                  src="/images/logo_icon_nobg.png"
                   alt="Lifebuild Central Sun Emblem"
                   width={64}
                   height={64}
-                  className="object-contain mix-blend-multiply"
+                  className="object-contain"
                 />
               </div>
 
