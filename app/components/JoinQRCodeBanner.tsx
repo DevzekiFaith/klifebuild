@@ -55,13 +55,13 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 {/* Brand Strip */}
                 <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
                   <div className="flex items-center gap-2">
-                    <div className="relative w-6 h-6 rounded-md overflow-hidden bg-white p-0.5">
+                    <div className="relative w-6 h-6 flex items-center justify-center bg-white rounded-md p-0.5">
                       <Image
-                        src="/images/logo.jpg"
+                        src="/images/logo_icon.jpg"
                         alt="Lifebuild Logo"
                         width={24}
                         height={24}
-                        className="object-contain"
+                        className="object-contain mix-blend-multiply"
                       />
                     </div>
                     <span className="font-heading font-extrabold text-xs tracking-tight">

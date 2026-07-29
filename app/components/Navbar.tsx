@@ -41,13 +41,13 @@ export default function Navbar({
           
           {/* Logo Identity (Featuring Official Lifebuild Logo Image + Text) */}
           <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-gray-300 p-0.5 bg-white shadow-xs group-hover:scale-105 transition-transform">
+            <div className="relative w-8 h-8 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform">
               <Image
-                src="/images/logo.jpg"
+                src="/images/logo_icon.jpg"
                 alt="Lifebuild Logo"
-                width={36}
-                height={36}
-                className="object-contain rounded-lg"
+                width={32}
+                height={32}
+                className="object-contain mix-blend-multiply"
                 priority
               />
             </div>

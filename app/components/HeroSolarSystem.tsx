@@ -150,12 +150,12 @@ export default function HeroSolarSystem({
             
             {/* Tagline Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
-              <div className="relative w-4 h-4 rounded-full overflow-hidden shrink-0">
+              <div className="relative w-4 h-4 shrink-0 flex items-center justify-center">
                 <Image
                   src="/images/logo_icon.jpg"
                   alt="Lifebuild emblem"
                   fill
-                  className="object-contain"
+                  className="object-contain mix-blend-multiply"
                 />
               </div>
               <span>Isaiah 58:12 Mandate • 4Tribe Network</span>
@@ -240,7 +240,7 @@ export default function HeroSolarSystem({
                   alt="Lifebuild Central Sun Emblem"
                   width={48}
                   height={48}
-                  className="object-contain rounded-full"
+                  className="object-contain mix-blend-multiply"
                 />
               </div>
 
