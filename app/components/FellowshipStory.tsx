@@ -11,8 +11,18 @@ interface FellowshipStoryProps {
 
 export default function FellowshipStory({ onOpenRegister, onOpenPass }: FellowshipStoryProps) {
   return (
-    <section id="vision" className="relative w-full bg-[#141414] text-white py-28 border-t border-b border-zinc-800">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <section id="vision" className="relative w-full bg-[#141414] text-white py-28 border-t border-b border-zinc-800 overflow-hidden">
+      {/* Background Watermark Overlay (White Logo Outline on Dark Background) */}
+      <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.04] pointer-events-none select-none">
+        <Image
+          src="/images/logo_icon.jpg"
+          alt="Lifebuild Overlay"
+          fill
+          className="object-contain filter invert"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         
         {/* Full-width High Contrast Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -21,10 +31,10 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
           <div className="lg:col-span-6 flex justify-center">
             <div className="relative w-full max-w-md bg-white text-black p-8 rounded-3xl shadow-2xl space-y-6 border border-gray-200">
               
-              {/* Card Header with Lifebuild Logo */}
+              {/* Card Header with Official Lifebuild Logo */}
               <div className="flex items-center justify-between border-b border-gray-200 pb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-gray-300 p-0.5 bg-white">
+                  <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-gray-300 p-0.5 bg-white shrink-0">
                     <Image
                       src="/images/logo.jpg"
                       alt="Lifebuild Logo"
@@ -108,9 +118,15 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                     </div>
                   </div>
 
-                  {/* Central 4T Badge Overlay */}
-                  <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-white text-black font-heading font-black text-sm flex items-center justify-center border-2 border-black shadow-md pointer-events-none">
-                    4T
+                  {/* Central 4T Badge Overlay featuring Lifebuild Logo Icon */}
+                  <div className="absolute inset-0 m-auto w-11 h-11 rounded-full bg-white text-black p-1 flex items-center justify-center border-2 border-black shadow-md pointer-events-none overflow-hidden">
+                    <Image
+                      src="/images/logo_icon.jpg"
+                      alt="Lifebuild Emblem"
+                      width={32}
+                      height={32}
+                      className="object-contain rounded-full"
+                    />
                   </div>
 
                 </div>

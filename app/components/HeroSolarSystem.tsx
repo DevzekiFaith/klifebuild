@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Sparkles, QrCode, ArrowUpRight, Hammer, Key, HeartHandshake, RefreshCw, Sun, Calendar } from "lucide-react";
+import { QrCode, ArrowUpRight, Hammer, Key, HeartHandshake, RefreshCw } from "lucide-react";
 
 interface HeroSolarSystemProps {
   onOpenRegister: () => void;
@@ -31,7 +31,7 @@ const PILLARS: PlanetPillar[] = [
     name: "Divine Calling",
     tagline: "Isaiah 58:12 Core Catalyst",
     description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 58:12.",
-    size: 56,
+    size: 64,
     orbitRadius: 0,
     orbitSpeed: 0,
     color: "from-zinc-900 via-zinc-800 to-black",
@@ -128,19 +128,36 @@ export default function HeroSolarSystem({
   return (
     <section
       id="solar-system"
-      className="relative w-full min-h-screen pt-32 pb-20 bg-white text-black selection:bg-black selection:text-white"
+      className="relative w-full min-h-screen pt-32 pb-20 bg-white text-black selection:bg-black selection:text-white overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16">
+      {/* Background Lifebuild Logo Watermark Overlay */}
+      <div className="absolute top-12 right-0 w-[450px] h-[450px] opacity-[0.03] pointer-events-none select-none">
+        <Image
+          src="/images/logo_icon.jpg"
+          alt="Lifebuild Overlay"
+          fill
+          className="object-contain filter grayscale"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
-        {/* Top Hero Grid (Editorial Serif Mandate + Monochromatic 4T Solar System Visual) */}
+        {/* Top Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Serif Mandate Statement & 4T Sub-Row */}
           <div className="lg:col-span-6 space-y-8">
             
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-[#3b2262]"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
+              <div className="relative w-4 h-4 rounded-full overflow-hidden shrink-0">
+                <Image
+                  src="/images/logo_icon.jpg"
+                  alt="Lifebuild emblem"
+                  fill
+                  className="object-contain"
+                />
+              </div>
               <span>Isaiah 58:12 Mandate • 4Tribe Network</span>
             </div>
 
@@ -189,7 +206,7 @@ export default function HeroSolarSystem({
 
           </div>
 
-          {/* Right Column: 4T Cosmic Orbit Graphic */}
+          {/* Right Column: 4T Cosmic Orbit Graphic featuring Official Lifebuild Logo Centerpiece */}
           <div className="lg:col-span-6 flex items-center justify-center relative min-h-[420px]">
             
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
@@ -208,16 +225,23 @@ export default function HeroSolarSystem({
                 />
               ))}
 
-              {/* Central Sun Element (Isaiah 58:12 Core) */}
+              {/* Central Sun Element (Featuring Official Lifebuild Emblem Icon) */}
               <div
                 onClick={() => setSelectedPlanet(PILLARS[0])}
-                className="absolute z-20 cursor-pointer rounded-full bg-black text-white p-1 shadow-xl flex items-center justify-center transition-transform hover:scale-110"
+                className="absolute z-20 cursor-pointer rounded-full bg-white border-2 border-black p-1 shadow-2xl flex items-center justify-center transition-transform hover:scale-110 overflow-hidden"
                 style={{
                   width: `${PILLARS[0].size}px`,
                   height: `${PILLARS[0].size}px`,
                 }}
+                title="Lifebuild Central Anchor"
               >
-                <Sun className="w-6 h-6 text-white animate-spin-slow" />
+                <Image
+                  src="/images/logo_icon.jpg"
+                  alt="Lifebuild Central Sun Emblem"
+                  width={48}
+                  height={48}
+                  className="object-contain rounded-full"
+                />
               </div>
 
               {/* Orbiting 4T Planet Elements */}
@@ -266,10 +290,9 @@ export default function HeroSolarSystem({
 
         </div>
 
-        {/* Hero Bottom Row: The 4T Pillars Feature Columns (Matching Reference Layout) */}
+        {/* Hero Bottom Row: The 4T Pillars Feature Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 border-t border-gray-100">
           
-          {/* Rebuilding */}
           <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
             <div className="w-8 h-8 flex items-center justify-center">
               <Hammer className="w-5 h-5 text-amber-800" />
@@ -280,7 +303,6 @@ export default function HeroSolarSystem({
             </p>
           </div>
 
-          {/* Restoring */}
           <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
             <div className="w-8 h-8 flex items-center justify-center">
               <Key className="w-5 h-5 text-blue-800" />
@@ -291,7 +313,6 @@ export default function HeroSolarSystem({
             </p>
           </div>
 
-          {/* Repairing */}
           <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
             <div className="w-8 h-8 flex items-center justify-center">
               <HeartHandshake className="w-5 h-5 text-emerald-800" />
@@ -302,7 +323,6 @@ export default function HeroSolarSystem({
             </p>
           </div>
 
-          {/* Replenishing */}
           <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
             <div className="w-8 h-8 flex items-center justify-center">
               <RefreshCw className="w-5 h-5 text-yellow-800" />
