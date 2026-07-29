@@ -5,12 +5,13 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import HeroSolarSystem from "./components/HeroSolarSystem";
 import FellowshipStory from "./components/FellowshipStory";
+import FounderSection from "./components/FounderSection";
 import WeeklyMeeting from "./components/WeeklyMeeting";
 import RegistrationForm, { MemberData } from "./components/RegistrationForm";
 import AttendancePassModal from "./components/AttendancePassModal";
 import QRScannerModal from "./components/QRScannerModal";
 import Footer from "./components/Footer";
-import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight, Sparkles } from "lucide-react";
+import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -55,6 +56,11 @@ export default function Home() {
       <FellowshipStory
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenPass={() => setIsPassOpen(true)}
+      />
+
+      {/* Founder Zeki Ubor Masterclass & Leadership Section */}
+      <FounderSection
+        onOpenRegister={() => setIsRegisterOpen(true)}
       />
 
       {/* Weekly Meeting & 4T Conference */}
@@ -167,7 +173,7 @@ export default function Home() {
                 Register for the 4T Conference & Weekly Sanctuary.
               </h3>
               <p className="text-xs sm:text-sm text-zinc-400 font-light max-w-xl">
-                Gather with fellow visionaries to rebuild broken walls. Apply for membership to receive your official Attendance Pass with your unique QR Barcode.
+                Gather with fellow visionaries to rebuild broken walls under Zeki Ubor's leadership. Apply for membership to receive your official Attendance Pass with your unique QR Barcode.
               </p>
             </div>
 

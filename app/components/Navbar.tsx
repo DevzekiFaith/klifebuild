@@ -70,6 +70,12 @@ export default function Navbar({
               Vision
             </a>
             <a
+              href="#founder"
+              className="hover:text-black transition-colors font-bold text-black"
+            >
+              Zeki Ubor
+            </a>
+            <a
               href="#fellowship"
               className="hover:text-black transition-colors"
             >
