@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lifebuild • Rebuilding Everywhere You Go | 4Tribe Network",
     description:
-      "Driven by Isaiah 58:12, Lifebuild is a 15-year God-given mandate led by Zeki Ubor to rebuild broken walls, restore human dignity, and raise up foundations across generations.",
+      "Driven by Isaiah 58:12, Lifebuild is a propelling movement led by Zeki Ubor to rebuild broken walls, restore human dignity, and raise up foundations across generations.",
     url: "https://klifebuild.com",
     siteName: "Lifebuild",
     images: [

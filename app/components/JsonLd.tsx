@@ -14,7 +14,7 @@ export default function JsonLd() {
       "jobTitle": "Founder & Convener",
       "sameAs": ["https://github.com/DevzekiFaith/klifebuild"]
     },
-    "description": "A 15-year God-given mandate driven by Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy across communities and organizations.",
+    "description": "A propelling movement of transformation driven by Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy across communities and organizations.",
     "slogan": "Rebuilding Everywhere You Go",
     "sameAs": [
       "https://github.com/DevzekiFaith/klifebuild"

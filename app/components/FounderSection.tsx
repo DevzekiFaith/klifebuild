@@ -37,7 +37,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            A 15-year God-given mandate centered on spiritual alignment, rebuilding broken walls, and empowering leaders to reconstruct broken foundations across lives, families, and communities under Isaiah 58:12.
+            A propelling movement of transformation and impact, centered on spiritual alignment, rebuilding broken walls, and empowering leaders to reconstruct broken foundations across lives, families, and communities under Isaiah 58:12.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 Building People to Rebuild Everywhere You Go.
               </h3>
               <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-                Driven by a deep conviction to restore human dignity and spiritual alignment, Zeki Ubor convenes founders, executives, and builders under the <strong>Lifebuild & 4Tribe Network</strong>. After 15 years of silent preparation and divine alignment, the mandate focuses on equipping leaders to rebuild broken walls across business, family, and society.
+                Propelled by divine authority and an unyielding commitment to giving, Zeki Ubor convenes founders, executives, and visionaries under the <strong>Lifebuild & 4Tribe Network</strong>. This movement is dedicated to raising mighties, imparting wisdom, and deploying strategic resources to rebuild broken walls across business, family, and society.
               </p>
             </div>
 
