@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import confetti from "canvas-confetti";
 import { X, ArrowUpRight, ShieldCheck, Check } from "lucide-react";
+import { saveMemberRecord } from "../../lib/supabase";
 
 export interface MemberData {
   memberId: string;
@@ -36,13 +37,13 @@ export default function RegistrationForm({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !email) return;
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const newMember: MemberData = {
         memberId: `LB-2026-${Math.floor(1000 + Math.random() * 9000)}`,
         fullName,
@@ -58,7 +59,7 @@ export default function RegistrationForm({
         }),
       };
 
-      localStorage.setItem("lifebuild_member_pass", JSON.stringify(newMember));
+      await saveMemberRecord(newMember);
 
       try {
         confetti({
