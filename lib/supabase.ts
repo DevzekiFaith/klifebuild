@@ -27,6 +27,15 @@ export interface AttendanceSummary {
   attendees: SundayAttendanceLog[];
 }
 
+export interface RebuildingDeclaration {
+  id: string;
+  authorName: string;
+  location: string;
+  pillar: "REBUILDING" | "RESTORING" | "REPAIRING" | "REPLENISHING";
+  declarationText: string;
+  createdAt: string;
+}
+
 /**
  * Two-Tier Passcode Verification Helper
  * Master Convener PIN: 5812
@@ -331,4 +340,122 @@ export function subscribeToSundayAttendance(
   return () => {
     supabase.removeChannel(channel);
   };
+}
+
+/**
+ * Submit Rebuilding Vision Wall Declaration
+ */
+export async function submitRebuildingDeclaration(
+  authorName: string,
+  location: string,
+  pillar: "REBUILDING" | "RESTORING" | "REPAIRING" | "REPLENISHING",
+  declarationText: string
+): Promise<RebuildingDeclaration> {
+  const newDec: RebuildingDeclaration = {
+    id: `DEC-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    authorName,
+    location,
+    pillar,
+    declarationText,
+    createdAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+  };
+
+  try {
+    const existing = localStorage.getItem("lifebuild_declarations");
+    const decs: RebuildingDeclaration[] = existing ? JSON.parse(existing) : [];
+    localStorage.setItem("lifebuild_declarations", JSON.stringify([newDec, ...decs]));
+  } catch (err) {
+    console.warn("LocalStorage declaration save error:", err);
+  }
+
+  try {
+    await supabase.from("rebuilding_declarations").insert([
+      {
+        author_name: authorName,
+        location,
+        pillar,
+        declaration_text: declarationText,
+        created_at: new Date().toISOString(),
+      },
+    ]);
+  } catch (err) {
+    console.warn("Supabase declaration insert notice:", err);
+  }
+
+  return newDec;
+}
+
+/**
+ * Fetch Rebuilding Vision Wall Declarations
+ */
+export async function fetchRebuildingDeclarations(): Promise<RebuildingDeclaration[]> {
+  const defaultDeclarations: RebuildingDeclaration[] = [
+    {
+      id: "DEC-1",
+      authorName: "Samuel O. & Family",
+      location: "Lagos, Nigeria",
+      pillar: "REBUILDING",
+      declarationText: "Rebuilding our family prayer altar and founding an ethical tech venture to employ 100 young builders.",
+      createdAt: "Today",
+    },
+    {
+      id: "DEC-2",
+      authorName: "Dr. Catherine W.",
+      location: "London, UK",
+      pillar: "RESTORING",
+      declarationText: "Restoring spiritual identity and authority in healthcare leadership under Isaiah 58:12.",
+      createdAt: "Yesterday",
+    },
+    {
+      id: "DEC-3",
+      authorName: "Kofi & Grace A.",
+      location: "Accra, Ghana",
+      pillar: "REPAIRING",
+      declarationText: "Repairing character breaches in youth mentorship and raising 50 righteous community leaders.",
+      createdAt: "2 days ago",
+    },
+    {
+      id: "DEC-4",
+      authorName: "Emmanuel N.",
+      location: "Abuja, Nigeria",
+      pillar: "REPLENISHING",
+      declarationText: "Unlocking Kingdom financial stewardship to fund 10 clean water projects across rural communities.",
+      createdAt: "3 days ago",
+    },
+  ];
+
+  try {
+    const { data } = await supabase
+      .from("rebuilding_declarations")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (data && data.length > 0) {
+      const dbDecs: RebuildingDeclaration[] = data.map((d) => ({
+        id: d.id || `DEC-${Math.random()}`,
+        authorName: d.author_name,
+        location: d.location || "Global Network",
+        pillar: d.pillar || "REBUILDING",
+        declarationText: d.declaration_text,
+        createdAt: d.created_at ? new Date(d.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Recent",
+      }));
+      return [...dbDecs, ...defaultDeclarations];
+    }
+  } catch (err) {
+    console.warn("Supabase fetch declarations notice:", err);
+  }
+
+  try {
+    const local = localStorage.getItem("lifebuild_declarations");
+    if (local) {
+      const parsed: RebuildingDeclaration[] = JSON.parse(local);
+      if (parsed.length > 0) {
+        return [...parsed, ...defaultDeclarations];
+      }
+    }
+  } catch (err) {
+    console.warn("LocalStorage read declaration error:", err);
+  }
+
+  return defaultDeclarations;
 }

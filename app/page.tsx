@@ -9,6 +9,8 @@ import JoinQRCodeBanner from "./components/JoinQRCodeBanner";
 import FellowshipStory from "./components/FellowshipStory";
 import FounderSection from "./components/FounderSection";
 import WeeklyMeeting from "./components/WeeklyMeeting";
+import TransformationPathway from "./components/TransformationPathway";
+import RebuildVisionWall from "./components/RebuildVisionWall";
 import RegistrationForm, { MemberData } from "./components/RegistrationForm";
 import AttendancePassModal from "./components/AttendancePassModal";
 import QRScannerModal from "./components/QRScannerModal";
@@ -68,7 +70,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
+    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-[#d4af37]">
       {/* Navbar */}
       <Navbar
         onOpenRegister={() => setIsRegisterOpen(true)}
@@ -105,6 +107,11 @@ export default function Home() {
         onOpenPass={() => setIsPassOpen(true)}
       />
 
+      {/* Feature 4: The 4T Transformation Pathway (Interactive Roadmap) */}
+      <TransformationPathway
+        onOpenRegister={() => setIsRegisterOpen(true)}
+      />
+
       {/* Founder Zeki Ubor Section */}
       <FounderSection
         onOpenRegister={() => setIsRegisterOpen(true)}
@@ -115,6 +122,9 @@ export default function Home() {
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
       />
+
+      {/* Feature 3: Interactive Global Rebuilding Vision Wall */}
+      <RebuildVisionWall />
 
       {/* Core 4T Pillars Section (Clean White Editorial Grid with Watermark Overlay) */}
       <section id="pillars" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
