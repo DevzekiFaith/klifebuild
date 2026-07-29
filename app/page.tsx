@@ -11,6 +11,7 @@ import WeeklyMeeting from "./components/WeeklyMeeting";
 import RegistrationForm, { MemberData } from "./components/RegistrationForm";
 import AttendancePassModal from "./components/AttendancePassModal";
 import QRScannerModal from "./components/QRScannerModal";
+import AdminAttendanceDashboard from "./components/AdminAttendanceDashboard";
 import Footer from "./components/Footer";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
 
@@ -18,6 +19,7 @@ export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isPassOpen, setIsPassOpen] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export default function Home() {
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenPass={() => setIsPassOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
+        onOpenDashboard={() => setIsDashboardOpen(true)}
         hasPass={!!currentMember}
       />
 
@@ -65,7 +68,7 @@ export default function Home() {
         onOpenPass={() => setIsPassOpen(true)}
       />
 
-      {/* Founder Zeki Ubor Masterclass & Leadership Section */}
+      {/* Founder Zeki Ubor Section */}
       <FounderSection
         onOpenRegister={() => setIsRegisterOpen(true)}
       />
@@ -205,6 +208,11 @@ export default function Home() {
         isOpen={isScannerOpen}
         onClose={() => setIsScannerOpen(false)}
         currentMember={currentMember}
+      />
+
+      <AdminAttendanceDashboard
+        isOpen={isDashboardOpen}
+        onClose={() => setIsDashboardOpen(false)}
       />
     </main>
   );

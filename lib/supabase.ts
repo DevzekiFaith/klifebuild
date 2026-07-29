@@ -6,11 +6,29 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOi
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export interface SundayAttendanceLog {
+  id: string;
+  serviceDate: string;
+  memberId: string;
+  fullName: string;
+  role: string;
+  attendanceType: "IN_PERSON" | "GLOBAL_STREAM";
+  checkInTime: string;
+  checkedInBy: string;
+}
+
+export interface AttendanceSummary {
+  serviceDate: string;
+  totalAttendees: number;
+  inPersonCount: number;
+  streamCount: number;
+  attendees: SundayAttendanceLog[];
+}
+
 /**
  * Save a new member registration to Supabase database (and fallback to LocalStorage)
  */
 export async function saveMemberRecord(member: MemberData): Promise<{ success: boolean; data?: MemberData; error?: string }> {
-  // Always persist locally for offline instant availability
   try {
     localStorage.setItem("lifebuild_member_pass", JSON.stringify(member));
   } catch (e) {
@@ -59,7 +77,6 @@ export async function fetchMemberRecord(memberIdOrEmail: string): Promise<Member
       .single();
 
     if (error || !data) {
-      // Local storage fallback
       const savedPass = localStorage.getItem("lifebuild_member_pass");
       if (savedPass) {
         const parsed = JSON.parse(savedPass);
@@ -85,4 +102,131 @@ export async function fetchMemberRecord(memberIdOrEmail: string): Promise<Member
     const savedPass = localStorage.getItem("lifebuild_member_pass");
     return savedPass ? JSON.parse(savedPass) : null;
   }
+}
+
+/**
+ * Record Sunday Gathering Attendance Check-In (Supabase + LocalStorage sync)
+ */
+export async function recordSundayAttendance(
+  memberId: string,
+  fullName: string,
+  role: string = "Member",
+  attendanceType: "IN_PERSON" | "GLOBAL_STREAM" = "IN_PERSON",
+  checkedInBy: string = "GATE_SCANNER"
+): Promise<SundayAttendanceLog> {
+  const serviceDate = new Date().toISOString().split("T")[0];
+  const newLog: SundayAttendanceLog = {
+    id: `ATT-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    serviceDate,
+    memberId,
+    fullName,
+    role,
+    attendanceType,
+    checkInTime: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    checkedInBy,
+  };
+
+  // Local storage attendance history sync
+  try {
+    const existing = localStorage.getItem("lifebuild_sunday_logs");
+    const logs: SundayAttendanceLog[] = existing ? JSON.parse(existing) : [];
+    localStorage.setItem("lifebuild_sunday_logs", JSON.stringify([newLog, ...logs]));
+  } catch (err) {
+    console.warn("Local storage log sync warning:", err);
+  }
+
+  // Supabase Table Insert
+  try {
+    await supabase.from("sunday_attendance").insert([
+      {
+        service_date: serviceDate,
+        member_id: memberId,
+        full_name: fullName,
+        role: role,
+        attendance_type: attendanceType,
+        check_in_time: new Date().toISOString(),
+        checked_in_by: checkedInBy,
+      },
+    ]);
+  } catch (err) {
+    console.warn("Supabase attendance insert notice:", err);
+  }
+
+  return newLog;
+}
+
+/**
+ * Fetch Sunday Attendance Summary & Headcount
+ */
+export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary> {
+  const serviceDate = new Date().toISOString().split("T")[0];
+
+  // Default initial mock logs for demo
+  const initialLogs: SundayAttendanceLog[] = [
+    {
+      id: "ATT-101",
+      serviceDate,
+      memberId: "LB-2026-8812",
+      fullName: "Marcus Vance",
+      role: "Founder & CEO",
+      attendanceType: "IN_PERSON",
+      checkInTime: "04:52 PM",
+      checkedInBy: "GATE_SCANNER",
+    },
+    {
+      id: "ATT-102",
+      serviceDate,
+      memberId: "LB-2026-4190",
+      fullName: "Dr. Elena Rostova",
+      role: "Executive Leader",
+      attendanceType: "IN_PERSON",
+      checkInTime: "04:55 PM",
+      checkedInBy: "GATE_SCANNER",
+    },
+    {
+      id: "ATT-103",
+      serviceDate,
+      memberId: "LB-2026-9041",
+      fullName: "Zeki Ubor",
+      role: "Founder & Convener",
+      attendanceType: "IN_PERSON",
+      checkInTime: "05:00 PM",
+      checkedInBy: "GATE_SCANNER",
+    },
+    {
+      id: "ATT-104",
+      serviceDate,
+      memberId: "LB-2026-3312",
+      fullName: "David Chen",
+      role: "Kingdom Strategist",
+      attendanceType: "GLOBAL_STREAM",
+      checkInTime: "05:04 PM",
+      checkedInBy: "SELF_CHECKIN",
+    },
+  ];
+
+  let currentLogs: SundayAttendanceLog[] = initialLogs;
+
+  try {
+    const local = localStorage.getItem("lifebuild_sunday_logs");
+    if (local) {
+      const parsed: SundayAttendanceLog[] = JSON.parse(local);
+      if (parsed.length > 0) {
+        currentLogs = [...parsed, ...initialLogs.filter((i) => !parsed.some((p) => p.memberId === i.memberId))];
+      }
+    }
+  } catch (err) {
+    console.warn("Local storage read notice:", err);
+  }
+
+  const inPersonCount = currentLogs.filter((l) => l.attendanceType === "IN_PERSON").length;
+  const streamCount = currentLogs.filter((l) => l.attendanceType === "GLOBAL_STREAM").length;
+
+  return {
+    serviceDate,
+    totalAttendees: currentLogs.length,
+    inPersonCount,
+    streamCount,
+    attendees: currentLogs,
+  };
 }

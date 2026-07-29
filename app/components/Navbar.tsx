@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight } from "lucide-react";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users } from "lucide-react";
 
 interface NavbarProps {
   onOpenRegister: () => void;
   onOpenPass: () => void;
   onOpenScanner: () => void;
+  onOpenDashboard?: () => void;
   hasPass: boolean;
 }
 
@@ -15,6 +16,7 @@ export default function Navbar({
   onOpenRegister,
   onOpenPass,
   onOpenScanner,
+  onOpenDashboard,
   hasPass,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -94,6 +96,17 @@ export default function Navbar({
               <QrCode className="w-3.5 h-3.5" />
               Scanner
             </button>
+
+            {onOpenDashboard && (
+              <button
+                onClick={onOpenDashboard}
+                className="hover:text-black transition-colors text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+                title="View Sunday Live Headcount"
+              >
+                <Users className="w-3.5 h-3.5 text-black" />
+                Headcount
+              </button>
+            )}
 
             {/* Action Link / Pass CTA */}
             {hasPass ? (

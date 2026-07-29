@@ -5,6 +5,7 @@ import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
 import { X, QrCode, CheckCircle2, Camera, RefreshCw, UserCheck, ShieldCheck, Download } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
+import { recordSundayAttendance } from "../../lib/supabase";
 
 interface QRScannerModalProps {
   isOpen: boolean;
@@ -55,7 +56,7 @@ https://github.com/DevzekiFaith/klifebuild`;
     setIsScanning(true);
     setScannedResult(null);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const newLog: AttendanceLog = {
         id: memberId,
         name: memberName,
@@ -63,6 +64,14 @@ https://github.com/DevzekiFaith/klifebuild`;
         timestamp: `${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} • Gate 1 Sanctuary`,
         status: "VERIFIED",
       };
+
+      await recordSundayAttendance(
+        memberId,
+        memberName,
+        memberRole,
+        memberMode.includes("Stream") ? "GLOBAL_STREAM" : "IN_PERSON",
+        "GATE_SCANNER"
+      );
 
       setScannedResult(newLog);
       setIsScanning(false);
