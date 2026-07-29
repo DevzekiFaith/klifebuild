@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Calendar, Clock, MapPin, QrCode, Zap, ArrowUpRight, Sparkles } from "lucide-react";
 
 interface WeeklyMeetingProps {
@@ -10,8 +11,18 @@ interface WeeklyMeetingProps {
 
 export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyMeetingProps) {
   return (
-    <section id="fellowship" className="relative w-full bg-white text-black py-28 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16">
+    <section id="fellowship" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
+      {/* Background Watermark Overlay */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none">
+        <Image
+          src="/images/logo_icon.jpg"
+          alt="Lifebuild Overlay"
+          fill
+          className="object-contain filter grayscale"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">

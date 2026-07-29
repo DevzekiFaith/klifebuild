@@ -63,9 +63,19 @@ export default function Home() {
         onOpenScanner={() => setIsScannerOpen(true)}
       />
 
-      {/* Core 4T Pillars Section (Clean White Editorial Grid) */}
-      <section id="pillars" className="relative w-full bg-white text-black py-28 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16">
+      {/* Core 4T Pillars Section (Clean White Editorial Grid with Watermark Overlay) */}
+      <section id="pillars" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
+        {/* Background Watermark Overlay */}
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none">
+          <Image
+            src="/images/logo_icon.jpg"
+            alt="Lifebuild Overlay"
+            fill
+            className="object-contain filter grayscale"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
           
           {/* Section Header */}
           <div className="max-w-3xl space-y-4">

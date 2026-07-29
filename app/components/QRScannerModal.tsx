@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { X, QrCode, CheckCircle2, Camera, RefreshCw, UserCheck } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 
@@ -79,27 +80,49 @@ export default function QRScannerModal({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Modal Header */}
-        <div className="space-y-1">
-          <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-            Gate Verification Tool
-          </span>
-          <h3 className="font-serif-headline text-2xl text-zinc-950">
-            Sunday Service Entrance Scanner
-          </h3>
+        {/* Modal Header with Lifebuild Logo */}
+        <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
+          <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-gray-300 p-0.5 bg-white shrink-0 shadow-xs">
+            <Image
+              src="/images/logo.jpg"
+              alt="Lifebuild Logo"
+              width={40}
+              height={40}
+              className="object-contain rounded-lg"
+            />
+          </div>
+          <div>
+            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
+              Gate Verification Tool
+            </span>
+            <h3 className="font-serif-headline text-2xl text-zinc-950">
+              Sunday Service Entrance Scanner
+            </h3>
+          </div>
         </div>
 
-        {/* Scanner Viewfinder Box */}
-        <div className="relative w-full aspect-video rounded-2xl bg-zinc-900 flex flex-col items-center justify-center overflow-hidden">
-          {isScanning && (
-            <div className="absolute inset-x-0 h-0.5 bg-white animate-pulse shadow-[0_0_10px_#ffffff] top-1/2 -translate-y-1/2"></div>
-          )}
-
-          <div className="relative w-40 h-40 border border-dashed border-zinc-500 rounded-xl flex items-center justify-center">
-            <Camera className="w-8 h-8 text-zinc-600 animate-pulse" />
+        {/* Scanner Viewfinder Box with Logo Watermark Overlay */}
+        <div className="relative w-full aspect-video rounded-2xl bg-zinc-950 flex flex-col items-center justify-center overflow-hidden border border-zinc-800">
+          
+          {/* Background Watermark Overlay */}
+          <div className="absolute inset-0 w-32 h-32 m-auto opacity-10 pointer-events-none">
+            <Image
+              src="/images/logo_icon.jpg"
+              alt="Lifebuild Overlay"
+              fill
+              className="object-contain filter invert"
+            />
           </div>
 
-          <div className="absolute bottom-3 inset-x-0 text-center">
+          {isScanning && (
+            <div className="absolute inset-x-0 h-0.5 bg-white animate-pulse shadow-[0_0_10px_#ffffff] top-1/2 -translate-y-1/2 z-10"></div>
+          )}
+
+          <div className="relative w-40 h-40 border border-dashed border-zinc-600 rounded-xl flex items-center justify-center z-10">
+            <Camera className="w-8 h-8 text-zinc-500 animate-pulse" />
+          </div>
+
+          <div className="absolute bottom-3 inset-x-0 text-center z-10">
             <span className="text-[10px] font-mono text-zinc-300 bg-black/80 px-3 py-1 rounded-full border border-zinc-700">
               {isScanning ? "Scanning QR Code..." : "Scan Complete"}
             </span>
