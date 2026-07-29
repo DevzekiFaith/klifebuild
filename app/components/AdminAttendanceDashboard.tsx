@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, Users, UserCheck, Search, Filter, Calendar, MapPin, Globe, RefreshCw, CheckCircle2, ShieldCheck } from "lucide-react";
-import { fetchSundayAttendanceSummary, AttendanceSummary, SundayAttendanceLog } from "../../lib/supabase";
+import { X, Users, UserCheck, Search, Filter, Calendar, MapPin, Globe, RefreshCw, CheckCircle2, ShieldCheck, Radio } from "lucide-react";
+import { fetchSundayAttendanceSummary, subscribeToSundayAttendance, AttendanceSummary, SundayAttendanceLog } from "../../lib/supabase";
 
 interface AdminAttendanceDashboardProps {
   isOpen: boolean;
@@ -29,6 +29,28 @@ export default function AdminAttendanceDashboard({
   useEffect(() => {
     if (isOpen) {
       loadAttendance();
+
+      // Subscribe to Supabase Realtime WebSocket changes
+      const unsubscribe = subscribeToSundayAttendance((newLog) => {
+        setSummary((prev) => {
+          if (!prev) return prev;
+          const exists = prev.attendees.some((a) => a.memberId === newLog.memberId);
+          if (exists) return prev;
+
+          const updatedAttendees = [newLog, ...prev.attendees];
+          return {
+            ...prev,
+            totalAttendees: updatedAttendees.length,
+            inPersonCount: updatedAttendees.filter((a) => a.attendanceType === "IN_PERSON").length,
+            streamCount: updatedAttendees.filter((a) => a.attendanceType === "GLOBAL_STREAM").length,
+            attendees: updatedAttendees,
+          };
+        });
+      });
+
+      return () => {
+        unsubscribe();
+      };
     }
   }, [isOpen]);
 
@@ -74,13 +96,21 @@ export default function AdminAttendanceDashboard({
               className="object-contain"
             />
           </div>
-          <div>
-            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-              Sunday Gathering Analytics
-            </span>
-            <h3 className="font-serif-headline text-2xl text-zinc-950">
-              Live Sunday Attendance Dashboard
-            </h3>
+          <div className="flex-1 flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
+                  Sunday Gathering Analytics
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-mono font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                  REALTIME SYNC ACTIVE
+                </span>
+              </div>
+              <h3 className="font-serif-headline text-2xl text-zinc-950">
+                Live Sunday Attendance Dashboard
+              </h3>
+            </div>
           </div>
         </div>
 

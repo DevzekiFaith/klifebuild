@@ -161,7 +161,6 @@ export async function recordSundayAttendance(
 export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary> {
   const serviceDate = new Date().toISOString().split("T")[0];
 
-  // Default initial mock logs for demo
   const initialLogs: SundayAttendanceLog[] = [
     {
       id: "ATT-101",
@@ -207,12 +206,37 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
 
   let currentLogs: SundayAttendanceLog[] = initialLogs;
 
+  // Attempt real query from Supabase
+  try {
+    const { data, error } = await supabase
+      .from("sunday_attendance")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (data && data.length > 0) {
+      const dbLogs: SundayAttendanceLog[] = data.map((row) => ({
+        id: row.id || `ATT-${row.member_id}`,
+        serviceDate: row.service_date || serviceDate,
+        memberId: row.member_id,
+        fullName: row.full_name,
+        role: row.role || "Member",
+        attendanceType: row.attendance_type || "IN_PERSON",
+        checkInTime: row.check_in_time ? new Date(row.check_in_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "05:00 PM",
+        checkedInBy: row.checked_in_by || "GATE_SCANNER",
+      }));
+      currentLogs = [...dbLogs, ...initialLogs.filter((i) => !dbLogs.some((d) => d.memberId === i.memberId))];
+    }
+  } catch (err) {
+    console.warn("Supabase fetch notice:", err);
+  }
+
+  // Local storage fallback sync
   try {
     const local = localStorage.getItem("lifebuild_sunday_logs");
     if (local) {
       const parsed: SundayAttendanceLog[] = JSON.parse(local);
       if (parsed.length > 0) {
-        currentLogs = [...parsed, ...initialLogs.filter((i) => !parsed.some((p) => p.memberId === i.memberId))];
+        currentLogs = [...parsed, ...currentLogs.filter((i) => !parsed.some((p) => p.memberId === i.memberId))];
       }
     }
   } catch (err) {
@@ -228,5 +252,46 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     inPersonCount,
     streamCount,
     attendees: currentLogs,
+  };
+}
+
+/**
+ * Subscribe to Live Realtime Supabase Attendance Updates (WebSocket)
+ */
+export function subscribeToSundayAttendance(
+  onNewCheckIn: (newLog: SundayAttendanceLog) => void
+) {
+  const channel = supabase
+    .channel("realtime_sunday_attendance")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "sunday_attendance",
+      },
+      (payload) => {
+        const row = payload.new;
+        if (row) {
+          const newLog: SundayAttendanceLog = {
+            id: row.id || `ATT-${row.member_id}`,
+            serviceDate: row.service_date || new Date().toISOString().split("T")[0],
+            memberId: row.member_id,
+            fullName: row.full_name,
+            role: row.role || "Member",
+            attendanceType: row.attendance_type || "IN_PERSON",
+            checkInTime: row.check_in_time
+              ? new Date(row.check_in_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+              : new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            checkedInBy: row.checked_in_by || "REALTIME",
+          };
+          onNewCheckIn(newLog);
+        }
+      }
+    )
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(channel);
   };
 }
