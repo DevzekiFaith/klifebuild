@@ -79,6 +79,7 @@ export default function RebuildVisionWall() {
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Watermark"
           fill
+          sizes="700px"
           className="object-contain filter invert"
         />
       </div>

@@ -18,6 +18,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           src="/images/logo_icon.jpg"
           alt="Lifebuild Overlay"
           fill
+          sizes="500px"
           className="object-contain filter grayscale"
         />
       </div>

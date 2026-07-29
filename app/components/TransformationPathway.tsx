@@ -97,6 +97,7 @@ export default function TransformationPathway({
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
           fill
+          sizes="550px"
           className="object-contain filter grayscale"
         />
       </div>

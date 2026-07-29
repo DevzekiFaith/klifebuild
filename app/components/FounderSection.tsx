@@ -15,9 +15,10 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
       {/* Background Watermark Overlay */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none">
         <Image
-          src="/images/logo_icon.jpg"
+          src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
           fill
+          sizes="550px"
           className="object-contain filter grayscale"
         />
       </div>
@@ -60,6 +61,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                     src="/images/zeki_ubor_official.png"
                     alt="Zeki Ubor - Founder & Convener of Lifebuild"
                     fill
+                    sizes="(max-width: 768px) 100vw, 384px"
                     className="object-contain object-bottom hover:scale-105 transition-transform duration-500"
                     priority
                   />

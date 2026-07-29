@@ -31,6 +31,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
           src="/images/logo_icon.jpg"
           alt="Lifebuild Watermark"
           fill
+          sizes="550px"
           className="object-contain filter invert"
         />
       </div>

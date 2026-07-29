@@ -204,6 +204,7 @@ https://github.com/DevzekiFaith/klifebuild`;
                   src="/images/logo_icon_nobg.png"
                   alt="Lifebuild Overlay"
                   fill
+                  sizes="128px"
                   className="object-contain filter invert"
                 />
               </div>

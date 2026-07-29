@@ -136,6 +136,7 @@ export default function HeroSolarSystem({
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
           fill
+          sizes="450px"
           className="object-contain filter grayscale"
         />
       </div>
@@ -155,6 +156,7 @@ export default function HeroSolarSystem({
                   src="/images/logo_icon_nobg.png"
                   alt="Lifebuild emblem"
                   fill
+                  sizes="24px"
                   className="object-contain"
                 />
               </div>
