@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Calendar, Clock, MapPin, QrCode, Zap, ArrowUpRight, Sparkles } from "lucide-react";
+import { Calendar, Clock, MapPin, QrCode, Zap, ArrowUpRight, HeartHandshake } from "lucide-react";
 
 interface WeeklyMeetingProps {
   onOpenRegister: () => void;
@@ -40,8 +40,41 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           </p>
         </div>
 
+        {/* Featured Modern Minimalist Worship Artwork Card */}
+        <div className="relative w-full rounded-3xl overflow-hidden border border-gray-200 bg-zinc-950 text-white shadow-xl grid grid-cols-1 lg:grid-cols-12 items-center">
+          
+          {/* Left Side: Worship Image */}
+          <div className="lg:col-span-7 relative min-h-[320px] sm:min-h-[400px] w-full">
+            <Image
+              src="/images/worship_minimal.png"
+              alt="Modern Minimalist Worship in Reverence to God"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-zinc-950/90 lg:to-zinc-950 pointer-events-none"></div>
+          </div>
+
+          {/* Right Side: Text & Scriptural Mandate */}
+          <div className="lg:col-span-5 p-8 sm:p-12 space-y-4 relative z-10">
+            <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest block">
+              Sanctuary Experience • STEP 01
+            </span>
+            <h3 className="font-serif-headline text-3xl sm:text-4xl text-white font-normal leading-tight">
+              Spiritual Grounding & Divine Reverence.
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-light">
+              Stripping away the noise of the workweek. Grounding the heart, mind, and vision in worship and reverence to God before executing Kingdom business.
+            </p>
+            <div className="pt-2 text-xs font-mono text-zinc-400 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
+              <span>Isaiah 58:12 Rebuilders Sanctuary</span>
+            </div>
+          </div>
+        </div>
+
         {/* 2-Column Minimalist Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-4">
           
           {/* Left Column: Logistics & Entry Scanner Trigger */}
           <div className="lg:col-span-5 border border-gray-200 p-8 rounded-2xl space-y-8 bg-zinc-50/50">
