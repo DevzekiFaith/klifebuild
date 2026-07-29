@@ -6,6 +6,8 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOi
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export type AuthRole = "MASTER_ADMIN" | "USHER" | null;
+
 export interface SundayAttendanceLog {
   id: string;
   serviceDate: string;
@@ -23,6 +25,45 @@ export interface AttendanceSummary {
   inPersonCount: number;
   streamCount: number;
   attendees: SundayAttendanceLog[];
+}
+
+/**
+ * Two-Tier Passcode Verification Helper
+ * Master Convener PIN: 5812
+ * Usher / Protocol PIN: 2026
+ */
+export function verifyPasscode(inputPin: string): { valid: boolean; role: AuthRole; title: string } {
+  const masterPin = process.env.NEXT_PUBLIC_ADMIN_PIN || "5812";
+  const usherPin = process.env.NEXT_PUBLIC_USHER_PIN || "2026";
+
+  if (inputPin === masterPin) {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("lb_auth_role", "MASTER_ADMIN");
+    }
+    return { valid: true, role: "MASTER_ADMIN", title: "Master Convener (Full Access)" };
+  }
+
+  if (inputPin === usherPin) {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("lb_auth_role", "USHER");
+    }
+    return { valid: true, role: "USHER", title: "Protocol Usher (Privacy Gate View)" };
+  }
+
+  return { valid: false, role: null, title: "" };
+}
+
+export function getStoredAuthRole(): AuthRole {
+  if (typeof window === "undefined") return null;
+  const role = sessionStorage.getItem("lb_auth_role");
+  if (role === "MASTER_ADMIN" || role === "USHER") return role as AuthRole;
+  return null;
+}
+
+export function logoutAuthRole() {
+  if (typeof window !== "undefined") {
+    sessionStorage.removeItem("lb_auth_role");
+  }
 }
 
 /**
@@ -126,7 +167,6 @@ export async function recordSundayAttendance(
     checkedInBy,
   };
 
-  // Local storage attendance history sync
   try {
     const existing = localStorage.getItem("lifebuild_sunday_logs");
     const logs: SundayAttendanceLog[] = existing ? JSON.parse(existing) : [];
@@ -135,7 +175,6 @@ export async function recordSundayAttendance(
     console.warn("Local storage log sync warning:", err);
   }
 
-  // Supabase Table Insert
   try {
     await supabase.from("sunday_attendance").insert([
       {
@@ -206,7 +245,6 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
 
   let currentLogs: SundayAttendanceLog[] = initialLogs;
 
-  // Attempt real query from Supabase
   try {
     const { data, error } = await supabase
       .from("sunday_attendance")
@@ -230,7 +268,6 @@ export async function fetchSundayAttendanceSummary(): Promise<AttendanceSummary>
     console.warn("Supabase fetch notice:", err);
   }
 
-  // Local storage fallback sync
   try {
     const local = localStorage.getItem("lifebuild_sunday_logs");
     if (local) {

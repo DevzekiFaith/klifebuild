@@ -3,21 +3,36 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { X, Users, UserCheck, Search, Filter, Calendar, MapPin, Globe, RefreshCw, CheckCircle2, ShieldCheck, Radio } from "lucide-react";
-import { fetchSundayAttendanceSummary, subscribeToSundayAttendance, AttendanceSummary, SundayAttendanceLog } from "../../lib/supabase";
+import { fetchSundayAttendanceSummary, subscribeToSundayAttendance, logoutAuthRole, AttendanceSummary, SundayAttendanceLog, AuthRole } from "../../lib/supabase";
+import { LogOut, Lock } from "lucide-react";
 
 interface AdminAttendanceDashboardProps {
   isOpen: boolean;
+  authRole: AuthRole;
   onClose: () => void;
+  onLogout: () => void;
 }
 
 export default function AdminAttendanceDashboard({
   isOpen,
+  authRole,
   onClose,
+  onLogout,
 }: AdminAttendanceDashboardProps) {
   const [summary, setSummary] = useState<AttendanceSummary | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"ALL" | "IN_PERSON" | "GLOBAL_STREAM">("ALL");
   const [isLoading, setIsLoading] = useState(true);
+
+  // Usher Privacy Data Masking Helper
+  const maskName = (name: string) => {
+    if (authRole === "MASTER_ADMIN") return name;
+    const parts = name.trim().split(" ");
+    if (parts.length > 1) {
+      return `${parts[0]} ${parts[1][0]}.`;
+    }
+    return parts[0];
+  };
 
   const loadAttendance = async () => {
     setIsLoading(true);
@@ -105,17 +120,29 @@ export default function AdminAttendanceDashboard({
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-                  Sunday Gathering Analytics
+                  {authRole === "MASTER_ADMIN" ? "Convener Master Access" : "Protocol Usher Privacy View"}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-mono font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                  REALTIME SYNC ACTIVE
+                  REALTIME SYNC
                 </span>
               </div>
               <h3 className="font-serif-headline text-2xl text-zinc-950">
                 Live Sunday Attendance Dashboard
               </h3>
             </div>
+
+            <button
+              onClick={() => {
+                logoutAuthRole();
+                onLogout();
+              }}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-black text-xs font-mono text-zinc-600 hover:text-black transition-colors cursor-pointer"
+              title="Lock Admin Session"
+            >
+              <LogOut className="w-3.5 h-3.5 text-red-500" />
+              <span>Lock Session</span>
+            </button>
           </div>
         </div>
 
@@ -228,7 +255,7 @@ export default function AdminAttendanceDashboard({
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
                       <h5 className="font-heading font-bold text-sm text-black">
-                        {log.fullName}
+                        {maskName(log.fullName)}
                       </h5>
                       <span className="text-[9px] font-mono bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded font-bold">
                         {log.memberId}

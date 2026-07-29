@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "./components/Navbar";
 import HeroSolarSystem from "./components/HeroSolarSystem";
+import SundaySelfCheckInBanner from "./components/SundaySelfCheckInBanner";
 import JoinQRCodeBanner from "./components/JoinQRCodeBanner";
 import FellowshipStory from "./components/FellowshipStory";
 import FounderSection from "./components/FounderSection";
@@ -12,15 +13,18 @@ import RegistrationForm, { MemberData } from "./components/RegistrationForm";
 import AttendancePassModal from "./components/AttendancePassModal";
 import QRScannerModal from "./components/QRScannerModal";
 import AdminAttendanceDashboard from "./components/AdminAttendanceDashboard";
+import AdminPasscodeModal from "./components/AdminPasscodeModal";
 import Footer from "./components/Footer";
+import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
-import SundaySelfCheckInBanner from "./components/SundaySelfCheckInBanner";
 
 export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isPassOpen, setIsPassOpen] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [isPasscodeOpen, setIsPasscodeOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [authRole, setAuthRole] = useState<AuthRole>(null);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
 
   useEffect(() => {
@@ -29,6 +33,7 @@ export default function Home() {
       if (savedPass) {
         setCurrentMember(JSON.parse(savedPass));
       }
+      setAuthRole(getStoredAuthRole());
     } catch (err) {
       console.error("Error reading saved pass:", err);
     }
@@ -40,6 +45,28 @@ export default function Home() {
     setIsPassOpen(true);
   };
 
+  const handleOpenDashboardRequest = () => {
+    const role = getStoredAuthRole();
+    if (role) {
+      setAuthRole(role);
+      setIsDashboardOpen(true);
+    } else {
+      setIsPasscodeOpen(true);
+    }
+  };
+
+  const handlePasscodeSuccess = (role: AuthRole) => {
+    setAuthRole(role);
+    setIsPasscodeOpen(false);
+    setIsDashboardOpen(true);
+  };
+
+  const handleDashboardLogout = () => {
+    logoutAuthRole();
+    setAuthRole(null);
+    setIsDashboardOpen(false);
+  };
+
   return (
     <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
       {/* Navbar */}
@@ -47,7 +74,7 @@ export default function Home() {
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenPass={() => setIsPassOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
-        onOpenDashboard={() => setIsDashboardOpen(true)}
+        onOpenDashboard={handleOpenDashboardRequest}
         hasPass={!!currentMember}
       />
 
@@ -220,9 +247,17 @@ export default function Home() {
         currentMember={currentMember}
       />
 
+      <AdminPasscodeModal
+        isOpen={isPasscodeOpen}
+        onClose={() => setIsPasscodeOpen(false)}
+        onSuccess={handlePasscodeSuccess}
+      />
+
       <AdminAttendanceDashboard
         isOpen={isDashboardOpen}
+        authRole={authRole}
         onClose={() => setIsDashboardOpen(false)}
+        onLogout={handleDashboardLogout}
       />
     </main>
   );
