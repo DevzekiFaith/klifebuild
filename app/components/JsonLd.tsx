@@ -52,7 +52,7 @@ export default function JsonLd() {
       "https://klifebuild.com/images/worship_nigerian_african.png",
       "https://klifebuild.com/images/zeki_ubor_official.png"
     ],
-    "description": "Weekly 120-minute spiritual grounding, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and iron-sharpening fellowship for founders and leaders led by Zeki Ubor.",
+    "description": "Weekly 60-minute spiritual grounding, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and iron-sharpening fellowship for founders and leaders led by Zeki Ubor.",
     "organizer": {
       "@type": "Organization",
       "name": "Lifebuild & 4Tribe Network",

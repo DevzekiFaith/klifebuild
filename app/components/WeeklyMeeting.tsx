@@ -2,16 +2,17 @@
 
 import React from "react";
 import Image from "next/image";
-import { Calendar, Clock, MapPin, QrCode, Zap, ArrowUpRight, HeartHandshake } from "lucide-react";
+import { ArrowUpRight, Zap, ShieldCheck, QrCode } from "lucide-react";
 
 interface WeeklyMeetingProps {
-  onOpenRegister: () => void;
-  onOpenScanner: () => void;
+  onOpenRegister?: () => void;
+  onOpenScanner?: () => void;
 }
 
 export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyMeetingProps) {
   return (
     <section id="fellowship" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
+      
       {/* Background Watermark Overlay */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none">
         <Image
@@ -37,7 +38,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 120 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
+            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
           </p>
         </div>
 
@@ -59,92 +60,106 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
 
           {/* Right Side: Text & Scriptural Mandate */}
           <div className="lg:col-span-5 p-8 sm:p-12 space-y-4 relative z-10">
-            <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest block">
-              Sanctuary Experience • STEP 01
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[#d4af37] text-[10px] font-mono font-bold uppercase tracking-widest">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Presence • Alignment • Impact
             </span>
-            <h3 className="font-serif-headline text-3xl sm:text-4xl text-white font-normal leading-tight">
-              Spiritual Grounding & Divine Reverence.
+
+            <h3 className="font-serif-headline text-2xl sm:text-3xl text-white font-normal leading-tight">
+              A Sacred Space for Builders to Recharge.
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-light">
-              Stripping away the noise of the workweek. Grounding the heart, mind, and vision in worship and reverence to God before executing Kingdom business.
+
+            <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
+              "And they that shall be of thee shall build the old waste places: thou shalt raise up the foundations of many generations; and thou shalt be called, The repairer of the breach, The restorer of paths to dwell in."
             </p>
-            <div className="pt-2 text-xs font-mono text-zinc-400 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
-              <span>Isaiah 58:12 Rebuilders Sanctuary</span>
-            </div>
-          </div>
-        </div>
 
-        {/* 2-Column Minimalist Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-4">
-          
-          {/* Left Column: Logistics & Entry Scanner Trigger */}
-          <div className="lg:col-span-5 border border-gray-200 p-8 rounded-2xl space-y-8 bg-zinc-50/50">
-            <div className="space-y-2">
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest block">Sanctuary Details</span>
-              <h3 className="font-heading text-xl font-bold text-black">Logistics & Entry Protocol</h3>
+            <div className="pt-2 text-xs font-mono text-[#d4af37] font-bold">
+              — Isaiah 58:12
             </div>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <Clock className="w-5 h-5 text-black shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-xs font-mono text-zinc-400 uppercase block">Weekly Gathering</span>
-                  <span className="text-sm font-semibold text-black">Every Sunday @ 5:00 PM (GMT+1)</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <Calendar className="w-5 h-5 text-black shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-xs font-mono text-zinc-400 uppercase block">Annual Event</span>
-                  <span className="text-sm font-semibold text-[#3b2262]">4T Conference (4Tribe Network)</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-black shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-xs font-mono text-zinc-400 uppercase block">Location / Access</span>
-                  <span className="text-sm font-semibold text-black">Lifebuild Center & Global Stream</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <QrCode className="w-5 h-5 text-black shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-xs font-mono text-zinc-400 uppercase block">Entrance Barcode</span>
-                  <span className="text-sm font-semibold text-black">Personal QR Pass Required</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Attendance QR Pass CTAs */}
-            <div className="pt-4 border-t border-gray-200 space-y-3">
+            {/* Quick Sanctuary Action Buttons */}
+            <div className="pt-4 flex flex-wrap items-center gap-3">
               <button
                 onClick={onOpenRegister}
-                className="w-full py-3 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer"
               >
-                <span>Apply For Fellowship & 4T Pass</span>
-                <ArrowUpRight className="w-4 h-4" />
+                Join Fellowship
               </button>
 
               <button
                 onClick={onOpenScanner}
-                className="w-full py-3 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <QrCode className="w-4 h-4" />
-                <span>Service Entrance Scanner</span>
+                <QrCode className="w-3.5 h-3.5" />
+                <span>Sanctuary Entrance Pass</span>
               </button>
             </div>
+
           </div>
 
-          {/* Right Column: 4-Step 120-Minute Meeting Blueprint */}
+        </div>
+
+        {/* 2-Column Info & 60-Minute Blueprint Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column: Meeting Details */}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="space-y-4 border-b border-gray-200 pb-8">
+              <h3 className="font-heading font-bold text-2xl text-black">
+                Meeting Mechanics
+              </h3>
+              <ul className="space-y-3 text-sm text-zinc-600 font-light">
+                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
+                  <span className="font-mono text-xs text-zinc-400 uppercase">Frequency</span>
+                  <span className="font-medium text-black">Every Sunday</span>
+                </li>
+                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
+                  <span className="font-mono text-xs text-zinc-400 uppercase">Time</span>
+                  <span className="font-medium text-black">5:00 PM – 6:00 PM (GMT+1)</span>
+                </li>
+                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
+                  <span className="font-mono text-xs text-zinc-400 uppercase">Duration</span>
+                  <span className="font-medium text-black">60 Minutes</span>
+                </li>
+                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
+                  <span className="font-mono text-xs text-zinc-400 uppercase">Format</span>
+                  <span className="font-medium text-black">Hybrid (In-Person & Global Stream)</span>
+                </li>
+                <li className="flex items-start justify-between pb-2">
+                  <span className="font-mono text-xs text-zinc-400 uppercase">Anchor Scripture</span>
+                  <span className="font-medium text-black font-mono text-xs">Isaiah 58:12</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Annual 4T Conference Teaser Block */}
+            <div className="p-8 bg-zinc-950 text-white rounded-3xl space-y-4 border border-zinc-800">
+              <span className="text-xs font-mono uppercase text-[#d4af37] tracking-widest block">
+                Annual Flagship Gathering
+              </span>
+              <h4 className="font-serif-headline text-2xl text-white">The 4T Conference</h4>
+              <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                Our annual gathering of Kingdom builders, investors, conveners, and societal leaders across the 4Tribe Network. 3 days of intensive commissioning and strategic reconstruction.
+              </p>
+              <div className="pt-2">
+                <button
+                  onClick={onOpenRegister}
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-white hover:text-[#d4af37] transition-colors cursor-pointer font-bold uppercase tracking-wider"
+                >
+                  <span>Request Conference Pass</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column: 4-Step 60-Minute Meeting Blueprint */}
           <div className="lg:col-span-7 space-y-6">
             <div className="border-b border-gray-200 pb-4">
               <h3 className="font-heading text-lg font-bold text-black flex items-center gap-2">
                 <Zap className="w-4 h-4 text-black" />
-                120-Minute Meeting Blueprint
+                60-Minute Meeting Blueprint
               </h3>
             </div>
 
@@ -152,7 +167,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
               <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 01</span>
-                  <span>20 MINS</span>
+                  <span>10 MINS</span>
                 </div>
                 <h4 className="font-heading font-bold text-base text-black">Grounding & Devotional Focus</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -163,7 +178,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
               <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 02</span>
-                  <span>40 MINS</span>
+                  <span>30 MINS</span>
                 </div>
                 <h4 className="font-heading font-bold text-base text-black">4T Teaching & Kingdom Principles</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -174,24 +189,25 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
               <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 03</span>
-                  <span>45 MINS</span>
+                  <span>10 MINS</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">The Rebuilder's Roundtable</h4>
+                <h4 className="font-heading font-bold text-base text-black">Rebuilder's Prayer & Strategy</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Confidential peer breakout groups across the 4Tribe Network. Iron sharpening iron — real strategy, prayer, and solutions.
+                  Targeted prayer, faith declarations, and strategic alignment across the 4Tribe Network. Iron sharpening iron.
                 </p>
               </div>
 
               <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 04</span>
-                  <span>15 MINS</span>
+                  <span>10 MINS</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Commissioning & Anointing</h4>
+                <h4 className="font-heading font-bold text-base text-black">Commissioning & Prophetic Alignment</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Targeted prayer for your team, products, health, and family before stepping into the upcoming week.
+                  Final blessing, weekly commissioning, and sending forth leaders into their spheres of impact with authority.
                 </p>
               </div>
+
             </div>
 
           </div>
