@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "./components/Navbar";
 import HeroSolarSystem from "./components/HeroSolarSystem";
+import JoinQRCodeBanner from "./components/JoinQRCodeBanner";
 import FellowshipStory from "./components/FellowshipStory";
 import FounderSection from "./components/FounderSection";
 import WeeklyMeeting from "./components/WeeklyMeeting";
@@ -50,6 +51,12 @@ export default function Home() {
       <HeroSolarSystem
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
+      />
+
+      {/* High-Impact Scan QR Code To Join Banner (Below Hero Section) */}
+      <JoinQRCodeBanner
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        compact={true}
       />
 
       {/* High-Contrast Featured Showcase Block with 4T Emblem */}
@@ -163,31 +170,13 @@ export default function Home() {
 
           </div>
 
-          {/* 4T Conference Banner Callout */}
-          <div className="p-10 sm:p-14 bg-[#141414] text-white rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-8">
-            <div className="space-y-2 text-center sm:text-left">
-              <span className="text-xs font-mono text-[#d4af37] uppercase tracking-widest block">
-                Annual Event • 4Tribe Network
-              </span>
-              <h3 className="font-serif-headline text-3xl sm:text-4xl text-white font-normal">
-                Register for the 4T Conference & Weekly Sanctuary.
-              </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 font-light max-w-xl">
-                Gather with fellow visionaries to rebuild broken walls under Zeki Ubor's leadership. Apply for membership to receive your official Attendance Pass with your unique QR Barcode.
-              </p>
-            </div>
-
-            <button
-              onClick={() => (currentMember ? setIsPassOpen(true) : setIsRegisterOpen(true))}
-              className="px-8 py-4 rounded-full bg-white text-black font-medium text-xs uppercase tracking-wider hover:bg-gray-200 transition-all shrink-0 flex items-center gap-2 cursor-pointer"
-            >
-              <span>{currentMember ? "View My Attendance Pass" : "Apply For Pass & 4T Conf"}</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-          </div>
-
         </div>
       </section>
+
+      {/* Scan QR Code To Join Banner (Before Footer) */}
+      <JoinQRCodeBanner
+        onOpenRegister={() => setIsRegisterOpen(true)}
+      />
 
       {/* Footer */}
       <Footer
