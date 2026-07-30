@@ -156,26 +156,18 @@ export default function RebuildVisionWall() {
         </div>
 
         {/* Declarations Grid */}
-        <motion.div
-          layout
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0 },
-            show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-          }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activePillar}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {filteredDeclarations.map((item) => (
               <motion.div
-                layout
                 key={item.id}
-                variants={{
-                  hidden: { opacity: 0, y: 20, scale: 0.95 },
-                  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
-                }}
                 whileHover={{ y: -6, borderColor: "#52525b" }}
                 className="p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 space-y-4 transition-all flex flex-col justify-between group shadow-xl"
               >
@@ -204,8 +196,8 @@ export default function RebuildVisionWall() {
                 </div>
               </motion.div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
 
       </div>
 
