@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { QrCode, ArrowUpRight, Hammer, Key, HeartHandshake, RefreshCw } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import { QrCode, ArrowUpRight, Hammer, Key, HeartHandshake, RefreshCw, ChevronDown } from "lucide-react";
 
 interface HeroSolarSystemProps {
   onOpenRegister: () => void;
@@ -110,6 +111,49 @@ export default function HeroSolarSystem({
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetPillar>(PILLARS[0]);
   const [rotationAngle, setRotationAngle] = useState(0);
 
+  // Mouse Parallax 3D Tilt Values
+  const heroRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), {
+    stiffness: 150,
+    damping: 20,
+  });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 150,
+    damping: 20,
+  });
+
+  // Scroll Parallax Displacement
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const orbitY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXPos = e.clientX - rect.left;
+    const mouseYPos = e.clientY - rect.top;
+
+    const xPct = mouseXPos / width - 0.5;
+    const yPct = mouseYPos / height - 0.5;
+
+    mouseX.set(xPct);
+    mouseY.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   useEffect(() => {
     let animationFrameId: number;
     let lastTime = performance.now();
@@ -127,11 +171,17 @@ export default function HeroSolarSystem({
 
   return (
     <section
+      ref={heroRef}
       id="solar-system"
-      className="relative w-full min-h-screen pt-32 pb-20 bg-white text-black selection:bg-black selection:text-white overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full min-h-screen pt-32 pb-20 bg-white text-black selection:bg-black selection:text-white overflow-hidden perspective-1000"
     >
-      {/* Background Lifebuild Logo Watermark Overlay */}
-      <div className="absolute top-12 right-0 w-[450px] h-[450px] opacity-[0.04] pointer-events-none select-none">
+      {/* Background Lifebuild Logo Watermark Overlay with Scroll Parallax */}
+      <motion.div
+        style={{ y: backgroundY }}
+        className="absolute top-12 right-0 w-[450px] h-[450px] opacity-[0.04] pointer-events-none select-none"
+      >
         <Image
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
@@ -139,7 +189,7 @@ export default function HeroSolarSystem({
           sizes="450px"
           className="object-contain filter grayscale"
         />
-      </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
@@ -147,10 +197,21 @@ export default function HeroSolarSystem({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Serif Mandate Statement & 4T Sub-Row */}
-          <div className="lg:col-span-6 space-y-8">
+          <motion.div
+            style={{ y: textY }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 space-y-8"
+          >
             
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest shadow-xs"
+            >
               <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
                 <Image
                   src="/images/logo_icon_nobg.png"
@@ -161,15 +222,25 @@ export default function HeroSolarSystem({
                 />
               </div>
               <span>Isaiah 58:12 Mandate • 4Tribe Network</span>
-            </div>
+            </motion.div>
 
             {/* Headline */}
-            <h1 className="font-serif-headline text-5xl sm:text-7xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-zinc-950">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="font-serif-headline text-5xl sm:text-7xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-zinc-950"
+            >
               Rebuilding the broken wall. Raising mighties, transforming communities.
-            </h1>
+            </motion.h1>
 
             {/* 4T Sub-row links */}
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-zinc-500 uppercase tracking-widest pt-1">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex flex-wrap items-center gap-3 text-xs font-mono text-zinc-500 uppercase tracking-widest pt-1"
+            >
               <a href="#pillars" className="hover:text-black transition-colors font-bold text-zinc-900">
                 01. Rebuilding
               </a>
@@ -185,31 +256,46 @@ export default function HeroSolarSystem({
               <a href="#pillars" className="hover:text-black transition-colors font-bold text-zinc-900">
                 04. Replenishing
               </a>
-            </div>
+            </motion.div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="flex flex-wrap items-center gap-4 pt-2"
+            >
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={onOpenRegister}
-                className="px-6 py-3.5 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+                className="px-6 py-3.5 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
                 <span>Join Fellowship & 4T Conf</span>
                 <ArrowUpRight className="w-4 h-4 text-white" />
-              </button>
+              </motion.button>
               
-              <button
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={onOpenScanner}
-                className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer"
+                className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer bg-white"
               >
                 <QrCode className="w-4 h-4" />
                 <span>Service Check-In</span>
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
-          {/* Right Column: 4T Cosmic Orbit Graphic featuring Official Lifebuild Logo Centerpiece */}
-          <div className="lg:col-span-6 flex items-center justify-center relative min-h-[420px]">
+          {/* Right Column: 4T Cosmic Orbit Graphic featuring 3D Tilt Parallax & Official Emblem Centerpiece */}
+          <motion.div
+            style={{ y: orbitY, rotateX, rotateY, transformStyle: "preserve-3d" }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 flex items-center justify-center relative min-h-[420px]"
+          >
             
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
               
@@ -217,7 +303,7 @@ export default function HeroSolarSystem({
               {PILLARS.filter((p) => p.id !== "sun").map((planet) => (
                 <div
                   key={`ring-${planet.id}`}
-                  className="absolute rounded-full border border-gray-200 pointer-events-none"
+                  className="absolute rounded-full border border-gray-200 pointer-events-none transition-all duration-300"
                   style={{
                     width: `${planet.orbitRadius * 2}px`,
                     height: `${planet.orbitRadius * 2}px`,
@@ -228,12 +314,15 @@ export default function HeroSolarSystem({
               ))}
 
               {/* Central Sun Element (Featuring Official Lifebuild Emblem Icon) */}
-              <div
+              <motion.div
+                whileHover={{ scale: 1.15, rotate: 10 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedPlanet(PILLARS[0])}
-                className="absolute z-20 cursor-pointer rounded-full bg-white border-2 border-black p-1 shadow-2xl flex items-center justify-center transition-transform hover:scale-110 overflow-hidden"
+                className="absolute z-20 cursor-pointer rounded-full bg-white border-2 border-black p-1 shadow-2xl flex items-center justify-center transition-transform overflow-hidden"
                 style={{
                   width: `${PILLARS[0].size}px`,
                   height: `${PILLARS[0].size}px`,
+                  transform: "translateZ(30px)",
                 }}
                 title="Lifebuild Central Anchor"
               >
@@ -244,7 +333,7 @@ export default function HeroSolarSystem({
                   height={64}
                   className="object-contain"
                 />
-              </div>
+              </motion.div>
 
               {/* Orbiting 4T Planet Elements */}
               {PILLARS.filter((p) => p.id !== "sun").map((planet, idx) => {
@@ -255,12 +344,14 @@ export default function HeroSolarSystem({
                 const isSelected = selectedPlanet.id === planet.id;
 
                 return (
-                  <div
+                  <motion.div
                     key={planet.id}
                     onClick={() => setSelectedPlanet(planet)}
+                    whileHover={{ scale: 1.3 }}
+                    whileTap={{ scale: 0.9 }}
                     className="absolute z-20 cursor-pointer transition-all flex items-center justify-center group"
                     style={{
-                      transform: `translate(${x}px, ${y}px)`,
+                      transform: `translate(${x}px, ${y}px) translateZ(40px)`,
                       width: `${planet.size}px`,
                       height: `${planet.size}px`,
                     }}
@@ -273,29 +364,57 @@ export default function HeroSolarSystem({
                     <span className="absolute -bottom-6 text-[10px] font-mono whitespace-nowrap text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity font-bold">
                       {planet.name}
                     </span>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
 
             {/* Selected Pillar Floating Inspection Box */}
-            <div className="absolute bottom-2 left-0 right-0 max-w-xs mx-auto p-4 bg-white border border-gray-200 rounded-xl text-center space-y-1 shadow-sm">
+            <motion.div
+              key={selectedPlanet.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute bottom-2 left-0 right-0 max-w-xs mx-auto p-4 bg-white/95 backdrop-blur-md border border-gray-200 rounded-xl text-center space-y-1 shadow-lg"
+              style={{ transform: "translateZ(50px)" }}
+            >
               <span className="text-[10px] font-mono uppercase text-zinc-400 block">4T Pillar Inspection</span>
               <h4 className="font-heading text-sm font-bold text-black">{selectedPlanet.name}</h4>
               <p className="text-xs text-zinc-600 font-light">{selectedPlanet.description}</p>
               <span className="text-[10px] font-mono text-[#3b2262] font-semibold block pt-1">
                 Anchor: {selectedPlanet.specs.biblicalAnchor}
               </span>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
         </div>
 
-        {/* Hero Bottom Row: The 4T Pillars Feature Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 border-t border-gray-100">
+        {/* Hero Bottom Row: The 4T Pillars Feature Columns with Staggered Entrance */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 border-t border-gray-100"
+        >
           
-          <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black hover:shadow-md transition-all bg-gray-50/50"
+          >
             <div className="w-8 h-8 flex items-center justify-center">
               <Hammer className="w-5 h-5 text-amber-800" />
             </div>
@@ -303,9 +422,16 @@ export default function HeroSolarSystem({
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
               Reconstructing broken walls, business systems, and economic foundations under Isaiah 58:12.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black hover:shadow-md transition-all bg-gray-50/50"
+          >
             <div className="w-8 h-8 flex items-center justify-center">
               <Key className="w-5 h-5 text-blue-800" />
             </div>
@@ -313,9 +439,16 @@ export default function HeroSolarSystem({
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
               Unlocking keys to identity, restoring human dignity, calling, and peace in communities.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black hover:shadow-md transition-all bg-gray-50/50"
+          >
             <div className="w-8 h-8 flex items-center justify-center">
               <HeartHandshake className="w-5 h-5 text-emerald-800" />
             </div>
@@ -323,9 +456,16 @@ export default function HeroSolarSystem({
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
               Binding wounds, unifying builders, and strengthening community fabric step by step.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black transition-colors bg-gray-50/50">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="space-y-3 p-5 border border-gray-100 rounded-2xl hover:border-black hover:shadow-md transition-all bg-gray-50/50"
+          >
             <div className="w-8 h-8 flex items-center justify-center">
               <RefreshCw className="w-5 h-5 text-yellow-800" />
             </div>
@@ -333,9 +473,27 @@ export default function HeroSolarSystem({
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
               Unlocking abundance, sustainable stewardship, and overflowing resources for generations.
             </p>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
+
+        {/* Animated Scroll Down Indicator Prompt */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="flex flex-col items-center justify-center pt-8 pointer-events-none"
+        >
+          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">
+            Scroll to Explore
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown className="w-4 h-4 text-zinc-400" />
+          </motion.div>
+        </motion.div>
 
       </div>
     </section>

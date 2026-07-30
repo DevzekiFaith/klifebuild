@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Star, Hammer, Key, HeartHandshake, RefreshCw } from "lucide-react";
 
 interface FellowshipStoryProps {
@@ -10,11 +11,28 @@ interface FellowshipStoryProps {
 }
 
 export default function FellowshipStory({ onOpenRegister, onOpenPass }: FellowshipStoryProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [-70, 70]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 0.98]);
+
   return (
-    <section id="vision" className="relative w-full bg-white text-black py-28 border-t border-b border-gray-100 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="vision"
+      className="relative w-full bg-white text-black py-28 border-t border-b border-gray-100 overflow-hidden"
+    >
       
-      {/* Background Watermark Overlay */}
-      <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none">
+      {/* Background Watermark Overlay with Parallax Displacement */}
+      <motion.div
+        style={{ y: watermarkY }}
+        className="absolute top-1/2 -left-20 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none"
+      >
         <Image
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
@@ -22,7 +40,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
           sizes="550px"
           className="object-contain filter grayscale"
         />
-      </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         
@@ -30,8 +48,18 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Pure White & Simple Minimalist 4T Framework Card */}
-          <div className="lg:col-span-6 flex justify-center">
-            <div className="relative w-full max-w-md bg-white text-black p-8 rounded-3xl shadow-2xl space-y-6 border border-gray-200">
+          <motion.div
+            style={{ scale: cardScale }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 flex justify-center"
+          >
+            <motion.div
+              whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" }}
+              className="relative w-full max-w-md bg-white text-black p-8 rounded-3xl shadow-xl space-y-6 border border-gray-200 transition-all duration-300"
+            >
               
               {/* Card Header with Official Lifebuild Logo */}
               <div className="flex items-center justify-between border-b border-gray-200 pb-4">
@@ -65,7 +93,10 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 <div className="grid grid-cols-2 gap-3 relative">
                   
                   {/* 01. REBUILDING */}
-                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                  >
                     <div className="flex items-center justify-between">
                       <Hammer className="w-4 h-4 text-zinc-800" />
                       <span className="text-[10px] font-mono text-zinc-400 font-bold">01</span>
@@ -76,10 +107,13 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                       </span>
                       <span className="text-[9px] text-zinc-500 font-mono block">Walls & Systems</span>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* 02. RESTORING */}
-                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                  >
                     <div className="flex items-center justify-between">
                       <Key className="w-4 h-4 text-zinc-800" />
                       <span className="text-[10px] font-mono text-zinc-400 font-bold">02</span>
@@ -90,10 +124,13 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                       </span>
                       <span className="text-[9px] text-zinc-500 font-mono block">Identity & Calling</span>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* 03. REPAIRING */}
-                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                  >
                     <div className="flex items-center justify-between">
                       <HeartHandshake className="w-4 h-4 text-zinc-800" />
                       <span className="text-[10px] font-mono text-zinc-400 font-bold">03</span>
@@ -104,10 +141,13 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                       </span>
                       <span className="text-[9px] text-zinc-500 font-mono block">Community Fabric</span>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* 04. REPLENISHING */}
-                  <div className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-colors">
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                  >
                     <div className="flex items-center justify-between">
                       <RefreshCw className="w-4 h-4 text-zinc-800" />
                       <span className="text-[10px] font-mono text-zinc-400 font-bold">04</span>
@@ -118,10 +158,14 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                       </span>
                       <span className="text-[9px] text-zinc-500 font-mono block">Overflow & Legacy</span>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Central 4T Badge Overlay featuring Lifebuild Logo Icon */}
-                  <div className="absolute inset-0 m-auto w-11 h-11 rounded-full bg-white text-black p-1 flex items-center justify-center border-2 border-black shadow-md pointer-events-none overflow-hidden">
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 m-auto w-11 h-11 rounded-full bg-white text-black p-1 flex items-center justify-center border-2 border-black shadow-md pointer-events-none overflow-hidden"
+                  >
                     <Image
                       src="/images/logo_icon_nobg.png"
                       alt="Lifebuild Emblem"
@@ -129,7 +173,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                       height={32}
                       className="object-contain"
                     />
-                  </div>
+                  </motion.div>
 
                 </div>
 
@@ -145,11 +189,17 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 <span className="text-black font-bold">The 4T Framework</span>
                 <span>Est. 2011</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Column: N26 Style Typography Block */}
-          <div className="lg:col-span-6 space-y-6">
+          {/* Right Column: Typography Block with Staggered Entrance */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 space-y-6"
+          >
             
             {/* Minimal Brand Symbol */}
             <div className="space-y-2">
@@ -183,16 +233,17 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
 
             {/* Action Link */}
             <div className="pt-4">
-              <button
+              <motion.button
+                whileHover={{ x: 4 }}
                 onClick={onOpenRegister || onOpenPass}
-                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer bg-transparent border-t-0 border-x-0"
               >
                 <span>Register for Fellowship & 4T Conference</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </button>
+              </motion.button>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

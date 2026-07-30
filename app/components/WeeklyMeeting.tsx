@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Zap, ShieldCheck, QrCode } from "lucide-react";
 
 interface WeeklyMeetingProps {
@@ -10,11 +11,27 @@ interface WeeklyMeetingProps {
 }
 
 export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyMeetingProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [-70, 70]);
+
   return (
-    <section id="fellowship" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="fellowship"
+      className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden"
+    >
       
-      {/* Background Watermark Overlay */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none">
+      {/* Background Watermark Overlay with Parallax Displacement */}
+      <motion.div
+        style={{ y: watermarkY }}
+        className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none"
+      >
         <Image
           src="/images/logo_icon.jpg"
           alt="Lifebuild Overlay"
@@ -22,12 +39,18 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           sizes="500px"
           className="object-contain filter grayscale"
         />
-      </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
         {/* Section Header */}
-        <div className="max-w-3xl space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl space-y-4"
+        >
           <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
             Weekly Gathering & 4T Conference
           </span>
@@ -40,19 +63,25 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
             Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured Modern Minimalist Worship Artwork Card */}
-        <div className="relative w-full rounded-3xl overflow-hidden border border-gray-200 bg-zinc-950 text-white shadow-xl grid grid-cols-1 lg:grid-cols-12 items-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full rounded-3xl overflow-hidden border border-gray-200 bg-zinc-950 text-white shadow-xl grid grid-cols-1 lg:grid-cols-12 items-center"
+        >
           
           {/* Left Side: Worship Image */}
-          <div className="lg:col-span-7 relative min-h-[320px] sm:min-h-[400px] w-full">
+          <div className="lg:col-span-7 relative min-h-[320px] sm:min-h-[400px] w-full group overflow-hidden">
             <Image
               src="/images/worship_nigerian_african.png"
               alt="Single Black African Nigerian Worshipper in Reverence to God"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-zinc-950/90 lg:to-zinc-950 pointer-events-none"></div>
@@ -79,31 +108,41 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
 
             {/* Quick Sanctuary Action Buttons */}
             <div className="pt-4 flex flex-wrap items-center gap-3">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={onOpenRegister}
-                className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer"
+                className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer shadow-sm"
               >
                 Join Fellowship
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={onOpenScanner}
-                className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
               >
                 <QrCode className="w-3.5 h-3.5" />
                 <span>Sanctuary Entrance Pass</span>
-              </button>
+              </motion.button>
             </div>
 
           </div>
 
-        </div>
+        </motion.div>
 
         {/* 2-Column Info & 60-Minute Blueprint Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* Left Column: Meeting Details */}
-          <div className="lg:col-span-5 space-y-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 space-y-8"
+          >
             <div className="space-y-4 border-b border-gray-200 pb-8">
               <h3 className="font-heading font-bold text-2xl text-black">
                 Meeting Mechanics
@@ -133,7 +172,10 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
             </div>
 
             {/* Annual 4T Conference Teaser Block */}
-            <div className="p-8 bg-zinc-950 text-white rounded-3xl space-y-4 border border-zinc-800">
+            <motion.div
+              whileHover={{ y: -4 }}
+              className="p-8 bg-zinc-950 text-white rounded-3xl space-y-4 border border-zinc-800 shadow-lg"
+            >
               <span className="text-xs font-mono uppercase text-[#d4af37] tracking-widest block">
                 Annual Flagship Gathering
               </span>
@@ -150,12 +192,21 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
           {/* Right Column: 4-Step 60-Minute Meeting Blueprint */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+            }}
+            className="lg:col-span-7 space-y-6"
+          >
             <div className="border-b border-gray-200 pb-4">
               <h3 className="font-heading text-lg font-bold text-black flex items-center gap-2">
                 <Zap className="w-4 h-4 text-black" />
@@ -164,7 +215,14 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
             </div>
 
             <div className="space-y-4">
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4 }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+              >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 01</span>
                   <span>10 MINS</span>
@@ -173,9 +231,16 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Stripping away workweek noise. Centering mind and spirit in worship, gratitude, and divine perspective under Isaiah 58:12.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4 }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+              >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 02</span>
                   <span>30 MINS</span>
@@ -184,9 +249,16 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Actionable teaching on Rebuilding, Restoring, Repairing, and Replenishing broken systems and leaders.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4 }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+              >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 03</span>
                   <span>10 MINS</span>
@@ -195,9 +267,16 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Targeted prayer, faith declarations, and strategic alignment across the 4Tribe Network. Iron sharpening iron.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-2">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4 }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+              >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 04</span>
                   <span>10 MINS</span>
@@ -206,11 +285,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Final blessing, weekly commissioning, and sending forth leaders into their spheres of impact with authority.
                 </p>
-              </div>
+              </motion.div>
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

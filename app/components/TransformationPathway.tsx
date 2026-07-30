@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Sparkles, ArrowRight, ShieldCheck, Hammer, Key, HeartHandshake, RefreshCw, CheckCircle2, Compass } from "lucide-react";
 
 interface TransformationStage {
@@ -21,6 +22,14 @@ export default function TransformationPathway({
   onOpenRegister: () => void;
 }) {
   const [activeStageId, setActiveStageId] = useState("01");
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
 
   const stages: TransformationStage[] = [
     {
@@ -89,10 +98,17 @@ export default function TransformationPathway({
   const currentStage = stages.find((s) => s.id === activeStageId) || stages[0];
 
   return (
-    <section id="transformation-pathway" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="transformation-pathway"
+      className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden"
+    >
       
-      {/* Background Watermark Overlay */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none">
+      {/* Background Watermark Overlay with Scroll Parallax */}
+      <motion.div
+        style={{ y: watermarkY }}
+        className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none"
+      >
         <Image
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
@@ -100,12 +116,18 @@ export default function TransformationPathway({
           sizes="550px"
           className="object-contain filter grayscale"
         />
-      </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
         {/* Minimalist Section Header */}
-        <div className="max-w-3xl space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl space-y-4"
+        >
           <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
             Isaiah 58:12 Transformation Roadmap
           </span>
@@ -117,16 +139,34 @@ export default function TransformationPathway({
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
             A 4-stage spiritual and life reconstruction pathway moving individuals, families, and organizations from disarray into divine alignment, authority, and generational overflow.
           </p>
-        </div>
+        </motion.div>
 
         {/* Minimalist 4-Stage Stepper */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
           {stages.map((stage) => {
             const Icon = stage.icon;
             const isActive = stage.id === activeStageId;
             return (
-              <button
+              <motion.button
                 key={stage.id}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveStageId(stage.id)}
                 className={`p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between space-y-4 ${
                   isActive
@@ -151,63 +191,80 @@ export default function TransformationPathway({
                     {stage.subtitle}
                   </p>
                 </div>
-              </button>
+              </motion.button>
             );
           })}
-        </div>
+        </motion.div>
 
-        {/* Minimalist Active Stage Breakdown Box (Clean White Editorial Card) */}
+        {/* Minimalist Active Stage Breakdown Box (Clean White Editorial Card) with Animated Transitions */}
         <div className="p-8 sm:p-12 bg-white text-black rounded-3xl border border-gray-200 space-y-8 shadow-xl relative overflow-hidden">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            
-            <div className="lg:col-span-7 space-y-6">
-              <div className="space-y-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border border-gray-200 bg-gray-100 text-black">
-                  {currentStage.stepNumber} • TRANSFORMATION STAGE
-                </span>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStage.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10"
+            >
+              
+              <div className="lg:col-span-7 space-y-6">
+                <div className="space-y-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border border-gray-200 bg-gray-100 text-black">
+                    {currentStage.stepNumber} • TRANSFORMATION STAGE
+                  </span>
 
-                <h3 className="font-serif-headline text-3xl sm:text-4xl text-zinc-950 font-normal leading-tight">
-                  {currentStage.title}
-                </h3>
+                  <h3 className="font-serif-headline text-3xl sm:text-4xl text-zinc-950 font-normal leading-tight">
+                    {currentStage.title}
+                  </h3>
 
-                <p className="text-xs font-mono text-zinc-500 italic">
-                  "{currentStage.scripture}"
+                  <p className="text-xs font-mono text-zinc-500 italic">
+                    "{currentStage.scripture}"
+                  </p>
+                </div>
+
+                <p className="text-zinc-700 text-sm sm:text-base leading-relaxed font-light">
+                  {currentStage.description}
                 </p>
+
+                <div className="pt-2">
+                  <motion.button
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={onOpenRegister}
+                    className="px-6 py-3.5 rounded-full bg-black text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
+                  >
+                    <span>Begin Your Transformation Journey</span>
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </motion.button>
+                </div>
               </div>
 
-              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed font-light">
-                {currentStage.description}
-              </p>
+              {/* Minimalist Deliverables Column */}
+              <div className="lg:col-span-5 p-6 bg-gray-50/80 rounded-2xl border border-gray-200 space-y-4">
+                <h4 className="font-mono text-xs font-bold text-black uppercase tracking-wider border-b border-gray-200 pb-2">
+                  Key Stage Deliverables
+                </h4>
 
-              <div className="pt-2">
-                <button
-                  onClick={onOpenRegister}
-                  className="px-6 py-3.5 rounded-full bg-black text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
-                >
-                  <span>Begin Your Transformation Journey</span>
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </button>
+                <ul className="space-y-3 text-xs text-zinc-700 font-light">
+                  {currentStage.keyOutputs.map((output, idx) => (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1, duration: 0.3 }}
+                      className="flex items-start gap-2.5"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-black shrink-0 mt-0.5" />
+                      <span>{output}</span>
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
-            </div>
 
-            {/* Minimalist Deliverables Column */}
-            <div className="lg:col-span-5 p-6 bg-gray-50/80 rounded-2xl border border-gray-200 space-y-4">
-              <h4 className="font-mono text-xs font-bold text-black uppercase tracking-wider border-b border-gray-200 pb-2">
-                Key Stage Deliverables
-              </h4>
-
-              <ul className="space-y-3 text-xs text-zinc-700 font-light">
-                {currentStage.keyOutputs.map((output, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-black shrink-0 mt-0.5" />
-                    <span>{output}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-          </div>
+            </motion.div>
+          </AnimatePresence>
 
         </div>
 

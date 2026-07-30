@@ -1,19 +1,38 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { ArrowUpRight, ShieldCheck, UserCheck, Heart, Sparkles, Target } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, UserCheck, Heart, Sparkles, Target } from "lucide-react";
 
 interface FounderSectionProps {
   onOpenRegister: () => void;
 }
 
 export default function FounderSection({ onOpenRegister }: FounderSectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const cardY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.06, 1.02]);
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+
   return (
-    <section id="founder" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="founder"
+      className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden"
+    >
       
-      {/* Background Watermark Overlay */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none">
+      {/* Background Watermark Overlay with Parallax Motion */}
+      <motion.div
+        style={{ y: watermarkY }}
+        className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none"
+      >
         <Image
           src="/images/logo_icon_nobg.png"
           alt="Lifebuild Overlay"
@@ -21,13 +40,19 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
           sizes="550px"
           className="object-contain filter grayscale"
         />
-      </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
         
         {/* Section Header */}
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl space-y-4"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest shadow-xs">
             <UserCheck className="w-3.5 h-3.5 text-[#3b2262]" />
             <span>Meet The Founder</span>
           </div>
@@ -40,39 +65,59 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
             A propelling movement of transformation and impact, centered on spiritual alignment, rebuilding broken walls, and empowering leaders to reconstruct broken foundations across lives, families, and communities under Isaiah 58:12.
           </p>
-        </div>
+        </motion.div>
 
         {/* Founder Feature Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Official Zeki Ubor Flipped Portrait Card */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-sm rounded-3xl overflow-hidden border border-gray-200 shadow-2xl bg-[#141414] text-white space-y-4">
+          {/* Left Column: Official Zeki Ubor Flipped Portrait Card with Scroll Parallax */}
+          <motion.div
+            style={{ y: cardY }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex justify-center"
+          >
+            <div className="relative w-full max-w-sm rounded-3xl overflow-hidden border border-gray-200 shadow-2xl bg-[#141414] text-white space-y-4 group">
               
-              {/* Photo Container with Horizontal Flip (scale-x-[-1]) */}
+              {/* Photo Container with Horizontal Flip (scale-x-[-1]) and Framer Motion Scale */}
               <div className="relative w-full aspect-[3/4] bg-gradient-to-b from-zinc-900 via-zinc-950 to-black overflow-hidden flex items-end justify-center pt-6">
                 
                 {/* Background Glow */}
                 <div className="absolute inset-0 bg-radial from-[#3b2262]/30 via-transparent to-transparent pointer-events-none"></div>
 
-                {/* Flipped Image */}
-                <div className="relative w-full h-full scale-x-[-1]">
+                {/* Flipped Image with Parallax Scale */}
+                <motion.div style={{ scale: imageScale }} className="relative w-full h-full scale-x-[-1]">
                   <Image
                     src="/images/zeki_ubor_official.png"
                     alt="Zeki Ubor - Founder & Convener of Lifebuild"
                     fill
                     sizes="(max-width: 768px) 100vw, 384px"
-                    className="object-contain object-bottom hover:scale-105 transition-transform duration-500"
+                    className="object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
                     priority
                   />
-                </div>
+                </motion.div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent pointer-events-none"></div>
                 
-                {/* Badge Overlay */}
-                <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 text-[10px] font-mono text-white font-bold uppercase">
+                {/* Floating Badge Overlay */}
+                <motion.div
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-4 left-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 text-[10px] font-mono text-white font-bold uppercase shadow-sm"
+                >
                   Founder & Convener
-                </div>
+                </motion.div>
+
+                {/* Floating Mandate Badge */}
+                <motion.div
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-500/40 text-[10px] font-mono text-[#d4af37] font-semibold"
+                >
+                  Isaiah 58:12
+                </motion.div>
               </div>
 
               {/* Founder Information Footer */}
@@ -89,10 +134,16 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
               </div>
 
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Founder's Story & Mandate */}
-          <div className="lg:col-span-7 space-y-8">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-8"
+          >
             
             <div className="space-y-3">
               <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
@@ -107,9 +158,28 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
             </div>
 
             {/* 3 Core Pillars of Zeki Ubor's Leadership */}
-            <div className="space-y-4 pt-2">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.12 },
+                },
+              }}
+              className="space-y-4 pt-2"
+            >
               
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-1 bg-gray-50/40">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-1 bg-gray-50/40"
+              >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
                   <Target className="w-4 h-4 text-black" />
                   <span>01 / DIVINE PURPOSE & ALIGNMENT</span>
@@ -118,9 +188,16 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Prioritizing spiritual alignment and character over mere hustle. Aligning vision with God's blueprint for long-term endurance.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-1 bg-gray-50/40">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-1 bg-gray-50/40"
+              >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
                   <Sparkles className="w-4 h-4 text-black" />
                   <span>02 / THE 4T FRAMEWORK</span>
@@ -129,9 +206,16 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   A holistic approach to life reconstruction — fixing broken systems, healing identity breaches, and stewarding generational wealth.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="p-6 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-1 bg-gray-50/40">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-1 bg-gray-50/40"
+              >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
                   <Heart className="w-4 h-4 text-black" />
                   <span>03 / COMMUNITY & FELLOWSHIP</span>
@@ -140,22 +224,30 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Gathering builders every Sunday for iron-sharpening fellowship, strategic teaching, and genuine brotherhood.
                 </p>
-              </div>
+              </motion.div>
 
-            </div>
+            </motion.div>
 
             {/* Call to Action */}
-            <div className="pt-2">
-              <button
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="pt-2"
+            >
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={onOpenRegister}
                 className="px-8 py-4 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
                 <span>Join Fellowship with Zeki Ubor</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
         </div>
 

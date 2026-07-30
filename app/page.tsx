@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import HeroSolarSystem from "./components/HeroSolarSystem";
 import SundaySelfCheckInBanner from "./components/SundaySelfCheckInBanner";
@@ -28,6 +29,23 @@ export default function Home() {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [authRole, setAuthRole] = useState<AuthRole>(null);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
+
+  // Global Page Scroll Progress Bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Pillars Section Scroll Parallax
+  const pillarsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: pillarsProgress } = useScroll({
+    target: pillarsRef,
+    offset: ["start end", "end start"],
+  });
+  const watermarkY = useTransform(pillarsProgress, [0, 1], [-60, 60]);
+  const watermarkRotate = useTransform(pillarsProgress, [0, 1], [-5, 5]);
 
   useEffect(() => {
     try {
@@ -70,7 +88,13 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-[#d4af37]">
+    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-[#d4af37] relative">
+      {/* Top Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-[#d4af37] to-[#3b2262] transform-origin-left z-[100]"
+        style={{ scaleX }}
+      />
+
       {/* Navbar */}
       <Navbar
         onOpenRegister={() => setIsRegisterOpen(true)}
@@ -127,21 +151,34 @@ export default function Home() {
       <RebuildVisionWall />
 
       {/* Core 4T Pillars Section (Clean White Editorial Grid with Watermark Overlay) */}
-      <section id="pillars" className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden">
-        {/* Background Watermark Overlay */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none">
+      <section
+        ref={pillarsRef}
+        id="pillars"
+        className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden"
+      >
+        {/* Background Watermark Overlay with Parallax Motion */}
+        <motion.div
+          style={{ y: watermarkY, rotate: watermarkRotate }}
+          className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.04] pointer-events-none select-none"
+        >
           <Image
             src="/images/logo_icon_nobg.png"
             alt="Lifebuild Overlay"
             fill
             className="object-contain filter grayscale"
           />
-        </div>
+        </motion.div>
 
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16 relative z-10">
           
           {/* Section Header */}
-          <div className="max-w-3xl space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-3xl space-y-4"
+          >
             <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
               Isaiah 58:12 • 4Tribe Network
             </span>
@@ -153,15 +190,36 @@ export default function Home() {
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
               Driven by Isaiah 58:12, our core mission is focused on rebuilding broken walls across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
             </p>
-          </div>
+          </motion.div>
 
           {/* 4T Pillars Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
             
             {/* Pillar 01: REBUILDING */}
-            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.96 },
+                show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
+            >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5">
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-amber-700 transition-colors">
                   <Hammer className="w-4 h-4 text-amber-800" />
                   01 / REBUILDING
                 </span>
@@ -171,12 +229,19 @@ export default function Home() {
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
                 Reconstructing broken walls, organizational systems, business models, and economic foundations. Raising up the foundations of many generations.
               </p>
-            </div>
+            </motion.div>
 
             {/* Pillar 02: RESTORING */}
-            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.96 },
+                show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
+            >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5">
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-blue-700 transition-colors">
                   <Key className="w-4 h-4 text-blue-800" />
                   02 / RESTORING
                 </span>
@@ -186,12 +251,19 @@ export default function Home() {
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
                 Unlocking divine keys to human identity, restoring dignity, spiritual authority, and peace to leaders, families, and communities.
               </p>
-            </div>
+            </motion.div>
 
             {/* Pillar 03: REPAIRING */}
-            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.96 },
+                show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
+            >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5">
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-emerald-700 transition-colors">
                   <HeartHandshake className="w-4 h-4 text-emerald-800" />
                   03 / REPAIRING
                 </span>
@@ -201,12 +273,19 @@ export default function Home() {
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
                 Repairing systemic breaches, unifying builders, healing character gaps, and weaving a strong community fabric for mutual accountability.
               </p>
-            </div>
+            </motion.div>
 
             {/* Pillar 04: REPLENISHING */}
-            <div className="p-8 border border-gray-200 rounded-2xl hover:border-black transition-colors space-y-4 bg-gray-50/40">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.96 },
+                show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
+            >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5">
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-yellow-700 transition-colors">
                   <RefreshCw className="w-4 h-4 text-yellow-800" />
                   04 / REPLENISHING
                 </span>
@@ -216,9 +295,9 @@ export default function Home() {
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
                 Unlocking sustainable stewardship, economic overflow, and generational inheritance that outlasts your lifetime for decades ahead.
               </p>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
         </div>
       </section>
