@@ -98,7 +98,10 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/logo_icon_nobg.png",
+    icon: [
+      { url: "/images/logo_icon_nobg.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
     shortcut: "/images/logo_icon_nobg.png",
     apple: "/images/logo_icon_nobg.png",
   },
@@ -116,6 +119,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <link rel="icon" type="image/png" href="/images/logo_icon_nobg.png" sizes="any" />
+        <link rel="shortcut icon" href="/images/logo_icon_nobg.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo_icon_nobg.png" />
         <JsonLd />
       </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col">{children}</body>
