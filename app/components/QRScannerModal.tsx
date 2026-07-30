@@ -224,35 +224,66 @@ https://github.com/DevzekiFaith/klifebuild`;
               </div>
             </div>
 
-            {/* Manual Hand Count Buttons for Children & Elderly Attendees */}
-            <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            {/* Manual Hand Count Buttons for Gender & Age Categories */}
+            <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col items-start space-y-2">
               <div className="flex items-center gap-2">
                 <Heart className="w-4 h-4 text-amber-700 shrink-0" />
                 <span className="text-xs font-mono text-amber-900 font-bold">
-                  Child or Elderly Non-Digital Guest?
+                  Quick Gate Hand Tally (Non-Digital Guests)
                 </span>
               </div>
               
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-1.5 w-full">
                 <button
                   onClick={async () => {
                     setScannedResult(null);
-                    const logs = await recordManualBatchHeadcount(1, "Child Sanctuary Attendee", "Child Sanctuary");
-                    setManualSuccessMsg(`Logged Child Sanctuary Check-In at ${logs[0].checkInTime}`);
+                    const logs = await recordManualBatchHeadcount(1, "Adult Male (Man)", "Adult Male", "MALE");
+                    setManualSuccessMsg(`Logged Adult Male Check-In at ${logs[0].checkInTime}`);
                     setTimeout(() => setManualSuccessMsg(null), 4000);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-xl bg-zinc-900 text-white font-mono text-xs font-bold hover:bg-black transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>+1 Child</span>
+                  <Plus className="w-3 h-3" />
+                  <span>👨 +1 Man</span>
                 </button>
 
                 <button
-                  onClick={handleElderlyManualCheckin}
-                  className="px-3 py-1.5 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer"
+                  onClick={async () => {
+                    setScannedResult(null);
+                    const logs = await recordManualBatchHeadcount(1, "Adult Female (Woman)", "Adult Female", "FEMALE");
+                    setManualSuccessMsg(`Logged Adult Female Check-In at ${logs[0].checkInTime}`);
+                    setTimeout(() => setManualSuccessMsg(null), 4000);
+                  }}
+                  className="px-2.5 py-1.5 rounded-xl bg-purple-900 text-white font-mono text-xs font-bold hover:bg-purple-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>+1 Elder</span>
+                  <Plus className="w-3 h-3" />
+                  <span>👩 +1 Woman</span>
+                </button>
+
+                <button
+                  onClick={async () => {
+                    setScannedResult(null);
+                    const logs = await recordManualBatchHeadcount(1, "Child Male (Boy)", "Child Sanctuary", "MALE");
+                    setManualSuccessMsg(`Logged Child Male (Boy) Check-In at ${logs[0].checkInTime}`);
+                    setTimeout(() => setManualSuccessMsg(null), 4000);
+                  }}
+                  className="px-2.5 py-1.5 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>👦 +1 Boy</span>
+                </button>
+
+                <button
+                  onClick={async () => {
+                    setScannedResult(null);
+                    const logs = await recordManualBatchHeadcount(1, "Child Female (Girl)", "Child Sanctuary", "FEMALE");
+                    setManualSuccessMsg(`Logged Child Female (Girl) Check-In at ${logs[0].checkInTime}`);
+                    setTimeout(() => setManualSuccessMsg(null), 4000);
+                  }}
+                  className="px-2.5 py-1.5 rounded-xl bg-pink-900 text-white font-mono text-xs font-bold hover:bg-pink-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>👧 +1 Girl</span>
                 </button>
               </div>
             </div>

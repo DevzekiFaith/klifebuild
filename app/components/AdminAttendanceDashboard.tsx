@@ -94,19 +94,26 @@ export default function AdminAttendanceDashboard({
 
   const handleQuickManualAdd = async (
     countToAdd: number = 1,
-    label: string = "Elderly Attendee / Walk-in Guest",
-    roleTag: string = "Elder / Walk-in Guest"
+    label: string = "Adult Male (Man)",
+    roleTag: string = "Adult Male",
+    genderTag?: "MALE" | "FEMALE"
   ) => {
     setIsLoading(true);
-    const newLogs = await recordManualBatchHeadcount(countToAdd, label, roleTag);
+    const newLogs = await recordManualBatchHeadcount(countToAdd, label, roleTag, genderTag);
     setSummary((prev) => {
       if (!prev) return null;
       const updated = [...newLogs, ...prev.attendees];
+      const boys = updated.filter((l) => (l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("boy")) && l.gender === "MALE").length;
+      const girls = updated.filter((l) => (l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("girl")) && l.gender === "FEMALE").length;
+      const men = updated.filter((l) => !(l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("boy") || l.role.toLowerCase().includes("girl")) && l.gender === "MALE").length;
+      const women = updated.filter((l) => !(l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("boy") || l.role.toLowerCase().includes("girl")) && l.gender === "FEMALE").length;
+
       return {
         ...prev,
         totalAttendees: updated.length,
         inPersonCount: updated.filter((a) => a.attendanceType === "IN_PERSON").length,
         streamCount: updated.filter((a) => a.attendanceType === "GLOBAL_STREAM").length,
+        demographics: { men, women, boys, girls },
         attendees: updated,
       };
     });
@@ -272,7 +279,41 @@ export default function AdminAttendanceDashboard({
 
         </div>
 
-        {/* Manual Hand Count & Elder / Child Care Entry Bar (Protocol Usher Control) */}
+        {/* Demographic Gender & Age Breakdown Strip */}
+        <div className="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-wider block">
+              Sunday Attendance Demographics
+            </span>
+            <h5 className="font-serif-headline text-lg text-black">
+              Gender & Age Breakdown
+            </h5>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold">
+            <div className="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-black flex items-center gap-1.5 shadow-2xs">
+              <span>👨 Men:</span>
+              <span className="text-blue-600">{summary?.demographics.men || 0}</span>
+            </div>
+
+            <div className="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-black flex items-center gap-1.5 shadow-2xs">
+              <span>👩 Women:</span>
+              <span className="text-purple-600">{summary?.demographics.women || 0}</span>
+            </div>
+
+            <div className="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-black flex items-center gap-1.5 shadow-2xs">
+              <span>👦 Boys:</span>
+              <span className="text-emerald-600">{summary?.demographics.boys || 0}</span>
+            </div>
+
+            <div className="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-black flex items-center gap-1.5 shadow-2xs">
+              <span>👧 Girls:</span>
+              <span className="text-pink-600">{summary?.demographics.girls || 0}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Manual Hand Count & Gender Entry Bar (Protocol Usher Control) */}
         {isTodaySelected && (
           <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-2xl space-y-3">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -280,29 +321,45 @@ export default function AdminAttendanceDashboard({
                 <Heart className="w-4 h-4 text-amber-700 shrink-0" />
                 <div>
                   <h5 className="font-mono text-xs font-bold text-amber-950 uppercase tracking-wider">
-                    Manual Hand Count (Elderly, Children & Non-Digital Guests)
+                    Quick Hand Count Tally (Usher & Protocol Gate)
                   </h5>
                   <p className="text-[11px] font-mono text-amber-800">
-                    Tally walk-in elderly attendees, children, or visitors without QR phones.
+                    Tally walk-in adults, elders, children without QR phones.
                   </p>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                 <button
-                  onClick={() => handleQuickManualAdd(1, "Child Sanctuary Attendee", "Child Sanctuary")}
-                  className="px-3 py-2 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                  onClick={() => handleQuickManualAdd(1, "Adult Male (Man)", "Adult Male", "MALE")}
+                  className="px-3 py-2 rounded-xl bg-zinc-900 text-white font-mono text-xs font-bold hover:bg-black transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>+1 Child</span>
+                  <span>👨 +1 Man</span>
                 </button>
 
                 <button
-                  onClick={() => handleQuickManualAdd(1, "Elderly Attendee / Walk-in Guest", "Elder / Walk-in Guest")}
-                  className="px-3 py-2 rounded-xl bg-amber-900 text-white font-mono text-xs font-bold hover:bg-amber-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                  onClick={() => handleQuickManualAdd(1, "Adult Female (Woman)", "Adult Female", "FEMALE")}
+                  className="px-3 py-2 rounded-xl bg-purple-900 text-white font-mono text-xs font-bold hover:bg-purple-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>+1 Elder</span>
+                  <span>👩 +1 Woman</span>
+                </button>
+
+                <button
+                  onClick={() => handleQuickManualAdd(1, "Child Male (Boy)", "Child Sanctuary", "MALE")}
+                  className="px-3 py-2 rounded-xl bg-blue-900 text-white font-mono text-xs font-bold hover:bg-blue-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>👦 +1 Boy</span>
+                </button>
+
+                <button
+                  onClick={() => handleQuickManualAdd(1, "Child Female (Girl)", "Child Sanctuary", "FEMALE")}
+                  className="px-3 py-2 rounded-xl bg-pink-900 text-white font-mono text-xs font-bold hover:bg-pink-950 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>👧 +1 Girl</span>
                 </button>
 
                 <button
@@ -310,7 +367,7 @@ export default function AdminAttendanceDashboard({
                   className="px-3 py-2 rounded-xl bg-white border border-amber-300 text-amber-900 font-mono text-xs font-bold hover:bg-amber-100 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <UserPlus className="w-3.5 h-3.5" />
-                  <span>Batch Count</span>
+                  <span>Batch</span>
                 </button>
               </div>
             </div>

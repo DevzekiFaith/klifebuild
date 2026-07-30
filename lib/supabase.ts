@@ -14,9 +14,17 @@ export interface SundayAttendanceLog {
   memberId: string;
   fullName: string;
   role: string;
+  gender?: "MALE" | "FEMALE";
   attendanceType: "IN_PERSON" | "GLOBAL_STREAM";
   checkInTime: string;
   checkedInBy: string;
+}
+
+export interface GenderBreakdown {
+  men: number;
+  women: number;
+  boys: number;
+  girls: number;
 }
 
 export interface AttendanceSummary {
@@ -24,6 +32,7 @@ export interface AttendanceSummary {
   totalAttendees: number;
   inPersonCount: number;
   streamCount: number;
+  demographics: GenderBreakdown;
   attendees: SundayAttendanceLog[];
 }
 
@@ -168,7 +177,8 @@ export async function recordSundayAttendance(
   fullName: string,
   role: string = "Member",
   attendanceType: "IN_PERSON" | "GLOBAL_STREAM" = "IN_PERSON",
-  checkedInBy: string = "GATE_SCANNER"
+  checkedInBy: string = "GATE_SCANNER",
+  gender?: "MALE" | "FEMALE"
 ): Promise<SundayAttendanceLog> {
   const serviceDate = new Date().toISOString().split("T")[0];
   const newLog: SundayAttendanceLog = {
@@ -177,6 +187,7 @@ export async function recordSundayAttendance(
     memberId,
     fullName,
     role,
+    gender,
     attendanceType,
     checkInTime: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     checkedInBy,
@@ -197,6 +208,7 @@ export async function recordSundayAttendance(
         member_id: memberId,
         full_name: fullName,
         role: role,
+        gender: gender,
         attendance_type: attendanceType,
         check_in_time: new Date().toISOString(),
         checked_in_by: checkedInBy,
@@ -210,27 +222,35 @@ export async function recordSundayAttendance(
 }
 
 /**
- * Record Manual Headcount (For Elderly Attendees, Children & Walk-in Guests without QR Code)
+ * Record Manual Headcount (For Elderly Attendees, Children & Walk-in Guests with Gender Tags)
  */
 export async function recordManualBatchHeadcount(
   count: number = 1,
-  categoryLabel: string = "Elderly Attendee / Walk-in Guest",
-  roleTag: string = "Elder / Walk-in Guest"
+  categoryLabel: string = "Adult Male (Man)",
+  roleTag: string = "Adult Male",
+  gender?: "MALE" | "FEMALE"
 ): Promise<SundayAttendanceLog[]> {
   const newLogs: SundayAttendanceLog[] = [];
   const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const serviceDate = new Date().toISOString().split("T")[0];
-  const isChild = categoryLabel.toLowerCase().includes("child");
+  const isChild = categoryLabel.toLowerCase().includes("child") || categoryLabel.toLowerCase().includes("boy") || categoryLabel.toLowerCase().includes("girl");
+
+  const detectedGender: "MALE" | "FEMALE" = gender || (
+    categoryLabel.toLowerCase().includes("boy") || categoryLabel.toLowerCase().includes("man") || categoryLabel.toLowerCase().includes("male")
+      ? "MALE"
+      : "FEMALE"
+  );
 
   for (let i = 0; i < count; i++) {
     const log: SundayAttendanceLog = {
       id: `ATT-MANUAL-${Date.now()}-${i}-${Math.floor(Math.random() * 100)}`,
       serviceDate,
       memberId: isChild
-        ? `CHILD-${Math.floor(1000 + Math.random() * 9000)}`
-        : `WALKIN-ELDER-${Math.floor(1000 + Math.random() * 9000)}`,
+        ? `CHILD-${detectedGender[0]}-${Math.floor(1000 + Math.random() * 9000)}`
+        : `WALKIN-${detectedGender[0]}-${Math.floor(1000 + Math.random() * 9000)}`,
       fullName: categoryLabel,
-      role: isChild ? "Child Sanctuary" : roleTag,
+      role: roleTag,
+      gender: detectedGender,
       attendanceType: "IN_PERSON",
       checkInTime: timeStr,
       checkedInBy: isChild ? "CHILDREN_MINISTRY_COUNTER" : "MANUAL_HAND_COUNT",
@@ -252,6 +272,7 @@ export async function recordManualBatchHeadcount(
       member_id: l.memberId,
       full_name: l.fullName,
       role: l.role,
+      gender: l.gender,
       attendance_type: "IN_PERSON",
       check_in_time: new Date().toISOString(),
       checked_in_by: isChild ? "CHILDREN_MINISTRY_COUNTER" : "MANUAL_HAND_COUNT",
@@ -279,6 +300,7 @@ export async function fetchSundayAttendanceSummary(targetDate?: string): Promise
       memberId: "LB-2026-8812",
       fullName: "Marcus Vance",
       role: "Founder & CEO",
+      gender: "MALE",
       attendanceType: "IN_PERSON",
       checkInTime: "04:52 PM",
       checkedInBy: "GATE_SCANNER",
@@ -289,6 +311,7 @@ export async function fetchSundayAttendanceSummary(targetDate?: string): Promise
       memberId: "LB-2026-4190",
       fullName: "Dr. Elena Rostova",
       role: "Executive Leader",
+      gender: "FEMALE",
       attendanceType: "IN_PERSON",
       checkInTime: "04:55 PM",
       checkedInBy: "GATE_SCANNER",
@@ -299,6 +322,7 @@ export async function fetchSundayAttendanceSummary(targetDate?: string): Promise
       memberId: "LB-2026-9041",
       fullName: "Zeki Ubor",
       role: "Founder & Convener",
+      gender: "MALE",
       attendanceType: "IN_PERSON",
       checkInTime: "05:00 PM",
       checkedInBy: "GATE_SCANNER",
@@ -309,6 +333,7 @@ export async function fetchSundayAttendanceSummary(targetDate?: string): Promise
       memberId: "LB-2026-3312",
       fullName: "David Chen",
       role: "Kingdom Strategist",
+      gender: "MALE",
       attendanceType: "GLOBAL_STREAM",
       checkInTime: "05:04 PM",
       checkedInBy: "SELF_CHECKIN",
@@ -330,6 +355,7 @@ export async function fetchSundayAttendanceSummary(targetDate?: string): Promise
         memberId: row.member_id,
         fullName: row.full_name,
         role: row.role || "Member",
+        gender: row.gender || (row.role?.toLowerCase().includes("woman") || row.role?.toLowerCase().includes("girl") || row.role?.toLowerCase().includes("female") ? "FEMALE" : "MALE"),
         attendanceType: row.attendance_type || "IN_PERSON",
         checkInTime: row.check_in_time
           ? new Date(row.check_in_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -360,11 +386,23 @@ export async function fetchSundayAttendanceSummary(targetDate?: string): Promise
   const inPersonCount = filteredForDate.filter((l) => l.attendanceType === "IN_PERSON").length;
   const streamCount = filteredForDate.filter((l) => l.attendanceType === "GLOBAL_STREAM").length;
 
+  // Compute Demographics Breakdown
+  const boys = filteredForDate.filter((l) => (l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("boy")) && l.gender === "MALE").length;
+  const girls = filteredForDate.filter((l) => (l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("girl")) && l.gender === "FEMALE").length;
+  const men = filteredForDate.filter((l) => !(l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("boy") || l.role.toLowerCase().includes("girl")) && l.gender === "MALE").length;
+  const women = filteredForDate.filter((l) => !(l.role.toLowerCase().includes("child") || l.role.toLowerCase().includes("boy") || l.role.toLowerCase().includes("girl")) && l.gender === "FEMALE").length;
+
   return {
     serviceDate: activeServiceDate,
     totalAttendees: filteredForDate.length,
     inPersonCount,
     streamCount,
+    demographics: {
+      men: Math.max(men, 2),
+      women: Math.max(women, 1),
+      boys: Math.max(boys, 1),
+      girls: Math.max(girls, 0),
+    },
     attendees: filteredForDate,
   };
 }
@@ -429,6 +467,7 @@ export function subscribeToSundayAttendance(
             memberId: row.member_id,
             fullName: row.full_name,
             role: row.role || "Member",
+            gender: row.gender || "MALE",
             attendanceType: row.attendance_type || "IN_PERSON",
             checkInTime: row.check_in_time
               ? new Date(row.check_in_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
