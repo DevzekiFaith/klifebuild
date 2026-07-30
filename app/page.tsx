@@ -165,6 +165,7 @@ export default function Home() {
             src="/images/logo_icon_nobg.png"
             alt="Lifebuild Overlay"
             fill
+            sizes="500px"
             className="object-contain filter grayscale"
           />
         </motion.div>
