@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users } from "lucide-react";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock } from "lucide-react";
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -64,7 +64,13 @@ export default function Navbar({
           </a>
 
           {/* Right Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-700">
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-700">
+            {/* Meeting Schedule Badge */}
+            <div className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-xs font-mono text-zinc-700 font-semibold flex items-center gap-1.5 shrink-0">
+              <Clock className="w-3.5 h-3.5 text-[#3b2262]" />
+              <span>Sun @ 5:00 PM (60 mins)</span>
+            </div>
+
             <a
               href="#solar-system"
               className="hover:text-black transition-colors"
@@ -152,6 +158,13 @@ export default function Navbar({
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-200 px-6 pt-4 pb-8 space-y-4">
+          
+          {/* Mobile Meeting Time Badge */}
+          <div className="p-3 rounded-2xl bg-gray-50 border border-gray-200 text-xs font-mono text-zinc-800 flex items-center gap-2 font-bold">
+            <Clock className="w-4 h-4 text-[#3b2262]" />
+            <span>Sunday Gathering: 5:00 PM GMT+1 (60 mins)</span>
+          </div>
+
           <nav className="flex flex-col space-y-4 text-base font-medium text-zinc-900">
             <a
               href="#solar-system"
