@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown } from "lucide-react";
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -23,6 +24,8 @@ export default function Navbar({
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const toolsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +33,16 @@ export default function Navbar({
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) {
+        setToolsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -98,35 +111,69 @@ export default function Navbar({
             >
               Pillars
             </a>
-            {onOpenNotes && (
+            {/* Sanctuary Tools Dropdown Toggle */}
+            <div className="relative" ref={toolsRef}>
               <button
-                onClick={onOpenNotes}
-                className="hover:text-black transition-colors text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
-                title="Open Sanctuary Journal"
+                onClick={() => setToolsOpen(!toolsOpen)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer border ${
+                  toolsOpen
+                    ? "bg-black text-white border-black shadow-xs"
+                    : "bg-gray-100/80 border-gray-200 text-zinc-700 hover:border-black hover:text-black"
+                }`}
               >
-                <BookOpen className="w-3.5 h-3.5 text-[#3b2262]" />
-                Journal
+                <span>Tools</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${toolsOpen ? "rotate-180" : ""}`} />
               </button>
-            )}
 
-            <button
-              onClick={onOpenScanner}
-              className="hover:text-black transition-colors text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
-            >
-              <QrCode className="w-3.5 h-3.5" />
-              Scanner
-            </button>
+              <AnimatePresence>
+                {toolsOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2 w-52 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl p-2 z-50 space-y-1"
+                  >
+                    {onOpenNotes && (
+                      <button
+                        onClick={() => {
+                          setToolsOpen(false);
+                          onOpenNotes();
+                        }}
+                        className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
+                      >
+                        <BookOpen className="w-4 h-4 text-[#3b2262]" />
+                        <span>Rebuilder Journal</span>
+                      </button>
+                    )}
 
-            {onOpenDashboard && (
-              <button
-                onClick={onOpenDashboard}
-                className="hover:text-black transition-colors text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
-                title="View Sunday Live Headcount"
-              >
-                <Users className="w-3.5 h-3.5 text-black" />
-                Headcount
-              </button>
-            )}
+                    <button
+                      onClick={() => {
+                        setToolsOpen(false);
+                        onOpenScanner();
+                      }}
+                      className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
+                    >
+                      <QrCode className="w-4 h-4 text-zinc-900" />
+                      <span>Entrance QR Scanner</span>
+                    </button>
+
+                    {onOpenDashboard && (
+                      <button
+                        onClick={() => {
+                          setToolsOpen(false);
+                          onOpenDashboard();
+                        }}
+                        className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer border-t border-gray-100 pt-2"
+                      >
+                        <Users className="w-4 h-4 text-amber-700" />
+                        <span>Live Headcount</span>
+                      </button>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Action Link / Pass CTA */}
             {hasPass ? (
@@ -198,6 +245,19 @@ export default function Navbar({
             >
               Pillars
             </a>
+            {onOpenNotes && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenNotes();
+                }}
+                className="text-left py-1 text-xs font-mono text-zinc-600 uppercase flex items-center gap-2 font-bold"
+              >
+                <BookOpen className="w-4 h-4 text-[#3b2262]" />
+                Rebuilder Journal
+              </button>
+            )}
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
