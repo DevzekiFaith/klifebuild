@@ -1,17 +1,70 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Zap, ShieldCheck, QrCode } from "lucide-react";
+import { ArrowUpRight, Zap, ShieldCheck, QrCode, Calendar, Clock, BookOpen, Video, MapPin, CheckCircle2 } from "lucide-react";
 
 interface WeeklyMeetingProps {
   onOpenRegister?: () => void;
   onOpenScanner?: () => void;
+  onOpenNotes?: () => void;
 }
 
-export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyMeetingProps) {
+export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNotes }: WeeklyMeetingProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [meetingMode, setMeetingMode] = useState<"in-person" | "global-stream">("in-person");
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
+
+  useEffect(() => {
+    const calculateCountdown = () => {
+      const now = new Date();
+      // Calculate next 2nd or 4th Sunday
+      let targetDate: Date | null = null;
+
+      for (let i = 0; i < 35; i++) {
+        const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i, 17, 0, 0, 0);
+        if (candidate.getDay() === 0) {
+          if (candidate.getTime() > now.getTime()) {
+            const dateNum = candidate.getDate();
+            const isSecondSunday = dateNum >= 8 && dateNum <= 14;
+            const isFourthSunday = dateNum >= 22 && dateNum <= 28;
+
+            if (isSecondSunday || isFourthSunday) {
+              targetDate = candidate;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!targetDate) {
+        targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7, 17, 0, 0, 0);
+      }
+
+      const diffMs = targetDate.getTime() - now.getTime();
+      if (diffMs > 0) {
+        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diffMs / 1000 / 60) % 60);
+        const secs = Math.floor((diffMs / 1000) % 60);
+        setTimeLeft({ days, hours, mins, secs });
+      }
+    };
+
+    calculateCountdown();
+    const interval = setInterval(calculateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getGoogleCalendarUrl = () => {
+    const title = encodeURIComponent("Lifebuild Sanctuary & 4T Gathering (Isaiah 58:12)");
+    const details = encodeURIComponent(
+      "Join us on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12."
+    );
+    const location = encodeURIComponent("Lifebuild Sanctuary & Global Live Stream");
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&recur=RRULE:FREQ=MONTHLY;BYDAY=2SU,4SU`;
+  };
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -52,16 +105,16 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
-            Weekly Gathering & 4T Conference
+            Bi-Weekly Gathering (2nd & 4th Sundays) & 4T Conference
           </span>
           
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
             The Founder's Sanctuary. <br />
-            Weekly Gathering & Annual 4T Conference.
+            Bi-Weekly Gathering & Annual 4T Conference.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Every Sunday at 5:00 PM GMT+1, founders and leaders gather for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
+            Every 2nd and 4th Sunday at 5:00 PM GMT+1, founders and leaders gather for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
           </p>
         </motion.div>
 
@@ -106,26 +159,60 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
               — Isaiah 58:12
             </div>
 
-            {/* Quick Sanctuary Action Buttons */}
-            <div className="pt-4 flex flex-wrap items-center gap-3">
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onOpenRegister}
-                className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer shadow-sm"
-              >
-                Join Fellowship
-              </motion.button>
+            {/* Live Countdown & Sanctuary Action Buttons */}
+            <div className="pt-2 space-y-4">
+              <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300">
+                <Clock className="w-4 h-4 text-[#d4af37] animate-pulse shrink-0" />
+                <span className="text-zinc-400">Next Sanctuary Gathering:</span>
+                <span className="font-bold text-white tracking-wider">
+                  {timeLeft.days}d {timeLeft.hours}h {timeLeft.mins}m {timeLeft.secs}s
+                </span>
+              </div>
 
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onOpenScanner}
-                className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
-              >
-                <QrCode className="w-3.5 h-3.5" />
-                <span>Sanctuary Entrance Pass</span>
-              </motion.button>
+              <div className="flex flex-wrap items-center gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={onOpenRegister}
+                  className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer shadow-sm"
+                >
+                  Join Fellowship
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={onOpenScanner}
+                  className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
+                >
+                  <QrCode className="w-3.5 h-3.5" />
+                  <span>Entrance Pass</span>
+                </motion.button>
+
+                {onOpenNotes && (
+                  <motion.button
+                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={onOpenNotes}
+                    className="px-5 py-2.5 rounded-full border border-zinc-700 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-[#d4af37]" />
+                    <span>Take Sanctuary Notes</span>
+                  </motion.button>
+                )}
+
+                <motion.a
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  href={getGoogleCalendarUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-full border border-zinc-700 hover:border-[#d4af37] text-zinc-300 hover:text-[#d4af37] font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-950"
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <span>Add to Calendar</span>
+                </motion.a>
+              </div>
             </div>
 
           </div>
@@ -150,7 +237,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner }: WeeklyM
               <ul className="space-y-3 text-sm text-zinc-600 font-light">
                 <li className="flex items-start justify-between border-b border-gray-100 pb-2">
                   <span className="font-mono text-xs text-zinc-400 uppercase">Frequency</span>
-                  <span className="font-medium text-black">Every Sunday</span>
+                  <span className="font-medium text-black">Bi-Weekly (2nd & 4th Sundays)</span>
+                </li>
+                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
+                  <span className="font-mono text-xs text-zinc-400 uppercase">Off-Week Rhythm</span>
+                  <span className="font-medium text-black">Weekly 4T Marketplace Action Notes</span>
                 </li>
                 <li className="flex items-start justify-between border-b border-gray-100 pb-2">
                   <span className="font-mono text-xs text-zinc-400 uppercase">Time</span>

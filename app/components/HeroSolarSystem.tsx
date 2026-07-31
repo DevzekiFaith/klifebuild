@@ -188,6 +188,8 @@ export default function HeroSolarSystem({
           fill
           sizes="450px"
           className="object-contain filter grayscale"
+          priority
+          loading="eager"
         />
       </motion.div>
 
@@ -219,9 +221,11 @@ export default function HeroSolarSystem({
                   fill
                   sizes="24px"
                   className="object-contain"
+                  priority
+                  loading="eager"
                 />
               </div>
-              <span>Isaiah 58:12 Mandate • 4Tribe Network</span>
+              <span>Isaiah 58:12 Mandate • Bi-Weekly 4Tribe Network</span>
             </motion.div>
 
             {/* Headline */}
@@ -332,6 +336,8 @@ export default function HeroSolarSystem({
                   width={64}
                   height={64}
                   className="object-contain"
+                  priority
+                  loading="eager"
                 />
               </motion.div>
 
@@ -347,8 +353,8 @@ export default function HeroSolarSystem({
                   <motion.div
                     key={planet.id}
                     onClick={() => setSelectedPlanet(planet)}
-                    whileHover={{ scale: 1.3 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.25 }}
+                    whileTap={{ scale: 1.05 }}
                     className="absolute z-20 cursor-pointer transition-all flex items-center justify-center group"
                     style={{
                       transform: `translate(${x}px, ${y}px) translateZ(40px)`,
@@ -357,11 +363,13 @@ export default function HeroSolarSystem({
                     }}
                   >
                     <div
-                      className={`w-full h-full rounded-full bg-zinc-900 border transition-transform group-hover:scale-125 ${
-                        isSelected ? "border-black ring-2 ring-black scale-125 bg-black" : "border-zinc-300"
+                      className={`w-full h-full rounded-full bg-zinc-900 border transition-transform ${
+                        isSelected
+                          ? "border-black ring-4 ring-black/20 bg-black shadow-lg scale-110"
+                          : "border-zinc-300 group-hover:border-black"
                       }`}
                     />
-                    <span className="absolute -bottom-6 text-[10px] font-mono whitespace-nowrap text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity font-bold">
+                    <span className="absolute -bottom-6 text-[10px] font-mono whitespace-nowrap text-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity font-bold bg-white/90 px-1.5 py-0.5 rounded shadow-xs border border-gray-200">
                       {planet.name}
                     </span>
                   </motion.div>
@@ -369,13 +377,13 @@ export default function HeroSolarSystem({
               })}
             </div>
 
-            {/* Selected Pillar Floating Inspection Box */}
+            {/* Selected Pillar Floating Inspection Box (Positioned safely outside the inner orbit area) */}
             <motion.div
               key={selectedPlanet.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute bottom-2 left-0 right-0 max-w-xs mx-auto p-4 bg-white/95 backdrop-blur-md border border-gray-200 rounded-xl text-center space-y-1 shadow-lg"
+              className="absolute -bottom-10 left-0 right-0 max-w-xs mx-auto p-4 bg-white/95 backdrop-blur-md border border-gray-200 rounded-xl text-center space-y-1 shadow-lg pointer-events-auto z-30"
               style={{ transform: "translateZ(50px)" }}
             >
               <span className="text-[10px] font-mono uppercase text-zinc-400 block">4T Pillar Inspection</span>

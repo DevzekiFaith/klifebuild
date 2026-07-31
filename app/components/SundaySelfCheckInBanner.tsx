@@ -77,6 +77,8 @@ export default function SundaySelfCheckInBanner({
               width={36}
               height={36}
               className="object-contain"
+              priority
+              loading="eager"
             />
           </div>
 
@@ -84,7 +86,7 @@ export default function SundaySelfCheckInBanner({
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 text-[10px] font-mono font-bold uppercase tracking-wider">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                ● SUNDAY GATHERING CHECK-IN ACTIVE (5:00 PM - 6:00 PM GMT+1 • 60 MINS)
+                ● 2ND & 4TH SUNDAY GATHERING CHECK-IN ACTIVE (5:00 PM - 6:00 PM GMT+1 • 60 MINS)
               </span>
             </div>
 

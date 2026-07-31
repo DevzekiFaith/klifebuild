@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock } from "lucide-react";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen } from "lucide-react";
 
 interface NavbarProps {
   onOpenRegister: () => void;
   onOpenPass: () => void;
   onOpenScanner: () => void;
   onOpenDashboard?: () => void;
+  onOpenNotes?: () => void;
   hasPass: boolean;
 }
 
@@ -17,6 +18,7 @@ export default function Navbar({
   onOpenPass,
   onOpenScanner,
   onOpenDashboard,
+  onOpenNotes,
   hasPass,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -51,6 +53,7 @@ export default function Navbar({
                 height={44}
                 className="object-contain"
                 priority
+                loading="eager"
               />
             </div>
             <div className="flex flex-col">
@@ -68,7 +71,7 @@ export default function Navbar({
             {/* Meeting Schedule Badge */}
             <div className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-xs font-mono text-zinc-700 font-semibold flex items-center gap-1.5 shrink-0">
               <Clock className="w-3.5 h-3.5 text-[#3b2262]" />
-              <span>Sun @ 5:00 PM (60 mins)</span>
+              <span>2nd & 4th Sun @ 5:00 PM (60 mins)</span>
             </div>
 
             <a
@@ -95,6 +98,17 @@ export default function Navbar({
             >
               Pillars
             </a>
+            {onOpenNotes && (
+              <button
+                onClick={onOpenNotes}
+                className="hover:text-black transition-colors text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+                title="Open Sanctuary Journal"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-[#3b2262]" />
+                Journal
+              </button>
+            )}
+
             <button
               onClick={onOpenScanner}
               className="hover:text-black transition-colors text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
@@ -162,7 +176,7 @@ export default function Navbar({
           {/* Mobile Meeting Time Badge */}
           <div className="p-3 rounded-2xl bg-gray-50 border border-gray-200 text-xs font-mono text-zinc-800 flex items-center gap-2 font-bold">
             <Clock className="w-4 h-4 text-[#3b2262]" />
-            <span>Sunday Gathering: 5:00 PM GMT+1 (60 mins)</span>
+            <span>2nd & 4th Sunday: 5:00 PM GMT+1 (60 mins)</span>
           </div>
 
           <nav className="flex flex-col space-y-4 text-base font-medium text-zinc-900">

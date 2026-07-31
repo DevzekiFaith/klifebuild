@@ -17,6 +17,7 @@ import AttendancePassModal from "./components/AttendancePassModal";
 import QRScannerModal from "./components/QRScannerModal";
 import AdminAttendanceDashboard from "./components/AdminAttendanceDashboard";
 import AdminPasscodeModal from "./components/AdminPasscodeModal";
+import RebuildersNotesModal from "./components/RebuildersNotesModal";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
@@ -27,6 +28,7 @@ export default function Home() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [isPasscodeOpen, setIsPasscodeOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [isNotesOpen, setIsNotesOpen] = useState(false);
   const [authRole, setAuthRole] = useState<AuthRole>(null);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
 
@@ -101,6 +103,7 @@ export default function Home() {
         onOpenPass={() => setIsPassOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
         onOpenDashboard={handleOpenDashboardRequest}
+        onOpenNotes={() => setIsNotesOpen(true)}
         hasPass={!!currentMember}
       />
 
@@ -145,6 +148,7 @@ export default function Home() {
       <WeeklyMeeting
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
+        onOpenNotes={() => setIsNotesOpen(true)}
       />
 
       {/* Feature 3: Interactive Global Rebuilding Vision Wall */}
@@ -349,6 +353,11 @@ export default function Home() {
         authRole={authRole}
         onClose={() => setIsDashboardOpen(false)}
         onLogout={handleDashboardLogout}
+      />
+
+      <RebuildersNotesModal
+        isOpen={isNotesOpen}
+        onClose={() => setIsNotesOpen(false)}
       />
     </main>
   );
