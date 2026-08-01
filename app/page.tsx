@@ -18,6 +18,8 @@ import QRScannerModal from "./components/QRScannerModal";
 import AdminAttendanceDashboard from "./components/AdminAttendanceDashboard";
 import AdminPasscodeModal from "./components/AdminPasscodeModal";
 import RebuildersNotesModal from "./components/RebuildersNotesModal";
+import HappyNewMonthBanner from "./components/HappyNewMonthBanner";
+import HappyNewMonthModal from "./components/HappyNewMonthModal";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
@@ -29,6 +31,7 @@ export default function Home() {
   const [isPasscodeOpen, setIsPasscodeOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [isFlyerOpen, setIsFlyerOpen] = useState(false);
   const [authRole, setAuthRole] = useState<AuthRole>(null);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
 
@@ -104,11 +107,15 @@ export default function Home() {
         onOpenScanner={() => setIsScannerOpen(true)}
         onOpenDashboard={handleOpenDashboardRequest}
         onOpenNotes={() => setIsNotesOpen(true)}
+        onOpenFlyer={() => setIsFlyerOpen(true)}
         hasPass={!!currentMember}
       />
 
-      {/* Live Sunday 1-Click Self Check-In Banner */}
+      {/* Happy New Month of August Banner */}
       <div className="pt-20">
+        <HappyNewMonthBanner
+          onOpenFlyer={() => setIsFlyerOpen(true)}
+        />
         <SundaySelfCheckInBanner
           currentMember={currentMember}
           onOpenRegister={() => setIsRegisterOpen(true)}
@@ -358,6 +365,12 @@ export default function Home() {
       <RebuildersNotesModal
         isOpen={isNotesOpen}
         onClose={() => setIsNotesOpen(false)}
+      />
+
+      <HappyNewMonthModal
+        isOpen={isFlyerOpen}
+        onClose={() => setIsFlyerOpen(false)}
+        onOpenRegister={() => setIsRegisterOpen(true)}
       />
     </main>
   );

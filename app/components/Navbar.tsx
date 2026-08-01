@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown } from "lucide-react";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Sparkles } from "lucide-react";
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -11,6 +11,7 @@ interface NavbarProps {
   onOpenScanner: () => void;
   onOpenDashboard?: () => void;
   onOpenNotes?: () => void;
+  onOpenFlyer?: () => void;
   hasPass: boolean;
 }
 
@@ -20,6 +21,7 @@ export default function Navbar({
   onOpenScanner,
   onOpenDashboard,
   onOpenNotes,
+  onOpenFlyer,
   hasPass,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -134,6 +136,19 @@ export default function Navbar({
                     transition={{ duration: 0.15 }}
                     className="absolute right-0 mt-2 w-52 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl p-2 z-50 space-y-1"
                   >
+                    {onOpenFlyer && (
+                      <button
+                        onClick={() => {
+                          setToolsOpen(false);
+                          onOpenFlyer();
+                        }}
+                        className="w-full px-3 py-2 text-left rounded-xl bg-purple-50 hover:bg-purple-100 transition-colors text-xs font-mono font-bold text-purple-950 flex items-center gap-2 cursor-pointer border border-purple-200/60"
+                      >
+                        <Sparkles className="w-4 h-4 text-emerald-600" />
+                        <span>August Prophetic Flyer</span>
+                      </button>
+                    )}
+
                     {onOpenNotes && (
                       <button
                         onClick={() => {
