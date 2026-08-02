@@ -61,8 +61,8 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
               className="relative w-full max-w-md bg-white text-black p-8 pt-16 rounded-t-full rounded-b-3xl shadow-xl space-y-6 border border-gray-200 transition-all duration-300 overflow-hidden"
             >
               
-              {/* Card Header with Official Lifebuild Logo */}
-              <div className="flex items-center justify-between border-b border-gray-200 pb-4 pt-4">
+              {/* Card Header with Official Lifebuild Logo (Inward Margins for Arch Breathing Room) */}
+              <div className="flex items-center justify-between border-b border-gray-200 pb-4 pt-6 mx-3 sm:mx-6">
                 <div className="flex items-center gap-2.5">
                   <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
                     <Image
@@ -82,7 +82,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                     </span>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-zinc-100 border border-zinc-300 text-zinc-800 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-mono font-bold bg-zinc-100 border border-zinc-300 text-zinc-800 px-2.5 py-0.5 rounded-full shrink-0">
                   Isaiah 58:12
                 </span>
               </div>
