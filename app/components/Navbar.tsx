@@ -289,7 +289,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   onOpenConference();
                 }}
-                className="w-full text-left px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200/60 text-xs font-mono font-bold text-amber-950 flex items-center gap-2"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200/60 text-xs font-mono font-bold text-amber-950 flex items-center gap-2 cursor-pointer"
               >
                 <Ticket className="w-4 h-4 text-[#d4af37]" />
                 Request Conference Pass
@@ -302,7 +302,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   onOpenFlyer();
                 }}
-                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-emerald-600" />
                 August Prophetic Flyer
@@ -315,7 +315,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   onOpenNotes();
                 }}
-                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
               >
                 <BookOpen className="w-4 h-4 text-[#3b2262]" />
                 Rebuilder Journal
@@ -327,7 +327,7 @@ export default function Navbar({
                 setMobileMenuOpen(false);
                 onOpenScanner();
               }}
-              className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
+              className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
             >
               <QrCode className="w-4 h-4 text-zinc-900" />
               Entrance QR Scanner
@@ -339,7 +339,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   onOpenDashboard();
                 }}
-                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
               >
                 <Users className="w-4 h-4 text-amber-700" />
                 Admin Live Headcount
