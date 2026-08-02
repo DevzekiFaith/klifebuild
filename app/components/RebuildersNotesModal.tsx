@@ -144,12 +144,21 @@ ${actionItems || "(No action items recorded)"}
                   <BookOpen className="w-4 h-4" />
                   <span>Rebuilder Notes</span>
                 </div>
-                <button
-                  onClick={handleNewNote}
-                  className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
-                >
-                  + New Note
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleNewNote}
+                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-white text-black rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+                  >
+                    + New Note
+                  </button>
+                  <button
+                    onClick={onClose}
+                    className="p-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 transition-colors text-zinc-400 hover:text-white cursor-pointer"
+                    title="Close journal"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-2">
