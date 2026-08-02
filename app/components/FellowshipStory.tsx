@@ -58,11 +58,11 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
           >
             <motion.div
               whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" }}
-              className="relative w-full max-w-md bg-white text-black p-8 pt-12 rounded-t-[140px] rounded-b-3xl shadow-xl space-y-6 border border-gray-200 transition-all duration-300 overflow-hidden"
+              className="relative w-full max-w-md bg-white text-black p-8 pt-16 rounded-t-full rounded-b-3xl shadow-xl space-y-6 border border-gray-200 transition-all duration-300 overflow-hidden"
             >
               
               {/* Card Header with Official Lifebuild Logo */}
-              <div className="flex items-center justify-between border-b border-gray-200 pb-4 pt-2">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-4 pt-4">
                 <div className="flex items-center gap-2.5">
                   <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
                     <Image
@@ -87,15 +87,15 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 </span>
               </div>
 
-              {/* Arched Top 2x2 4T Framework Grid Container */}
-              <div className="relative p-6 pt-8 bg-gray-50/80 rounded-t-[100px] rounded-b-2xl border border-gray-200 space-y-4 text-black">
+              {/* Clean Square 2x2 4T Framework Grid Container (No Arch inside) */}
+              <div className="relative p-5 bg-gray-50/80 rounded-2xl border border-gray-200 space-y-4 text-black">
                 
                 <div className="grid grid-cols-2 gap-3 relative">
                   
                   {/* 01. REBUILDING */}
                   <motion.div
                     whileHover={{ scale: 1.03 }}
-                    className="p-4 rounded-t-3xl rounded-b-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
                   >
                     <div className="flex items-center justify-between">
                       <Hammer className="w-4 h-4 text-zinc-800" />
@@ -112,7 +112,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   {/* 02. RESTORING */}
                   <motion.div
                     whileHover={{ scale: 1.03 }}
-                    className="p-4 rounded-t-3xl rounded-b-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
                   >
                     <div className="flex items-center justify-between">
                       <Key className="w-4 h-4 text-zinc-800" />
@@ -129,7 +129,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   {/* 03. REPAIRING */}
                   <motion.div
                     whileHover={{ scale: 1.03 }}
-                    className="p-4 rounded-t-xl rounded-b-2xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
                   >
                     <div className="flex items-center justify-between">
                       <HeartHandshake className="w-4 h-4 text-zinc-800" />
@@ -146,7 +146,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   {/* 04. REPLENISHING */}
                   <motion.div
                     whileHover={{ scale: 1.03 }}
-                    className="p-4 rounded-t-xl rounded-b-2xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
+                    className="p-4 rounded-xl bg-white border border-gray-200 flex flex-col justify-between space-y-3 hover:border-black transition-all cursor-pointer shadow-xs"
                   >
                     <div className="flex items-center justify-between">
                       <RefreshCw className="w-4 h-4 text-zinc-800" />
