@@ -275,13 +275,47 @@ export default function Navbar({
             >
               Pillars
             </a>
+          </nav>
+
+          {/* Sanctuary Tools — Mobile Group */}
+          <div className="border-t border-gray-100 pt-4 space-y-2">
+            <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 mb-3">
+              Sanctuary Tools
+            </p>
+
+            {onOpenConference && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenConference();
+                }}
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200/60 text-xs font-mono font-bold text-amber-950 flex items-center gap-2"
+              >
+                <Ticket className="w-4 h-4 text-[#d4af37]" />
+                Request Conference Pass
+              </button>
+            )}
+
+            {onOpenFlyer && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenFlyer();
+                }}
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
+              >
+                <Sparkles className="w-4 h-4 text-emerald-600" />
+                August Prophetic Flyer
+              </button>
+            )}
+
             {onOpenNotes && (
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenNotes();
                 }}
-                className="text-left py-1 text-xs font-mono text-zinc-600 uppercase flex items-center gap-2 font-bold"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
               >
                 <BookOpen className="w-4 h-4 text-[#3b2262]" />
                 Rebuilder Journal
@@ -293,10 +327,10 @@ export default function Navbar({
                 setMobileMenuOpen(false);
                 onOpenScanner();
               }}
-              className="text-left py-1 text-xs font-mono text-zinc-500 uppercase flex items-center gap-2"
+              className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
             >
-              <QrCode className="w-4 h-4" />
-              Service Entrance Scanner
+              <QrCode className="w-4 h-4 text-zinc-900" />
+              Entrance QR Scanner
             </button>
 
             {onOpenDashboard && (
@@ -305,13 +339,13 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   onOpenDashboard();
                 }}
-                className="text-left py-1 text-xs font-mono text-black font-bold uppercase flex items-center gap-2"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2"
               >
-                <Users className="w-4 h-4 text-black" />
-                <span>Admin Live Headcount</span>
+                <Users className="w-4 h-4 text-amber-700" />
+                Admin Live Headcount
               </button>
             )}
-          </nav>
+          </div>
 
           <div className="pt-4 border-t border-gray-100">
             <button
