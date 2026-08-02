@@ -20,12 +20,14 @@ import AdminPasscodeModal from "./components/AdminPasscodeModal";
 import RebuildersNotesModal from "./components/RebuildersNotesModal";
 import HappyNewMonthBanner from "./components/HappyNewMonthBanner";
 import HappyNewMonthModal from "./components/HappyNewMonthModal";
+import ConferenceRegistrationModal from "./components/ConferenceRegistrationModal";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isConferenceOpen, setIsConferenceOpen] = useState(false);
   const [isPassOpen, setIsPassOpen] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [isPasscodeOpen, setIsPasscodeOpen] = useState(false);
@@ -108,6 +110,7 @@ export default function Home() {
         onOpenDashboard={handleOpenDashboardRequest}
         onOpenNotes={() => setIsNotesOpen(true)}
         onOpenFlyer={() => setIsFlyerOpen(true)}
+        onOpenConference={() => setIsConferenceOpen(true)}
         hasPass={!!currentMember}
       />
 
@@ -127,6 +130,7 @@ export default function Home() {
       <HeroSolarSystem
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
+        onOpenConference={() => setIsConferenceOpen(true)}
       />
 
       {/* High-Impact Scan QR Code To Join Banner (Below Hero Section) */}
@@ -156,6 +160,7 @@ export default function Home() {
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
         onOpenNotes={() => setIsNotesOpen(true)}
+        onOpenConference={() => setIsConferenceOpen(true)}
       />
 
       {/* Feature 3: Interactive Global Rebuilding Vision Wall */}
@@ -371,6 +376,12 @@ export default function Home() {
         isOpen={isFlyerOpen}
         onClose={() => setIsFlyerOpen(false)}
         onOpenRegister={() => setIsRegisterOpen(true)}
+      />
+
+      <ConferenceRegistrationModal
+        isOpen={isConferenceOpen}
+        onClose={() => setIsConferenceOpen(false)}
+        onSuccess={handleRegistrationSuccess}
       />
     </main>
   );

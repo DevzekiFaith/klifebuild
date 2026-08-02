@@ -9,9 +9,10 @@ interface WeeklyMeetingProps {
   onOpenRegister?: () => void;
   onOpenScanner?: () => void;
   onOpenNotes?: () => void;
+  onOpenConference?: () => void;
 }
 
-export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNotes }: WeeklyMeetingProps) {
+export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNotes, onOpenConference }: WeeklyMeetingProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [meetingMode, setMeetingMode] = useState<"in-person" | "global-stream">("in-person");
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
@@ -276,7 +277,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               </p>
               <div className="pt-2">
                 <button
-                  onClick={onOpenRegister}
+                  onClick={onOpenConference || onOpenRegister}
                   className="inline-flex items-center gap-1.5 text-xs font-mono text-white hover:text-[#d4af37] transition-colors cursor-pointer font-bold uppercase tracking-wider"
                 >
                   <span>Request Conference Pass</span>

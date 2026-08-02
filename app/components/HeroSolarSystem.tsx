@@ -8,6 +8,7 @@ import { QrCode, ArrowUpRight, Hammer, Key, HeartHandshake, RefreshCw, ChevronDo
 interface HeroSolarSystemProps {
   onOpenRegister: () => void;
   onOpenScanner: () => void;
+  onOpenConference?: () => void;
 }
 
 interface PlanetPillar {
@@ -107,6 +108,7 @@ const PILLARS: PlanetPillar[] = [
 export default function HeroSolarSystem({
   onOpenRegister,
   onOpenScanner,
+  onOpenConference,
 }: HeroSolarSystemProps) {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetPillar>(PILLARS[0]);
   const [rotationAngle, setRotationAngle] = useState(0);

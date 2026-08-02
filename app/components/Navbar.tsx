@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Sparkles } from "lucide-react";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Sparkles, Ticket } from "lucide-react";
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -12,6 +12,7 @@ interface NavbarProps {
   onOpenDashboard?: () => void;
   onOpenNotes?: () => void;
   onOpenFlyer?: () => void;
+  onOpenConference?: () => void;
   hasPass: boolean;
 }
 
@@ -22,6 +23,7 @@ export default function Navbar({
   onOpenDashboard,
   onOpenNotes,
   onOpenFlyer,
+  onOpenConference,
   hasPass,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -136,13 +138,26 @@ export default function Navbar({
                     transition={{ duration: 0.15 }}
                     className="absolute right-0 mt-2 w-52 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl p-2 z-50 space-y-1"
                   >
+                    {onOpenConference && (
+                      <button
+                        onClick={() => {
+                          setToolsOpen(false);
+                          onOpenConference();
+                        }}
+                        className="w-full px-3 py-2 text-left rounded-xl bg-amber-50 hover:bg-amber-100 transition-colors text-xs font-mono font-bold text-amber-950 flex items-center gap-2 cursor-pointer border border-amber-200/60"
+                      >
+                        <Ticket className="w-4 h-4 text-[#d4af37]" />
+                        <span>Request Conference Pass</span>
+                      </button>
+                    )}
+
                     {onOpenFlyer && (
                       <button
                         onClick={() => {
                           setToolsOpen(false);
                           onOpenFlyer();
                         }}
-                        className="w-full px-3 py-2 text-left rounded-xl bg-purple-50 hover:bg-purple-100 transition-colors text-xs font-mono font-bold text-purple-950 flex items-center gap-2 cursor-pointer border border-purple-200/60"
+                        className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
                       >
                         <Sparkles className="w-4 h-4 text-emerald-600" />
                         <span>August Prophetic Flyer</span>
