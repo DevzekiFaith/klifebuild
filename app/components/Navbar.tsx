@@ -115,6 +115,13 @@ export default function Navbar({
             >
               Pillars
             </a>
+            <a
+              href="#live-review"
+              className="hover:text-black transition-colors font-semibold text-amber-700 hover:text-amber-900 flex items-center gap-1"
+            >
+              <span>Reviews</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            </a>
             {/* Sanctuary Tools Dropdown Toggle */}
             <div className="relative" ref={toolsRef}>
               <button
@@ -274,6 +281,14 @@ export default function Navbar({
               onClick={() => setMobileMenuOpen(false)}
             >
               Pillars
+            </a>
+            <a
+              href="#live-review"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-amber-600 font-semibold flex items-center justify-between"
+            >
+              <span>Live Reviews</span>
+              <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-mono uppercase">Live</span>
             </a>
           </nav>
 

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://klifebuild.com"),
+  metadataBase: new URL("https://www.lifebuildglobal.com.ng"),
   title: {
     default: "Lifebuild • Rebuilding Everywhere You Go | 4Tribe Network & Zeki Ubor",
     template: "%s | Lifebuild",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     "Attendance QR pass",
     "Faith and business network",
   ],
-  authors: [{ name: "Zeki Ubor", url: "https://klifebuild.com" }],
+  authors: [{ name: "Zeki Ubor", url: "https://www.lifebuildglobal.com.ng" }],
   creator: "Zeki Ubor",
   publisher: "Lifebuild & 4Tribe Network",
   formatDetection: {
@@ -53,13 +53,13 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "https://klifebuild.com",
+    canonical: "https://www.lifebuildglobal.com.ng",
   },
   openGraph: {
     title: "Lifebuild • Rebuilding Everywhere You Go | 4Tribe Network",
     description:
       "Driven by Isaiah 58:12, Lifebuild is a propelling movement led by Zeki Ubor to rebuild broken walls, restore human dignity, and raise up foundations across generations.",
-    url: "https://klifebuild.com",
+    url: "https://www.lifebuildglobal.com.ng",
     siteName: "Lifebuild",
     images: [
       {

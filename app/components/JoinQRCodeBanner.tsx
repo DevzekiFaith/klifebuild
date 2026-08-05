@@ -14,10 +14,10 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
   const [copied, setCopied] = useState(false);
 
   // Scannable payload with direct fellowship link & meeting details
-  const qrJoinPayload = `https://klifebuild.com/join?src=qr_banner&mandate=Isaiah58:12`;
+  const qrJoinPayload = `https://www.lifebuildglobal.com.ng/join?src=qr_banner&mandate=Isaiah58:12`;
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText("https://klifebuild.com/join");
+    navigator.clipboard.writeText("https://www.lifebuildglobal.com.ng/join");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };

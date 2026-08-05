@@ -21,6 +21,7 @@ import RebuildersNotesModal from "./components/RebuildersNotesModal";
 import HappyNewMonthBanner from "./components/HappyNewMonthBanner";
 import HappyNewMonthModal from "./components/HappyNewMonthModal";
 import ConferenceRegistrationModal from "./components/ConferenceRegistrationModal";
+import LiveReviewSection from "./components/LiveReviewSection";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
 import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
@@ -165,6 +166,9 @@ export default function Home() {
 
       {/* Feature 3: Interactive Global Rebuilding Vision Wall */}
       <RebuildVisionWall />
+
+      {/* Feature 5: Live Review Form & Real-time Mobile QR Code Response Stream */}
+      <LiveReviewSection currentMemberName={currentMember?.fullName} />
 
       {/* Core 4T Pillars Section (Clean White Editorial Grid with Watermark Overlay) */}
       <section

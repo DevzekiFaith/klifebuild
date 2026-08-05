@@ -602,3 +602,245 @@ export async function fetchRebuildingDeclarations(): Promise<RebuildingDeclarati
 
   return defaultDeclarations;
 }
+
+/**
+ * Live Review Interface
+ */
+export interface ReviewData {
+  id: string;
+  authorName: string;
+  role: string;
+  rating: number; // 1 to 5
+  category: "Sunday Gathering" | "4T Transformation" | "Fellowship & Community" | "General Experience";
+  reviewText: string;
+  likes: number;
+  createdAt: string;
+}
+
+/**
+ * Default Curated Reviews
+ */
+export const DEFAULT_REVIEWS: ReviewData[] = [
+  {
+    id: "REV-101",
+    authorName: "Rev. Michael Thorne",
+    role: "Kingdom Strategist",
+    rating: 5,
+    category: "4T Transformation",
+    reviewText: "The 4T Pillars framework fundamentally restructured our leadership approach. Rebuilding broken walls with biblical clarity is exactly what our generation needs right now.",
+    likes: 18,
+    createdAt: "Today",
+  },
+  {
+    id: "REV-102",
+    authorName: "Sarah Jenkins",
+    role: "First-Time Guest",
+    rating: 5,
+    category: "Sunday Gathering",
+    reviewText: "Stepping into the Sunday Gathering felt like coming home. The worship atmosphere, authentic community, and seamless check-in experience were incredible!",
+    likes: 12,
+    createdAt: "Yesterday",
+  },
+  {
+    id: "REV-103",
+    authorName: "David K. Adeleke",
+    role: "Youth Builder & Mentor",
+    rating: 5,
+    category: "Fellowship & Community",
+    reviewText: "The level of intentionality in raising young builders under Isaiah 58:12 is unprecedented. Grateful for the vision wall and weekly meetings.",
+    likes: 24,
+    createdAt: "2 days ago",
+  },
+  {
+    id: "REV-104",
+    authorName: "Dr. Amanda Vance",
+    role: "Conference Delegate",
+    rating: 5,
+    category: "General Experience",
+    reviewText: "Impressed by the dynamic, modern digital platform paired with deep spiritual depth. Quick QR pass registration worked flawlessly on mobile!",
+    likes: 15,
+    createdAt: "3 days ago",
+  },
+];
+
+/**
+ * Submit Live Review
+ */
+export async function submitReview(
+  authorName: string,
+  role: string,
+  rating: number,
+  category: "Sunday Gathering" | "4T Transformation" | "Fellowship & Community" | "General Experience",
+  reviewText: string
+): Promise<ReviewData> {
+  const newReview: ReviewData = {
+    id: `REV-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    authorName,
+    role: role || "Community Builder",
+    rating: Math.min(5, Math.max(1, rating)),
+    category: category || "General Experience",
+    reviewText,
+    likes: 0,
+    createdAt: "Just now",
+  };
+
+  // 1. Save to LocalStorage for instant local persistence
+  try {
+    const existing = localStorage.getItem("lifebuild_live_reviews");
+    const reviews: ReviewData[] = existing ? JSON.parse(existing) : [];
+    localStorage.setItem("lifebuild_live_reviews", JSON.stringify([newReview, ...reviews]));
+  } catch (err) {
+    console.warn("LocalStorage review save notice:", err);
+  }
+
+  // 2. Broadcast across browser tabs via BroadcastChannel if supported
+  try {
+    if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+      const bc = new BroadcastChannel("lifebuild_reviews_channel");
+      bc.postMessage({ type: "NEW_REVIEW", payload: newReview });
+      bc.close();
+    }
+  } catch (err) {
+    console.warn("BroadcastChannel notice:", err);
+  }
+
+  // 3. Persist to Supabase Database
+  try {
+    await supabase.from("live_reviews").insert([
+      {
+        author_name: authorName,
+        role: role || "Community Builder",
+        rating: newReview.rating,
+        category: newReview.category,
+        review_text: reviewText,
+        likes: 0,
+        created_at: new Date().toISOString(),
+      },
+    ]);
+  } catch (err) {
+    console.warn("Supabase live review insert notice:", err);
+  }
+
+  return newReview;
+}
+
+/**
+ * Like / Upvote a Review
+ */
+export async function likeReview(id: string): Promise<void> {
+  try {
+    const existing = localStorage.getItem("lifebuild_live_reviews");
+    if (existing) {
+      const reviews: ReviewData[] = JSON.parse(existing);
+      const updated = reviews.map((r) => (r.id === id ? { ...r, likes: r.likes + 1 } : r));
+      localStorage.setItem("lifebuild_live_reviews", JSON.stringify(updated));
+    }
+  } catch (err) {
+    console.warn("Error updating review likes locally:", err);
+  }
+
+  try {
+    await supabase.rpc("increment_review_likes", { review_id: id });
+  } catch (err) {
+    console.warn("Supabase like RPC notice:", err);
+  }
+}
+
+/**
+ * Fetch All Live Reviews
+ */
+export async function fetchReviews(): Promise<ReviewData[]> {
+  try {
+    const { data } = await supabase
+      .from("live_reviews")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (data && data.length > 0) {
+      const dbReviews: ReviewData[] = data.map((d) => ({
+        id: d.id || `REV-${Math.random()}`,
+        authorName: d.author_name,
+        role: d.role || "Builder",
+        rating: d.rating || 5,
+        category: d.category || "General Experience",
+        reviewText: d.review_text,
+        likes: d.likes || 0,
+        createdAt: d.created_at ? new Date(d.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Recent",
+      }));
+
+      // Combine with local unsynced reviews if any
+      const local = localStorage.getItem("lifebuild_live_reviews");
+      const localReviews: ReviewData[] = local ? JSON.parse(local) : [];
+      const combined = [...localReviews, ...dbReviews.filter((d) => !localReviews.some((l) => l.id === d.id))];
+      return combined.length > 0 ? combined : DEFAULT_REVIEWS;
+    }
+  } catch (err) {
+    console.warn("Supabase fetch live reviews notice:", err);
+  }
+
+  try {
+    const local = localStorage.getItem("lifebuild_live_reviews");
+    if (local) {
+      const parsed: ReviewData[] = JSON.parse(local);
+      if (parsed.length > 0) {
+        const merged = [...parsed, ...DEFAULT_REVIEWS.filter((d) => !parsed.some((p) => p.id === d.id))];
+        return merged;
+      }
+    }
+  } catch (err) {
+    console.warn("LocalStorage read reviews notice:", err);
+  }
+
+  return DEFAULT_REVIEWS;
+}
+
+/**
+ * Subscribe to Real-Time Live Reviews (Supabase Realtime + BroadcastChannel)
+ */
+export function subscribeToLiveReviews(onNewReview: (review: ReviewData) => void): () => void {
+  // 1. Supabase Postgres Realtime Subscription
+  const channel = supabase
+    .channel("realtime_live_reviews")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "live_reviews",
+      },
+      (payload) => {
+        const row = payload.new;
+        if (row) {
+          const newRev: ReviewData = {
+            id: row.id || `REV-${row.id}`,
+            authorName: row.author_name,
+            role: row.role || "Builder",
+            rating: row.rating || 5,
+            category: row.category || "General Experience",
+            reviewText: row.review_text,
+            likes: row.likes || 0,
+            createdAt: "Just now",
+          };
+          onNewReview(newRev);
+        }
+      }
+    )
+    .subscribe();
+
+  // 2. Local Multi-Tab Sync Listener
+  let bc: BroadcastChannel | null = null;
+  if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+    bc = new BroadcastChannel("lifebuild_reviews_channel");
+    bc.onmessage = (event) => {
+      if (event.data && event.data.type === "NEW_REVIEW" && event.data.payload) {
+        onNewReview(event.data.payload);
+      }
+    };
+  }
+
+  return () => {
+    supabase.removeChannel(channel);
+    if (bc) bc.close();
+  };
+}
+
