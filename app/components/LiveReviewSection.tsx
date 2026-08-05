@@ -176,19 +176,19 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
   return (
     <section
       id="live-review"
-      className="relative w-full bg-[#0a0a0c] text-white py-28 border-b border-zinc-800/80 overflow-hidden"
+      className="relative w-full bg-white text-black py-28 border-b border-gray-100 overflow-hidden"
     >
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-amber-500/10 via-[#d4af37]/5 to-purple-600/10 blur-[130px] pointer-events-none" />
+      {/* Background Subtle Ambient Soft Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-amber-500/5 via-[#d4af37]/5 to-purple-600/5 blur-[120px] pointer-events-none select-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10 space-y-16">
         
         {/* Header Block */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-zinc-800/60">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-gray-200/80">
           <div className="space-y-4 max-w-2xl">
             <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono tracking-wider uppercase flex items-center gap-1.5">
-                <Radio className="w-3.5 h-3.5 animate-pulse text-amber-400" />
+              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-900 text-xs font-mono tracking-wider uppercase flex items-center gap-1.5 font-bold">
+                <Radio className="w-3.5 h-3.5 animate-pulse text-amber-600" />
                 Live Response Feed
               </span>
               <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline-block">
@@ -196,30 +196,30 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
               </span>
             </div>
 
-            <h2 className="font-serif-headline text-4xl sm:text-5xl lg:text-6xl font-normal text-zinc-100 leading-tight">
+            <h2 className="font-serif-headline text-4xl sm:text-5xl lg:text-6xl font-normal text-zinc-950 leading-tight">
               Share Your Experience & See Live Reviews.
             </h2>
 
-            <p className="text-zinc-400 text-base leading-relaxed font-light">
+            <p className="text-zinc-600 text-base leading-relaxed font-light">
               Submit your live review or scan the mobile QR code to give feedback directly from your phone. Responses update in real-time for everyone across the network.
             </p>
           </div>
 
           {/* Quick Metrics Badge */}
-          <div className="flex items-center gap-6 p-5 bg-zinc-900/80 border border-zinc-800 rounded-2xl backdrop-blur-md">
-            <div className="text-center border-r border-zinc-800 pr-6">
-              <div className="flex items-center justify-center gap-1 text-2xl font-bold text-amber-400 font-mono">
+          <div className="flex items-center gap-6 p-5 bg-gray-50/90 border border-gray-200 rounded-2xl backdrop-blur-md shadow-xs">
+            <div className="text-center border-r border-gray-200 pr-6">
+              <div className="flex items-center justify-center gap-1 text-2xl font-bold text-amber-600 font-mono">
                 <span>{avgRating}</span>
-                <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+                <Star className="w-5 h-5 fill-amber-500 text-amber-500" />
               </div>
-              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mt-0.5">
+              <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider block mt-0.5 font-semibold">
                 Avg Rating
               </span>
             </div>
 
             <div className="text-center">
-              <div className="text-2xl font-bold text-white font-mono">{totalReviews}</div>
-              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mt-0.5">
+              <div className="text-2xl font-bold text-zinc-950 font-mono">{totalReviews}</div>
+              <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider block mt-0.5 font-semibold">
                 Verified Reviews
               </span>
             </div>
@@ -235,18 +235,18 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
             {/* Interactive Review Form Card */}
             <div
               ref={formRef}
-              className="p-8 sm:p-10 bg-gradient-to-b from-zinc-900/90 to-zinc-950/90 border border-zinc-800/90 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden group"
+              className="p-8 sm:p-10 bg-white border border-gray-200/90 rounded-3xl shadow-xl shadow-gray-100/80 relative overflow-hidden group"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-bl-full pointer-events-none" />
 
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-700">
                     <MessageSquare className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">Submit a Live Review</h3>
-                    <p className="text-xs text-zinc-400 font-light">
+                    <h3 className="text-xl font-bold text-zinc-950">Submit a Live Review</h3>
+                    <p className="text-xs text-zinc-500 font-light">
                       Instant live sync across mobile and desktop
                     </p>
                   </div>
@@ -254,9 +254,9 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
 
                 <button
                   onClick={handleCopyLink}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-xs font-mono text-zinc-300 transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-mono text-zinc-700 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
-                  {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   {copiedLink ? "Link Copied!" : "Share Link"}
                 </button>
               </div>
@@ -265,13 +265,13 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="p-8 bg-emerald-950/40 border border-emerald-500/30 rounded-2xl text-center space-y-4"
+                  className="p-8 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-4"
                 >
-                  <div className="w-14 h-14 bg-emerald-500/20 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto text-emerald-400">
+                  <div className="w-14 h-14 bg-emerald-100 border border-emerald-300 rounded-full flex items-center justify-center mx-auto text-emerald-700">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-2xl font-bold text-white">Review Submitted Live!</h4>
-                  <p className="text-sm text-zinc-300 max-w-md mx-auto font-light">
+                  <h4 className="text-2xl font-bold text-emerald-950">Review Submitted Live!</h4>
+                  <p className="text-sm text-emerald-800 max-w-md mx-auto font-light">
                     Thank you for strengthening the Lifebuild community. Your review is now live in the stream below.
                   </p>
                 </motion.div>
@@ -280,8 +280,8 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   
                   {/* Star Rating Picker */}
                   <div className="space-y-2">
-                    <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider block">
-                      Overall Rating <span className="text-amber-400">*</span>
+                    <label className="text-xs font-mono text-zinc-600 uppercase tracking-wider block font-semibold">
+                      Overall Rating <span className="text-amber-600">*</span>
                     </label>
                     <div className="flex items-center gap-2">
                       {[1, 2, 3, 4, 5].map((star) => {
@@ -293,19 +293,19 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                             onClick={() => setRating(star)}
                             onMouseEnter={() => setHoverRating(star)}
                             onMouseLeave={() => setHoverRating(0)}
-                            className="p-1 text-2xl transition-transform hover:scale-125 focus:outline-none"
+                            className="p-1 text-2xl transition-transform hover:scale-125 focus:outline-none cursor-pointer"
                           >
                             <Star
                               className={`w-7 h-7 transition-colors ${
                                 active
-                                  ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"
-                                  : "text-zinc-700 hover:text-zinc-500"
+                                  ? "fill-amber-400 text-amber-500 drop-shadow-[0_0_6px_rgba(251,191,36,0.4)]"
+                                  : "text-gray-300 hover:text-amber-400"
                               }`}
                             />
                           </button>
                         );
                       })}
-                      <span className="ml-3 text-xs font-mono text-amber-400 font-semibold uppercase">
+                      <span className="ml-3 text-xs font-mono text-amber-700 font-bold uppercase">
                         {rating === 5 && "Outstanding (5/5)"}
                         {rating === 4 && "Very Good (4/5)"}
                         {rating === 3 && "Good (3/5)"}
@@ -318,8 +318,8 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   {/* Name & Role Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider block">
-                        Your Full Name <span className="text-amber-400">*</span>
+                      <label className="text-xs font-mono text-zinc-600 uppercase tracking-wider block font-semibold">
+                        Your Full Name <span className="text-amber-600">*</span>
                       </label>
                       <input
                         type="text"
@@ -327,18 +327,18 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                         value={authorName}
                         onChange={(e) => setAuthorName(e.target.value)}
                         placeholder="e.g. Dr. Emmanuel Vance"
-                        className="w-full px-4 py-3 bg-zinc-950/80 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider block">
+                      <label className="text-xs font-mono text-zinc-600 uppercase tracking-wider block font-semibold">
                         Your Community Role
                       </label>
                       <select
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
-                        className="w-full px-4 py-3 bg-zinc-950/80 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-zinc-900 focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
                       >
                         <option value="Member">Member</option>
                         <option value="First-Time Guest">First-Time Guest</option>
@@ -352,7 +352,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
 
                   {/* Category Selection */}
                   <div className="space-y-2">
-                    <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider block">
+                    <label className="text-xs font-mono text-zinc-600 uppercase tracking-wider block font-semibold">
                       Review Category
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -366,10 +366,10 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                           type="button"
                           key={cat}
                           onClick={() => setCategory(cat as any)}
-                          className={`px-3 py-2 rounded-xl text-xs font-medium transition-all text-center border ${
+                          className={`px-3 py-2 rounded-xl text-xs font-medium transition-all text-center border cursor-pointer ${
                             category === cat
-                              ? "bg-amber-500/20 border-amber-500 text-amber-300 font-semibold"
-                              : "bg-zinc-950/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200"
+                              ? "bg-amber-500/15 border-amber-500 text-amber-950 font-bold shadow-xs"
+                              : "bg-gray-50 border-gray-200 text-zinc-600 hover:border-gray-300 hover:bg-gray-100 hover:text-zinc-900"
                           }`}
                         >
                           {cat}
@@ -381,10 +381,10 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   {/* Review Text */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider block">
-                        Your Review / Feedback <span className="text-amber-400">*</span>
+                      <label className="text-xs font-mono text-zinc-600 uppercase tracking-wider block font-semibold">
+                        Your Review / Feedback <span className="text-amber-600">*</span>
                       </label>
-                      <span className="text-[11px] font-mono text-zinc-500">
+                      <span className="text-[11px] font-mono text-zinc-400">
                         {reviewText.length}/500
                       </span>
                     </div>
@@ -396,13 +396,13 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                       value={reviewText}
                       onChange={(e) => setReviewText(e.target.value)}
                       placeholder="Share your authentic experience, testimony, or feedback..."
-                      className="w-full px-4 py-3 bg-zinc-950/80 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500 transition-colors resize-none leading-relaxed"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors resize-none leading-relaxed"
                     />
 
                     {/* Quick Prompts */}
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       <span className="text-[11px] text-zinc-500 flex items-center gap-1 font-mono">
-                        <Sparkles className="w-3 h-3 text-amber-400" />
+                        <Sparkles className="w-3 h-3 text-amber-600" />
                         Quick prompts:
                       </span>
                       {quickPrompts.map((p, idx) => (
@@ -410,7 +410,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                           type="button"
                           key={idx}
                           onClick={() => setReviewText(p)}
-                          className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800/40 hover:bg-zinc-800/80 text-zinc-400 hover:text-zinc-200 transition-colors text-left truncate max-w-[260px]"
+                          className="text-[11px] px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 text-zinc-600 hover:text-zinc-900 transition-colors text-left truncate max-w-[260px] cursor-pointer"
                         >
                           "{p}"
                         </button>
@@ -441,9 +441,9 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-bold text-white">Live Responses</h3>
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  <h3 className="text-xl font-bold text-zinc-950">Live Responses</h3>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-bold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                     Realtime Sync
                   </span>
                 </div>
@@ -460,10 +460,10 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     <button
                       key={cat}
                       onClick={() => setActiveCategory(cat)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all cursor-pointer ${
                         activeCategory === cat
-                          ? "bg-zinc-100 text-zinc-950 font-bold"
-                          : "bg-zinc-900/60 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                          ? "bg-black text-white font-bold shadow-xs"
+                          : "bg-gray-100 text-zinc-600 hover:text-black hover:bg-gray-200"
                       }`}
                     >
                       {cat}
@@ -476,7 +476,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
               <div className="space-y-4">
                 <AnimatePresence initial={false}>
                   {filteredReviews.length === 0 ? (
-                    <div className="p-8 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl text-center text-zinc-500 font-light">
+                    <div className="p-8 bg-gray-50 border border-gray-200 rounded-2xl text-center text-zinc-500 font-light">
                       No reviews submitted in this category yet. Be the first!
                     </div>
                   ) : (
@@ -487,48 +487,48 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="p-6 bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700/80 rounded-2xl transition-all space-y-3 relative group"
+                        className="p-6 bg-white border border-gray-200 hover:border-gray-300 shadow-xs hover:shadow-md rounded-2xl transition-all space-y-3 relative group"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500/20 to-purple-600/20 border border-amber-500/30 flex items-center justify-center text-amber-300 font-bold font-serif text-base">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500/20 to-purple-600/20 border border-amber-500/30 flex items-center justify-center text-amber-800 font-bold font-serif text-base">
                               {rev.authorName.charAt(0).toUpperCase()}
                             </div>
 
                             <div>
                               <div className="flex items-center gap-2">
-                                <h4 className="text-sm font-bold text-white">{rev.authorName}</h4>
-                                <span className="px-2 py-0.5 rounded bg-zinc-800 text-[10px] font-mono text-zinc-400">
+                                <h4 className="text-sm font-bold text-zinc-950">{rev.authorName}</h4>
+                                <span className="px-2 py-0.5 rounded bg-gray-100 text-[10px] font-mono text-zinc-600 font-medium">
                                   {rev.role}
                                 </span>
                               </div>
-                              <span className="text-[11px] text-zinc-500 font-mono">
+                              <span className="text-[11px] text-zinc-400 font-mono">
                                 {rev.createdAt}
                               </span>
                             </div>
                           </div>
 
                           {/* Star Rating Badge */}
-                          <div className="flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
-                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                            <span className="text-xs font-mono font-bold text-amber-400">
+                          <div className="flex items-center gap-1 bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-lg">
+                            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                            <span className="text-xs font-mono font-bold text-amber-800">
                               {rev.rating}.0
                             </span>
                           </div>
                         </div>
 
-                        <p className="text-sm text-zinc-300 leading-relaxed font-light">
+                        <p className="text-sm text-zinc-700 leading-relaxed font-light">
                           "{rev.reviewText}"
                         </p>
 
-                        <div className="flex items-center justify-between pt-2 border-t border-zinc-800/40 text-xs font-mono">
-                          <span className="text-[11px] text-amber-400/80 bg-amber-500/5 px-2 py-0.5 rounded border border-amber-500/10">
+                        <div className="flex items-center justify-between pt-2 border-t border-gray-100 text-xs font-mono">
+                          <span className="text-[11px] text-amber-800 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
                             {rev.category}
                           </span>
 
                           <button
                             onClick={() => handleLike(rev.id)}
-                            className="flex items-center gap-1.5 text-zinc-400 hover:text-amber-400 transition-colors py-1 px-2.5 rounded-lg hover:bg-zinc-800/60"
+                            className="flex items-center gap-1.5 text-zinc-500 hover:text-amber-800 transition-colors py-1 px-2.5 rounded-lg hover:bg-gray-100 cursor-pointer"
                           >
                             <ThumbsUp className="w-3.5 h-3.5" />
                             <span>Helpful ({rev.likes})</span>
@@ -543,11 +543,11 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
 
           </div>
 
-          {/* Right Column: QR Code Mobile responsiveness Card & Analytics (5 Cols) */}
+          {/* Right Column: High-Impact Dark QR Code Card & Analytics (5 Cols) */}
           <div className="lg:col-span-5 space-y-8 sticky top-28">
             
-            {/* Scan QR Code To Review On Mobile Card */}
-            <div className="p-8 bg-gradient-to-b from-zinc-900 via-zinc-900 to-zinc-950 border border-amber-500/30 rounded-3xl shadow-2xl relative overflow-hidden space-y-6">
+            {/* Scan QR Code To Review On Mobile Card (Preserving striking dark contrast on white layout) */}
+            <div className="p-8 bg-gradient-to-b from-zinc-950 via-zinc-900 to-black border border-amber-500/30 rounded-3xl shadow-2xl relative overflow-hidden space-y-6 text-white">
               
               {/* Top Banner Tag */}
               <div className="flex items-center justify-between">
@@ -561,7 +561,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                 <button
                   onClick={() => setIsQrModalOpen(true)}
                   title="Expand QR Code"
-                  className="p-2 rounded-xl bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors"
+                  className="p-2 rounded-xl bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <Maximize2 className="w-4 h-4" />
                 </button>
@@ -618,14 +618,14 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
               </div>
             </div>
 
-            {/* Community Rating Breakdown Analytics Card */}
-            <div className="p-6 bg-zinc-900/60 border border-zinc-800/80 rounded-3xl space-y-5">
+            {/* Community Rating Breakdown Analytics Card (White background) */}
+            <div className="p-6 bg-white border border-gray-200/90 rounded-3xl shadow-sm space-y-5">
               <div className="flex items-center justify-between">
-                <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-amber-400" />
+                <h4 className="text-sm font-bold text-zinc-950 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-amber-600" />
                   Community Satisfaction
                 </h4>
-                <span className="text-xs font-mono text-zinc-500">{totalReviews} Ratings</span>
+                <span className="text-xs font-mono text-zinc-500 font-medium">{totalReviews} Ratings</span>
               </div>
 
               {/* Star Progress Bars */}
@@ -635,12 +635,12 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   const pct = totalReviews > 0 ? Math.round((count / totalReviews) * 100) : 0;
                   return (
                     <div key={star} className="flex items-center gap-3">
-                      <div className="flex items-center gap-1 w-10 text-zinc-400">
+                      <div className="flex items-center gap-1 w-10 text-zinc-600 font-medium">
                         <span>{star}</span>
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
                       </div>
 
-                      <div className="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                      <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-amber-500 to-[#d4af37] rounded-full transition-all duration-500"
                           style={{ width: `${pct}%` }}
@@ -653,9 +653,9 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                 })}
               </div>
 
-              <div className="pt-4 border-t border-zinc-800/60 flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="flex items-center gap-1.5 text-emerald-400">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+              <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-mono text-zinc-600">
+                <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   100% Verified Lifebuilder Feedback
                 </span>
               </div>
@@ -670,31 +670,31 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
       {/* Full-Screen Presentation QR Modal */}
       <AnimatePresence>
         {isQrModalOpen && (
-          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="w-full max-w-md bg-zinc-950 border border-amber-500/40 rounded-3xl p-8 space-y-6 text-center relative shadow-2xl"
+              className="w-full max-w-md bg-white border border-amber-500/40 rounded-3xl p-8 space-y-6 text-center relative shadow-2xl text-zinc-950"
             >
               <button
                 onClick={() => setIsQrModalOpen(false)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-zinc-500 hover:text-black transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="space-y-2">
-                <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono uppercase tracking-wider">
+                <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-mono uppercase tracking-wider font-bold">
                   Auditorium & Live Stream Presentation QR
                 </span>
-                <h3 className="text-2xl font-bold text-white">Scan with Mobile Phone</h3>
-                <p className="text-xs text-zinc-400 font-light">
+                <h3 className="text-2xl font-bold text-zinc-950">Scan with Mobile Phone</h3>
+                <p className="text-xs text-zinc-600 font-light">
                   Submit live reviews and feedback directly from your mobile browser.
                 </p>
               </div>
 
-              <div className="p-6 bg-white rounded-3xl inline-block border-4 border-amber-400 shadow-2xl">
+              <div className="p-6 bg-white rounded-3xl inline-block border-4 border-amber-400 shadow-xl">
                 <QRCodeSVG
                   value={liveUrl}
                   size={260}
@@ -712,13 +712,13 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
               </div>
 
               <div className="space-y-3">
-                <p className="text-xs font-mono text-amber-300 truncate px-4 py-2 bg-zinc-900 rounded-xl border border-zinc-800">
+                <p className="text-xs font-mono text-amber-900 truncate px-4 py-2 bg-amber-50 rounded-xl border border-amber-200/80 font-bold">
                   {liveUrl}
                 </p>
 
                 <button
                   onClick={handleCopyLink}
-                  className="w-full py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white font-semibold rounded-xl text-xs font-mono transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-zinc-950 hover:bg-zinc-800 border border-zinc-900 text-white font-semibold rounded-xl text-xs font-mono transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
                 >
                   {copiedLink ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4 text-amber-400" />}
                   {copiedLink ? "Link Copied to Clipboard" : "Copy Review Link"}
