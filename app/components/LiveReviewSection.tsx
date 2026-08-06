@@ -456,7 +456,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   </span>
                 </div>
 
-                {/* Category Filters (Solid & Stable Border Sizing) */}
+                {/* Category Filters (Smooth Motion Buttons like RebuildVisionWall) */}
                 <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
                   {[
                     "ALL",
@@ -465,8 +465,10 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     "Fellowship & Community",
                     "General Experience"
                   ].map((cat) => (
-                    <button
+                    <motion.button
                       key={cat}
+                      whileHover={{ scale: 1.04, y: -1 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setActiveCategory(cat)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-colors cursor-pointer border ${
                         activeCategory === cat
@@ -475,82 +477,81 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                       }`}
                     >
                       {cat}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
 
-              {/* Feed Items (Stable height container to prevent layout shifting on category change) */}
-              <div className="space-y-4 min-h-[360px]">
-                <AnimatePresence mode="popLayout" initial={false}>
-                  {filteredReviews.length === 0 ? (
-                    <motion.div
-                      key="empty-state"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="p-8 bg-[#241544] border border-[#3f2275] rounded-2xl text-center text-purple-300/80 font-light"
-                    >
-                      No reviews submitted in this category yet. Be the first!
-                    </motion.div>
-                  ) : (
-                    filteredReviews.map((rev) => (
-                      <motion.div
-                        key={rev.id}
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -15 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="p-6 bg-[#241544] border border-[#3f2275] hover:border-purple-600/80 shadow-xl rounded-2xl transition-all space-y-3 relative group"
-                      >
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-[#3f2275] border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold font-serif text-base">
-                              {rev.authorName.charAt(0).toUpperCase()}
-                            </div>
+              {/* Feed Items (Smooth transition on category switch like RebuildVisionWall) */}
+              <div className="min-h-[360px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeCategory}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="space-y-4"
+                  >
+                    {filteredReviews.length === 0 ? (
+                      <div className="p-8 bg-[#241544] border border-[#3f2275] rounded-2xl text-center text-purple-300/80 font-light">
+                        No reviews submitted in this category yet. Be the first!
+                      </div>
+                    ) : (
+                      filteredReviews.map((rev) => (
+                        <div
+                          key={rev.id}
+                          className="p-6 bg-[#241544] border border-[#3f2275] hover:border-purple-600/80 shadow-xl rounded-2xl transition-all space-y-3 relative group"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-full bg-[#3f2275] border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold font-serif text-base">
+                                {rev.authorName.charAt(0).toUpperCase()}
+                              </div>
 
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <h4 className="text-sm font-bold text-white">{rev.authorName}</h4>
-                                <span className="px-2 py-0.5 rounded bg-[#1a0f32] border border-[#3f2275] text-[10px] font-mono text-purple-300 font-medium">
-                                  {rev.role}
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <h4 className="text-sm font-bold text-white">{rev.authorName}</h4>
+                                  <span className="px-2 py-0.5 rounded bg-[#1a0f32] border border-[#3f2275] text-[10px] font-mono text-purple-300 font-medium">
+                                    {rev.role}
+                                  </span>
+                                </div>
+                                <span className="text-[11px] text-purple-300/70 font-mono">
+                                  {rev.createdAt}
                                 </span>
                               </div>
-                              <span className="text-[11px] text-purple-300/70 font-mono">
-                                {rev.createdAt}
+                            </div>
+
+                            {/* Star Rating Badge */}
+                            <div className="flex items-center gap-1 bg-[#1a0f32] border border-amber-500/30 px-2.5 py-1 rounded-lg">
+                              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                              <span className="text-xs font-mono font-bold text-amber-300">
+                                {rev.rating}.0
                               </span>
                             </div>
                           </div>
 
-                          {/* Star Rating Badge */}
-                          <div className="flex items-center gap-1 bg-[#1a0f32] border border-amber-500/30 px-2.5 py-1 rounded-lg">
-                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                            <span className="text-xs font-mono font-bold text-amber-300">
-                              {rev.rating}.0
+                          <p className="text-sm text-purple-100/90 leading-relaxed font-light">
+                            "{rev.reviewText}"
+                          </p>
+
+                          <div className="flex items-center justify-between pt-2 border-t border-[#3f2275] text-xs font-mono">
+                            <span className="text-[11px] text-amber-300 font-medium bg-[#1a0f32] px-2 py-0.5 rounded border border-amber-500/30">
+                              {rev.category}
                             </span>
+
+                            <button
+                              onClick={() => handleLike(rev.id)}
+                              className="flex items-center gap-1.5 text-purple-300/80 hover:text-amber-300 transition-colors py-1 px-2.5 rounded-lg hover:bg-[#1a0f32] cursor-pointer"
+                            >
+                              <ThumbsUp className="w-3.5 h-3.5" />
+                              <span>Helpful ({rev.likes})</span>
+                            </button>
                           </div>
                         </div>
-
-                        <p className="text-sm text-purple-100/90 leading-relaxed font-light">
-                          "{rev.reviewText}"
-                        </p>
-
-                        <div className="flex items-center justify-between pt-2 border-t border-[#3f2275] text-xs font-mono">
-                          <span className="text-[11px] text-amber-300 font-medium bg-[#1a0f32] px-2 py-0.5 rounded border border-amber-500/30">
-                            {rev.category}
-                          </span>
-
-                          <button
-                            onClick={() => handleLike(rev.id)}
-                            className="flex items-center gap-1.5 text-purple-300/80 hover:text-amber-300 transition-colors py-1 px-2.5 rounded-lg hover:bg-[#1a0f32] cursor-pointer"
-                          >
-                            <ThumbsUp className="w-3.5 h-3.5" />
-                            <span>Helpful ({rev.likes})</span>
-                          </button>
-                        </div>
-                      </motion.div>
-                    ))
-                  )}
+                      ))
+                    )}
+                  </motion.div>
                 </AnimatePresence>
               </div>
             </div>
