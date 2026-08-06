@@ -456,7 +456,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   </span>
                 </div>
 
-                {/* Category Filters (Solid) */}
+                {/* Category Filters (Solid & Stable Border Sizing) */}
                 <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
                   {[
                     "ALL",
@@ -468,10 +468,10 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     <button
                       key={cat}
                       onClick={() => setActiveCategory(cat)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-colors cursor-pointer border ${
                         activeCategory === cat
-                          ? "bg-[#d4af37] text-zinc-950 font-bold shadow-md"
-                          : "bg-[#1a0f32] border border-[#3f2275] text-purple-200 hover:text-white hover:bg-[#2d1954]"
+                          ? "bg-[#d4af37] border-[#d4af37] text-zinc-950 font-bold shadow-md"
+                          : "bg-[#1a0f32] border-[#3f2275] text-purple-200 hover:text-white hover:bg-[#2d1954]"
                       }`}
                     >
                       {cat}
@@ -480,21 +480,27 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                 </div>
               </div>
 
-              {/* Feed Items */}
-              <div className="space-y-4">
-                <AnimatePresence initial={false}>
+              {/* Feed Items (Stable height container to prevent layout shifting on category change) */}
+              <div className="space-y-4 min-h-[360px]">
+                <AnimatePresence mode="popLayout" initial={false}>
                   {filteredReviews.length === 0 ? (
-                    <div className="p-8 bg-[#241544] border border-[#3f2275] rounded-2xl text-center text-purple-300/80 font-light">
+                    <motion.div
+                      key="empty-state"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="p-8 bg-[#241544] border border-[#3f2275] rounded-2xl text-center text-purple-300/80 font-light"
+                    >
                       No reviews submitted in this category yet. Be the first!
-                    </div>
+                    </motion.div>
                   ) : (
                     filteredReviews.map((rev) => (
                       <motion.div
                         key={rev.id}
-                        initial={{ opacity: 0, y: -20, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
                         className="p-6 bg-[#241544] border border-[#3f2275] hover:border-purple-600/80 shadow-xl rounded-2xl transition-all space-y-3 relative group"
                       >
                         <div className="flex items-start justify-between gap-4">
