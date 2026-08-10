@@ -36,22 +36,22 @@ export default function QRScannerModal({
   const memberId = currentMember ? currentMember.memberId : "LB-2026-9041";
   const memberName = currentMember ? currentMember.fullName : "Zeki Ubor (Founder)";
   const memberRole = currentMember ? currentMember.role : "Founder & Executive";
-  const memberMode = currentMember ? currentMember.attendanceMode : "In-Person Sanctuary";
+  const memberMode = currentMember ? currentMember.attendanceMode : "In-Person Gathering";
 
-  const fellowshipMeetingInfo = `LIFEBUILD FELLOWSHIP GATHERING & 4T CONFERENCE
+  const visionMeetingInfo = `LIFE BUILD GATHERING & 4T CONFERENCE
 --------------------------------------------
 MEMBER: ${memberName}
 ID: ${memberId}
 ROLE: ${memberRole}
 MODE: ${memberMode}
 
-SUNDAY FELLOWSHIP DETAILS:
-• Time: Every Sunday @ 5:00 PM GMT+1
-• Location: Lifebuild Center & Global Stream
+SUNDAY GATHERING DETAILS:
+• Time: 2nd & 4th Sunday @ 5:00 PM GMT+1
+• Location: Life Build Center & Global Stream
 • Convener: Zeki Ubor
 • Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
 --------------------------------------------
-https://github.com/DevzekiFaith/klifebuild`;
+https://www.lifebuildglobal.com.ng`;
 
   const handleSimulateScan = () => {
     setIsScanning(true);
@@ -63,7 +63,7 @@ https://github.com/DevzekiFaith/klifebuild`;
         id: memberId,
         name: memberName,
         role: memberRole,
-        timestamp: `${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} • Gate 1 Sanctuary`,
+        timestamp: `${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} • Gate 1 Entrance`,
         status: "VERIFIED",
       };
 
@@ -120,10 +120,10 @@ https://github.com/DevzekiFaith/klifebuild`;
           </div>
           <div>
             <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-              Sunday Sanctuary Entrance
+              Sunday Gathering Entrance
             </span>
             <h3 className="font-serif-headline text-2xl text-zinc-950">
-              Fellowship Pass & Scanner
+              Vision Pass & Scanner
             </h3>
           </div>
         </div>
@@ -161,7 +161,7 @@ https://github.com/DevzekiFaith/klifebuild`;
               
               <div className="space-y-1">
                 <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest block">
-                  SUNDAY SANCTUARY ENTRANCE
+                  SUNDAY GATHERING ENTRANCE
                 </span>
                 <h4 className="font-serif-headline text-2xl text-white font-normal">
                   {memberName}
@@ -174,7 +174,7 @@ https://github.com/DevzekiFaith/klifebuild`;
               {/* Scannable QR Code */}
               <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 my-2 space-y-2">
                 <QRCodeSVG
-                  value={fellowshipMeetingInfo}
+                  value={visionMeetingInfo}
                   size={180}
                   level="M"
                   includeMargin={true}
@@ -187,7 +187,7 @@ https://github.com/DevzekiFaith/klifebuild`;
               </div>
 
               <div className="text-[11px] font-mono text-zinc-400 pt-1">
-                Every Sunday @ 5:00 PM (GMT+1) • Isaiah 58:12 Mandate
+                2nd & 4th Sunday @ 5:00 PM (GMT+1) • Isaiah 58:12
               </div>
             </div>
           </div>

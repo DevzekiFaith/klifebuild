@@ -32,7 +32,7 @@ export default function RegistrationForm({
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("Founder / Executive");
   const [vision, setVision] = useState("");
-  const [attendanceMode, setAttendanceMode] = useState("In-Person Sanctuary");
+  const [attendanceMode, setAttendanceMode] = useState("In-Person Gathering");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
@@ -101,7 +101,7 @@ export default function RegistrationForm({
             Membership Application
           </span>
           <h3 className="font-serif-headline text-3xl font-normal text-zinc-950">
-            Join Lifebuild Fellowship
+            Join the Life Build Vision
           </h3>
           <p className="text-xs text-zinc-500 font-light">
             Submit your credentials to receive your official Attendance Pass with embedded Sunday Gathering details and QR barcode.
@@ -180,7 +180,7 @@ export default function RegistrationForm({
                 onChange={(e) => setAttendanceMode(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/50 cursor-pointer"
               >
-                <option value="In-Person Sanctuary">In-Person Sanctuary (Sunday @ 5PM)</option>
+                <option value="In-Person Gathering">In-Person Gathering (Sunday @ 5PM)</option>
                 <option value="Global Stream Access">Global Stream Access</option>
                 <option value="4T Conference Hybrid">4T Conference Hybrid</option>
               </select>

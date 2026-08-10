@@ -101,7 +101,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
   const [authorName, setAuthorName] = useState<string>("");
   const [role, setRole] = useState<string>("Member");
   const [category, setCategory] = useState<
-    "Sunday Gathering" | "4T Transformation" | "Fellowship & Community" | "General Experience"
+    "Sunday Gathering" | "4T Transformation" | "Vision & Community" | "General Experience"
   >("Sunday Gathering");
   const [reviewText, setReviewText] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -205,7 +205,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
     "Loved the powerful worship atmosphere and community spirit!",
     "The 4T Pillars vision gave me clear direction for leadership.",
     "Seamless QR pass check-in made joining Sunday gathering so smooth!",
-    "Inspiring message and warm fellowship from day one."
+    "Inspiring message and warm connection from day one."
   ];
 
   const filteredReviews = reviews.filter((r) => {
@@ -437,7 +437,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                         {[
                           "Sunday Gathering",
                           "4T Transformation",
-                          "Fellowship & Community",
+                          "Vision & Community",
                           "General Experience"
                         ].map((cat) => (
                           <button
@@ -533,7 +533,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     "ALL",
                     "Sunday Gathering",
                     "4T Transformation",
-                    "Fellowship & Community",
+                    "Vision & Community",
                     "General Experience"
                   ].map((cat) => (
                     <motion.button

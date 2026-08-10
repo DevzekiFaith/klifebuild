@@ -48,7 +48,7 @@ export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: 
               Vision
             </a>
             <a href="#fellowship" className="hover:text-black transition-colors">
-              Fellowship
+              Gathering
             </a>
             <a href="#pillars" className="hover:text-black transition-colors">
               Pillars

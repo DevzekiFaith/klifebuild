@@ -24,7 +24,7 @@ export default function JsonLd() {
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "Lifebuild Sunday Sanctuary Gathering & 4T Conference",
+    "name": "Life Build Sunday Gathering & 4T Conference",
     "startDate": "2026-08-02T17:00:00+01:00",
     "eventSchedule": {
       "@type": "Schedule",
@@ -37,7 +37,7 @@ export default function JsonLd() {
     "location": [
       {
         "@type": "Place",
-        "name": "Lifebuild Sanctuary Center",
+        "name": "Life Build Center",
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "NG"
@@ -52,7 +52,7 @@ export default function JsonLd() {
       "https://klifebuild.com/images/worship_nigerian_african.png",
       "https://klifebuild.com/images/zeki_ubor_official.png"
     ],
-    "description": "Weekly 60-minute spiritual grounding, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and iron-sharpening fellowship for founders and leaders led by Zeki Ubor.",
+    "description": "Weekly 60-minute spiritual grounding, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and strategic alignment for founders and leaders led by Zeki Ubor.",
     "organizer": {
       "@type": "Organization",
       "name": "Lifebuild & 4Tribe Network",

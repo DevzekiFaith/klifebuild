@@ -105,7 +105,7 @@ export default function HappyNewMonthModal({
               <div className="space-y-1.5 text-xs text-zinc-400 font-light">
                 <div className="flex items-center gap-2 text-white font-mono font-semibold">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>August Sanctuary & 4T Gathering Focus</span>
+                  <span>August Alignment & 4T Gathering Focus</span>
                 </div>
                 <p className="text-[11px] leading-relaxed pl-6">
                   Rebuilding foundations, expanding capacity, and stepping into divine enlargement across personal calling, business, and community impact.

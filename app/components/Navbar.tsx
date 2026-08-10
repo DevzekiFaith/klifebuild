@@ -107,7 +107,7 @@ export default function Navbar({
               href="#fellowship"
               className="hover:text-black transition-colors"
             >
-              Fellowship
+              Gathering
             </a>
             <a
               href="#pillars"
@@ -226,7 +226,7 @@ export default function Navbar({
                 onClick={onOpenRegister}
                 className="px-4 py-1.5 rounded-full border border-zinc-900 text-black hover:bg-black hover:text-white transition-all text-xs font-medium flex items-center gap-1 cursor-pointer"
               >
-                <span>Join Fellowship</span>
+                <span>Join the Vision</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -274,7 +274,7 @@ export default function Navbar({
               href="#fellowship"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Fellowship
+              Gathering
             </a>
             <a
               href="#pillars"
@@ -295,7 +295,7 @@ export default function Navbar({
           {/* Sanctuary Tools — Mobile Group */}
           <div className="border-t border-gray-100 pt-4 space-y-2">
             <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 mb-3">
-              Sanctuary Tools
+              Gathering Tools
             </p>
 
             {onOpenConference && (
@@ -370,7 +370,7 @@ export default function Navbar({
               }}
               className="w-full py-3 rounded-full bg-black text-white font-medium text-sm text-center"
             >
-              {hasPass ? "View My Attendance Pass" : "Join Founder Fellowship"}
+              {hasPass ? "View My Attendance Pass" : "Join the Vision"}
             </button>
           </div>
         </div>

@@ -54,7 +54,7 @@ export default function RebuildersNotesModal({
         day: "numeric",
         year: "numeric",
       }),
-      title: title || "Untitled Sanctuary Note",
+      title: title || "Untitled Note",
       scripture: scripture || "Isaiah 58:12",
       pillar,
       content,
@@ -104,7 +104,7 @@ export default function RebuildersNotesModal({
   };
 
   const handleDownloadTxt = () => {
-    const textData = `LIFEBUILD SANCTUARY MEETING NOTE
+    const textData = `LIFEBUILD GATHERING NOTE
 Date: ${new Date().toLocaleDateString()}
 Title: ${title}
 Pillar Focus: ${pillar}
@@ -116,7 +116,7 @@ ${content || "(No reflections recorded)"}
 --- 4T ACTION ITEMS & DEPLOYMENT TARGETS ---
 ${actionItems || "(No action items recorded)"}
 
-— Lifebuild 4Tribe Network • Isaiah 58:12 Mandate`;
+— Lifebuild 4Tribe Network • Isaiah 58:12`;
 
     const blob = new Blob([textData], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -211,7 +211,7 @@ ${actionItems || "(No action items recorded)"}
                   Sunday Gathering Journal
                 </span>
                 <h3 className="font-serif-headline text-2xl text-black">
-                  Sanctuary Notes & 4T Action Items
+                  Gathering Notes & 4T Action Items
                 </h3>
               </div>
               <button

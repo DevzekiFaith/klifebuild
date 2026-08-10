@@ -218,11 +218,11 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
               >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
                   <Heart className="w-4 h-4 text-black" />
-                  <span>03 / COMMUNITY & FELLOWSHIP</span>
+                  <span>03 / COMMUNITY & VISION</span>
                 </div>
                 <h4 className="font-heading font-bold text-base text-black">Raising Mighties & Transforming Communities</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Gathering builders every Sunday for iron-sharpening fellowship, strategic teaching, and genuine brotherhood.
+                  Gathering builders every Sunday for strategic alignment, 4T teaching, and genuine connection.
                 </p>
               </motion.div>
 
@@ -242,7 +242,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 onClick={onOpenRegister}
                 className="px-8 py-4 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Join Fellowship with Zeki Ubor</span>
+                <span>Join the Vision with Zeki Ubor</span>
                 <ArrowUpRight className="w-4 h-4" />
               </motion.button>
             </motion.div>

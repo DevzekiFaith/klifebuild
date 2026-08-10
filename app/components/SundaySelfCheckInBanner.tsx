@@ -37,7 +37,7 @@ export default function SundaySelfCheckInBanner({
 
   const handleSelfCheckIn = async (overrideMember?: MemberData) => {
     const targetMember = overrideMember || currentMember;
-    const nameToUse = targetMember ? targetMember.fullName : manualMemberId || "Fellowship Leader";
+    const nameToUse = targetMember ? targetMember.fullName : manualMemberId || "Kingdom Rebuilder";
     const idToUse = targetMember ? targetMember.memberId : manualMemberId || `LB-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     const roleToUse = targetMember ? targetMember.role : "Kingdom Builder";
 
@@ -91,11 +91,11 @@ export default function SundaySelfCheckInBanner({
             </div>
 
             <h3 className="font-serif-headline text-xl sm:text-2xl text-white font-normal">
-              Check-In to Today's Sanctuary & 4T Stream
+              Check-In to Today's Gathering & 4T Stream
             </h3>
 
             <p className="text-xs text-zinc-400 font-light max-w-xl">
-              Record your Sunday presence, confirm your sanctuary or stream seat, and unlock today's 4T Conference notes.
+              Record your Sunday presence, confirm your gathering or stream seat, and unlock today's 4T Conference notes.
             </p>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function SundaySelfCheckInBanner({
                   }`}
                 >
                   <MapPin className="w-3 h-3" />
-                  <span>Sanctuary</span>
+                  <span>In-Person</span>
                 </button>
                 <button
                   onClick={() => setAttendanceType("GLOBAL_STREAM")}

@@ -13,8 +13,8 @@ interface JoinQRCodeBannerProps {
 export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: JoinQRCodeBannerProps) {
   const [copied, setCopied] = useState(false);
 
-  // Scannable payload with direct fellowship link & meeting details
-  const qrJoinPayload = `https://www.lifebuildglobal.com.ng/join?src=qr_banner&mandate=Isaiah58:12`;
+  // Scannable payload with direct vision link & meeting details
+  const qrJoinPayload = `https://www.lifebuildglobal.com.ng/join?src=qr_banner&vision=Isaiah58:12`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText("https://www.lifebuildglobal.com.ng/join");
@@ -77,10 +77,10 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 {/* Big Promotional Graphic Text inside Phone */}
                 <div className="space-y-2 text-center py-6">
                   <span className="text-[9px] font-mono text-[#d4af37] uppercase tracking-widest block font-bold">
-                    SUNDAY SANCTUARY
+                    SUNDAY GATHERING
                   </span>
                   <h4 className="font-serif-headline text-3xl font-extrabold tracking-tight leading-none text-white">
-                    JOIN OUR <br /> FELLOWSHIP
+                    JOIN THE <br /> VISION
                   </h4>
                   <p className="text-[10px] text-zinc-400 font-mono">
                     Rebuilding Broken Walls • Isaiah 58:12
@@ -90,7 +90,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 {/* Phone Card Footer */}
                 <div className="p-4 bg-zinc-900/90 rounded-2xl border border-zinc-800 space-y-2 text-center">
                   <span className="text-[9px] font-mono text-emerald-400 font-bold block uppercase">
-                    ● GATHERING SUNDAY @ 5PM
+                    ● GATHERING 2ND & 4TH SUNDAY @ 5PM
                   </span>
                   <button
                     onClick={onOpenRegister}
@@ -120,7 +120,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 SCAN QR CODE <br /> TO JOIN NOW.
               </h3>
               <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
-                Point your smartphone camera at the QR code below to instantly open your Sunday Fellowship registration pass and join the 4Tribe Network.
+                Point your smartphone camera at the QR code below to instantly open your Sunday Vision registration pass and join the 4Tribe Network.
               </p>
             </div>
 
@@ -159,7 +159,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 </div>
 
                 <p className="text-xs text-zinc-400 font-light">
-                  Every Sunday @ 5:00 PM GMT+1 • Lifebuild Center & Global Stream
+                  2nd & 4th Sunday @ 5:00 PM GMT+1 • Life Build Center & Global Stream
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1">
@@ -167,7 +167,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                     onClick={onOpenRegister}
                     className="px-6 py-3 rounded-full bg-white text-black font-medium text-xs uppercase tracking-wider hover:bg-gray-200 transition-all flex items-center gap-2 cursor-pointer shadow-md"
                   >
-                    <span>Join Fellowship Now</span>
+                    <span>Join the Vision Now</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </button>
 

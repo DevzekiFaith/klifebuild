@@ -1,10 +1,19 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { MemberData } from "../app/components/RegistrationForm";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://ickhiemtnomxigvingzv.supabase.co";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlja2hpZW10bm9teGlndmluZ3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6MjAxNTA0MDAwMH0.placeholder";
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Global singleton pattern to prevent "Multiple GoTrueClient instances detected" warning in Next.js
+const globalForSupabase = globalThis as unknown as { _supabaseSingleton?: SupabaseClient<any, "public", any> };
+
+export const supabase: SupabaseClient<any, "public", any> =
+  globalForSupabase._supabaseSingleton ??
+  createClient(supabaseUrl, supabaseAnonKey);
+
+if (process.env.NODE_ENV !== "production") {
+  globalForSupabase._supabaseSingleton = supabase;
+}
 
 export type AuthRole = "MASTER_ADMIN" | "USHER" | null;
 
@@ -611,7 +620,7 @@ export interface ReviewData {
   authorName: string;
   role: string;
   rating: number; // 1 to 5
-  category: "Sunday Gathering" | "4T Transformation" | "Fellowship & Community" | "General Experience";
+  category: "Sunday Gathering" | "4T Transformation" | "Vision & Community" | "General Experience";
   reviewText: string;
   likes: number;
   createdAt: string;
@@ -646,7 +655,7 @@ export const DEFAULT_REVIEWS: ReviewData[] = [
     authorName: "David K. Adeleke",
     role: "Youth Builder & Mentor",
     rating: 5,
-    category: "Fellowship & Community",
+    category: "Vision & Community",
     reviewText: "The level of intentionality in raising young builders under Isaiah 58:12 is unprecedented. Grateful for the vision wall and weekly meetings.",
     likes: 24,
     createdAt: "2 days ago",
@@ -670,7 +679,7 @@ export async function submitReview(
   authorName: string,
   role: string,
   rating: number,
-  category: "Sunday Gathering" | "4T Transformation" | "Fellowship & Community" | "General Experience",
+  category: "Sunday Gathering" | "4T Transformation" | "Vision & Community" | "General Experience",
   reviewText: string
 ): Promise<ReviewData> {
   const newReview: ReviewData = {

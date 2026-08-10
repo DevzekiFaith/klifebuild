@@ -207,7 +207,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 4T
               </span>
               <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest">
-                Isaiah 58:12 Mandate • 4T Conference
+                Isaiah 58:12 • 4T Conference
               </span>
             </div>
 
@@ -223,12 +223,12 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
               <Star className="w-4 h-4 fill-current" />
               <Star className="w-4 h-4 fill-current" />
               <Star className="w-4 h-4 fill-current" />
-              <span className="text-xs font-mono text-zinc-600 font-bold ml-2">Propelled by Divine Mandate</span>
+              <span className="text-xs font-mono text-zinc-600 font-bold ml-2">Propelled by Divine Vision</span>
             </div>
 
             {/* Description Paragraph */}
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 58:12, Lifebuild is a propelling movement to rebuild broken walls across human lives, organizations, and ecosystems. Through weekly gatherings and our annual <strong>4T Conference</strong>, we equip leaders to rebuild, restore, repair, and replenish.
+              Driven by Isaiah 58:12, Life Build is a global movement of people maximizing their giftings and career paths to bring light and transformation to communities. Through our weekly alignment sessions and annual <strong>4T Conference</strong>, we equip builders to rebuild, restore, repair, and replenish.
             </p>
 
             {/* Action Link */}
@@ -238,7 +238,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 onClick={onOpenRegister || onOpenPass}
                 className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer bg-transparent border-t-0 border-x-0"
               >
-                <span>Register for Fellowship & 4T Conference</span>
+                <span>Join the Vision & 4T Conference</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </motion.button>
             </div>

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Lifebuild",
   },
   description:
-    "Official Lifebuild & 4Tribe Network platform led by Zeki Ubor. Anchored in Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy through weekly Sunday Sanctuary Gatherings & annual 4T Conferences.",
+    "Official Life Build platform led by Zeki Ubor. Anchored in Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy through bi-weekly gatherings & the annual 4T Conference.",
   keywords: [
     "Lifebuild",
     "Zeki Ubor",
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     "Isaiah 58:12",
     "Rebuilding broken walls",
     "Rebuilding everywhere you go",
-    "Founders Fellowship",
-    "Sunday Sanctuary Gathering",
+    "Life Build Vision",
+    "Sunday Gathering",
     "Kingdom leadership",
     "Life reconstruction",
     "4T Pillars",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "Kingdom entrepreneurs",
     "Zeki Ubor Lifebuild",
     "Lifebuild center",
-    "Sunday fellowship scanner",
+    "Sunday pass scanner",
     "Attendance QR pass",
     "Faith and business network",
   ],

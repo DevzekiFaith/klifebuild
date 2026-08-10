@@ -35,62 +35,62 @@ export default function TransformationPathway({
     {
       id: "01",
       stepNumber: "STAGE 01",
-      title: "The Ruins & Breaches",
-      subtitle: "Acknowledging Disarray & Gaps",
+      title: "Awakening & Purpose",
+      subtitle: "Finding Your Placement",
       icon: Compass,
       scripture: "Isaiah 58:12a — 'Your people will rebuild the ancient ruins'",
       description:
-        "Recognizing broken walls, disoriented priorities, shattered altars, or failing systems in personal life, family, or business.",
+        "Recognizing broken areas in life, business, or community, and discovering your placement as a builder of new foundations.",
       keyOutputs: [
-        "Audit of broken life & business systems",
-        "Discerning spiritual disarray",
-        "Surrendering to divine direction",
+        "Auditing areas of life and work needing alignment",
+        "Discerning your unique spiritual focus",
+        "Aligning with the divine vision",
       ],
     },
     {
       id: "02",
       stepNumber: "STAGE 02",
-      title: "Grounding in God's Presence",
-      subtitle: "Spiritual Alignment at Sanctuary",
+      title: "Maximizing Giftings & Career",
+      subtitle: "Stewardship of Skills & Profession",
       icon: Sparkles,
       scripture: "Isaiah 61:3 — 'Beauty for ashes, oil of joy for mourning'",
       description:
-        "Stripping away workweek noise. Grounding heart and vision in worship and reverence to God before executing Kingdom strategy.",
+        "Identifying and fully utilizing your unique talents and professional career path for community-wide transformation.",
       keyOutputs: [
-        "Weekly Sunday Sanctuary Grounding",
-        "Character purification & peace",
-        "Divine wisdom for decision-making",
+        "Aligning professional career with kingdom purpose",
+        "Maximizing personal giftings and marketplace skills",
+        "Preparing talents for real community impact",
       ],
     },
     {
       id: "03",
       stepNumber: "STAGE 03",
-      title: "4T Reconstruction Framework",
-      subtitle: "Rebuilding, Restoring, Repairing, Replenishing",
+      title: "The 4T Framework",
+      subtitle: "Active Application of the Pillars",
       icon: Hammer,
       scripture: "Nehemiah 4:6 — 'So built we the wall; for the people had a mind to work'",
       description:
-        "Systematic application of the 4T Framework across career, business, family altars, and community leadership.",
+        "Systematic application of the 4T Framework (Rebuilding, Restoring, Repairing, Replenishing) across your career, business, and daily life.",
       keyOutputs: [
-        "Rebuilding broken economic foundations",
-        "Restoring spiritual identity & calling",
-        "Repairing character & relationship breaches",
-        "Replenishing stewardship & overflow",
+        "Rebuilding broken economic & business foundations",
+        "Restoring identity, dignity, and authority in spheres",
+        "Repairing community and structural breaches",
+        "Replenishing generational legacy & overflow",
       ],
     },
     {
       id: "04",
       stepNumber: "STAGE 04",
-      title: "The Mighty & Restorer",
-      subtitle: "Transforming Communities & Legacy",
+      title: "People of Light & Transformation",
+      subtitle: "Community & Societal Impact",
       icon: ShieldCheck,
       scripture: "Isaiah 58:12b — 'You will be called Repairer of Broken Walls, Restorer of Streets with Dwellings'",
       description:
-        "Stepping forth as a proven builder. Raising up age-old foundations, deploying resources, and empowering the next generation.",
+        "Stepping forth as a fully active builder, bringing tangible change to people, families, and communities.",
       keyOutputs: [
-        "Restorer of Streets with Dwellings credential",
-        "Deploying resources to transform communities",
-        "Leaving generational inheritance and overflow",
+        "Launching initiatives that transform local communities",
+        "Translating career influence into systemic restoration",
+        "Leaving a lasting legacy of abundance and stewardship",
       ],
     },
   ];
@@ -129,7 +129,7 @@ export default function TransformationPathway({
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
-            Isaiah 58:12 Transformation Roadmap
+            Isaiah 58:12 Journey
           </span>
 
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
@@ -137,7 +137,7 @@ export default function TransformationPathway({
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            A 4-stage spiritual and life reconstruction pathway moving individuals, families, and organizations from disarray into divine alignment, authority, and generational overflow.
+            A 4-stage journey to maximize your giftings and career path, bringing real transformation to families, organizations, and communities.
           </p>
         </motion.div>
 
@@ -235,7 +235,7 @@ export default function TransformationPathway({
                     onClick={onOpenRegister}
                     className="px-6 py-3.5 rounded-full bg-black text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
                   >
-                    <span>Begin Your Transformation Journey</span>
+                    <span>Join the Vision</span>
                     <ArrowRight className="w-4 h-4 text-white" />
                   </motion.button>
                 </div>

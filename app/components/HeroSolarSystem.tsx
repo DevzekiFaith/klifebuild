@@ -32,7 +32,7 @@ const PILLARS: PlanetPillar[] = [
     id: "sun",
     name: "Divine Calling",
     tagline: "Isaiah 58:12 Core Catalyst",
-    description: "The 15-year God-given blueprint centered on divine purpose, spiritual alignment, and total life reconstruction under Isaiah 58:12.",
+    description: "The God-given blueprint activating people to maximize their giftings and career paths to bring real transformation to communities.",
     size: 76,
     orbitRadius: 0,
     orbitSpeed: 0,
@@ -227,7 +227,7 @@ export default function HeroSolarSystem({
                   loading="eager"
                 />
               </div>
-              <span>Isaiah 58:12 Mandate • Bi-Weekly 4Tribe Network</span>
+              <span>Isaiah 58:12 • Bi-Weekly 4Tribe Network</span>
             </motion.div>
 
             {/* Headline */}
@@ -237,7 +237,7 @@ export default function HeroSolarSystem({
               transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif-headline text-5xl sm:text-7xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-zinc-950"
             >
-              Rebuilding the broken wall. Raising mighties, transforming communities.
+              Rebuilding broken walls. Raising people, transforming communities.
             </motion.h1>
 
             {/* 4T Sub-row links */}
@@ -277,7 +277,7 @@ export default function HeroSolarSystem({
                 onClick={onOpenRegister}
                 className="px-6 py-3.5 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Join Fellowship & 4T Conf</span>
+                <span>Join the Vision</span>
                 <ArrowUpRight className="w-4 h-4 text-white" />
               </motion.button>
               
@@ -288,7 +288,7 @@ export default function HeroSolarSystem({
                 className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer bg-white"
               >
                 <QrCode className="w-4 h-4" />
-                <span>Service Check-In</span>
+                <span>Check-In</span>
               </motion.button>
             </motion.div>
 

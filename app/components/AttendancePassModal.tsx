@@ -24,23 +24,23 @@ export default function AttendancePassModal({
 
   if (!isOpen || !member) return null;
 
-  // Complete Fellowship Meeting Information embedded in the QR Code
-  const fellowshipMeetingInfo = `LIFEBUILD FOUNDER FELLOWSHIP & 4T CONFERENCE
+  // Complete Vision & Meeting Information embedded in the QR Code
+  const visionMeetingInfo = `LIFE BUILD GATHERING & 4T CONFERENCE
 --------------------------------------------
 MEMBER: ${member.fullName}
 ID: ${member.memberId}
 ROLE: ${member.role}
 MODE: ${member.attendanceMode}
 
-SUNDAY FELLOWSHIP DETAILS:
-• Gathering Time: Every Sunday @ 5:00 PM GMT+1
-• Location: Lifebuild Center & Global Stream
+SUNDAY GATHERING DETAILS:
+• Gathering Time: 2nd & 4th Sunday @ 5:00 PM GMT+1
+• Location: Life Build Center & Global Stream
 • Convener: Zeki Ubor
 • Scriptural Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
 • 4T Pillars: Rebuilding • Restoring • Repairing • Replenishing
 --------------------------------------------
 Rebuilding Everywhere You Go
-https://github.com/DevzekiFaith/klifebuild`;
+https://www.lifebuildglobal.com.ng`;
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(member.memberId);
@@ -74,7 +74,7 @@ https://github.com/DevzekiFaith/klifebuild`;
 
       ctx.fillStyle = "#d4af37";
       ctx.font = "bold 18px monospace";
-      ctx.fillText("SUNDAY FELLOWSHIP PASS", 460, 90);
+      ctx.fillText("SUNDAY VISION PASS", 460, 90);
 
       // Divider Line
       ctx.strokeStyle = "#333333";
@@ -116,12 +116,12 @@ https://github.com/DevzekiFaith/klifebuild`;
 
       ctx.fillStyle = "#d4af37";
       ctx.font = "bold 16px monospace";
-      ctx.fillText("SUNDAY SANCTUARY & 4T CONFERENCE", 90, 390);
+      ctx.fillText("SUNDAY GATHERING & 4T CONFERENCE", 90, 390);
 
       ctx.fillStyle = "#dddddd";
       ctx.font = "16px sans-serif";
-      ctx.fillText("Gathering: Every Sunday @ 5:00 PM (GMT+1)", 90, 425);
-      ctx.fillText("Mandate: Isaiah 58:12 Rebuilding Broken Walls", 90, 455);
+      ctx.fillText("Gathering: 2nd & 4th Sunday @ 5:00 PM (GMT+1)", 90, 425);
+      ctx.fillText("Vision: Isaiah 58:12 Rebuilding Broken Walls", 90, 455);
 
       // 5. Draw QR Code from DOM SVG
       const svgEl = document.getElementById("pass-qr-code-svg");
@@ -139,16 +139,16 @@ https://github.com/DevzekiFaith/klifebuild`;
           ctx.fillStyle = "#888888";
           ctx.font = "14px monospace";
           ctx.textAlign = "center";
-          ctx.fillText("SCAN WITH PHONE CAMERA FOR ENTRANCE & FELLOWSHIP VERIFICATION", 400, 860);
+          ctx.fillText("SCAN WITH PHONE CAMERA FOR ENTRANCE & VISION VERIFICATION", 400, 860);
 
           ctx.fillStyle = "#10b981";
           ctx.font = "bold 16px monospace";
-          ctx.fillText("● VERIFIED LIFEBUILD FELLOWSHIP MEMBER", 400, 900);
+          ctx.fillText("● VERIFIED LIFEBUILD MEMBER", 400, 900);
 
           ctx.fillStyle = "#555555";
           ctx.font = "13px monospace";
           ctx.fillText("4Tribe Network • Convener Zeki Ubor", 400, 940);
-          ctx.fillText("https://github.com/DevzekiFaith/klifebuild", 400, 970);
+          ctx.fillText("https://www.lifebuildglobal.com.ng", 400, 970);
 
           // Trigger PNG download
           const link = document.createElement("a");
@@ -254,7 +254,7 @@ https://github.com/DevzekiFaith/klifebuild`;
           <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 space-y-2">
             <QRCodeSVG
               id="pass-qr-code-svg"
-              value={fellowshipMeetingInfo}
+              value={visionMeetingInfo}
               size={165}
               level="M"
               includeMargin={true}
@@ -266,7 +266,7 @@ https://github.com/DevzekiFaith/klifebuild`;
                 SCAN WITH PHONE CAMERA
               </span>
               <span className="text-[8px] font-mono text-zinc-500 block">
-                Contains Sunday Fellowship & 4T Meeting Info
+                Contains Sunday Vision & 4T Meeting Info
               </span>
             </div>
           </div>
@@ -288,7 +288,7 @@ https://github.com/DevzekiFaith/klifebuild`;
           <div className="p-3 bg-zinc-50 border border-gray-200 rounded-xl flex items-start gap-2.5 text-xs text-zinc-600">
             <Info className="w-4 h-4 text-black shrink-0 mt-0.5" />
             <p className="leading-snug">
-              Point any smartphone camera at this QR code to view your Sunday Fellowship Gathering credentials and meeting details.
+              Point any smartphone camera at this QR code to view your Sunday Vision credentials and meeting details.
             </p>
           </div>
 

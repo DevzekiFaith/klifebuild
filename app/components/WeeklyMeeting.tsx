@@ -59,11 +59,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
   }, []);
 
   const getGoogleCalendarUrl = () => {
-    const title = encodeURIComponent("Lifebuild Sanctuary & 4T Gathering (Isaiah 58:12)");
+    const title = encodeURIComponent("Life Build Gathering & 4T Conference (Isaiah 58:12)");
     const details = encodeURIComponent(
-      "Join us on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12."
+      "Join us on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 60 minutes of spiritual grounding, 4T teaching, and connecting to bring light and transformation to our communities."
     );
-    const location = encodeURIComponent("Lifebuild Sanctuary & Global Live Stream");
+    const location = encodeURIComponent("Life Build Global Live Stream");
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&recur=RRULE:FREQ=MONTHLY;BYDAY=2SU,4SU`;
   };
 
@@ -110,12 +110,12 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
           </span>
           
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-            The Founder's Sanctuary. <br />
+            Weekly Alignment. <br />
             Bi-Weekly Gathering & Annual 4T Conference.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Every 2nd and 4th Sunday at 5:00 PM GMT+1, founders and leaders gather for 60 minutes of spiritual grounding, Kingdom strategic teaching, and iron-sharpening fellowship anchored in Isaiah 58:12.
+            Every 2nd and 4th Sunday at 5:00 PM GMT+1, we gather globally for 60 minutes of spiritual grounding, 4T teaching, and connecting to bring light and transformation to our communities.
           </p>
         </motion.div>
 
@@ -149,7 +149,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
             </span>
 
             <h3 className="font-serif-headline text-2xl sm:text-3xl text-white font-normal leading-tight">
-              A Sacred Space for Builders to Recharge.
+              A Space for Builders to Recharge.
             </h3>
 
             <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
@@ -164,7 +164,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
             <div className="pt-2 space-y-4">
               <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300">
                 <Clock className="w-4 h-4 text-[#d4af37] animate-pulse shrink-0" />
-                <span className="text-zinc-400">Next Sanctuary Gathering:</span>
+                <span className="text-zinc-400">Next Gathering:</span>
                 <span className="font-bold text-white tracking-wider">
                   {timeLeft.days}d {timeLeft.hours}h {timeLeft.mins}m {timeLeft.secs}s
                 </span>
@@ -177,7 +177,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   onClick={onOpenRegister}
                   className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer shadow-sm"
                 >
-                  Join Fellowship
+                  Join the Vision
                 </motion.button>
 
                 <motion.button
@@ -187,7 +187,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
                 >
                   <QrCode className="w-3.5 h-3.5" />
-                  <span>Entrance Pass</span>
+                  <span>Access Pass</span>
                 </motion.button>
 
                 {onOpenNotes && (
@@ -198,7 +198,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                     className="px-5 py-2.5 rounded-full border border-zinc-700 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
                   >
                     <BookOpen className="w-3.5 h-3.5 text-[#d4af37]" />
-                    <span>Take Sanctuary Notes</span>
+                    <span>Take Notes</span>
                   </motion.button>
                 )}
 
