@@ -13,7 +13,7 @@ interface RotatingTaglineProps {
 
 export default function RotatingTagline({
   className = "text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium",
-  phrases = ["Rebuilding Everywhere You Go", "Rebuilding in the Marketplace"],
+  phrases = ["Rebuilding Everywhere You Go", "Positioning in the Marketplace"],
   intervalMs = 3200,
   prefix = "",
   suffix = "",
