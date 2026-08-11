@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.lifebuildglobal.com.ng"),
   title: {
-    default: "Lifebuild • Rebuilding Everywhere You Go | 4Tribe Network & Zeki Ubor",
+    default: "Life Build • Rebuilding Everywhere You Go & In the Marketplace | 4Tribe Network & Zeki Ubor",
     template: "%s | Lifebuild",
   },
   description:
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     "Isaiah 58:12",
     "Rebuilding broken walls",
     "Rebuilding everywhere you go",
+    "Rebuilding in the marketplace",
     "Life Build Vision",
     "Sunday Gathering",
     "Kingdom leadership",

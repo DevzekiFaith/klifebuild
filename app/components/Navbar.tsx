@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Sparkles, Ticket } from "lucide-react";
+import RotatingTagline from "./RotatingTagline";
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -77,9 +78,7 @@ export default function Navbar({
               <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight leading-none">
                 lifebuild<span className="text-[#3b2262]">.</span>
               </span>
-              <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium">
-                Rebuilding Everywhere You Go
-              </span>
+              <RotatingTagline className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium" />
             </div>
           </a>
 

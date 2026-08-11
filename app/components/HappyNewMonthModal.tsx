@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Download, Sparkles, ArrowRight, Share2, ShieldCheck, Heart } from "lucide-react";
+import RotatingTagline from "./RotatingTagline";
 
 interface HappyNewMonthModalProps {
   isOpen: boolean;
@@ -151,8 +152,9 @@ export default function HappyNewMonthModal({
                 </motion.button>
               </div>
 
-              <div className="text-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                Lifebuild • Rebuilding Everywhere You Go
+              <div className="text-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest flex items-center justify-center gap-1">
+                <span>Life Build •</span>
+                <RotatingTagline className="text-zinc-300 font-semibold" />
               </div>
             </div>
           </div>

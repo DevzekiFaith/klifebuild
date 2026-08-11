@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { ArrowUp, Lock } from "lucide-react";
+import RotatingTagline from "./RotatingTagline";
 
 interface FooterProps {
   onOpenRegister: () => void;
@@ -38,7 +39,7 @@ export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: 
               </span>
             </div>
             <p className="text-xs text-zinc-500 max-w-sm font-light">
-              Rebuilding everywhere you go. A propelling movement to build people and rebuild lives under Isaiah 58:12.
+              <RotatingTagline className="font-semibold text-zinc-800" suffix="." /> A propelling movement to build people and rebuild lives under Isaiah 58:12.
             </p>
           </div>
 

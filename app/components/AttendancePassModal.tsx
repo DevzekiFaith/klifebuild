@@ -39,7 +39,7 @@ SUNDAY GATHERING DETAILS:
 • Scriptural Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
 • 4T Pillars: Rebuilding • Restoring • Repairing • Replenishing
 --------------------------------------------
-Rebuilding Everywhere You Go
+Rebuilding Everywhere You Go & In the Marketplace
 https://www.lifebuildglobal.com.ng`;
 
   const handleCopyId = () => {
