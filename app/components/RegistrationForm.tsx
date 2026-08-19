@@ -44,14 +44,14 @@ export default function RegistrationForm({
 
     setIsSubmitting(true);
 
-    setTimeout(async () => {
+    try {
       const newMember: MemberData = {
         memberId: `LB-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-        fullName,
-        email,
-        phone: phone || "+1 555-0199",
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim() || "+1 555-0199",
         role,
-        vision: vision || "Rebuilding lives and expanding Kingdom impact through visionary leadership.",
+        vision: vision.trim() || "Rebuilding lives and expanding Kingdom impact through visionary leadership.",
         attendanceMode,
         joinedDate: new Date().toLocaleDateString("en-US", {
           month: "short",
@@ -60,9 +60,10 @@ export default function RegistrationForm({
         }),
       };
 
+      // 1. Save member record to database for admin follow-up
       await saveMemberRecord(newMember);
 
-      // Dispatch automated Resend email pass
+      // 2. Automatically dispatch welcome email with digital pass via Resend
       try {
         fetch("/api/send-pass", {
           method: "POST",
@@ -71,15 +72,16 @@ export default function RegistrationForm({
             type: "MEMBER_PASS",
             member: newMember,
           }),
-        }).catch((err) => console.warn("Email pass trigger warning:", err));
+        }).catch((err) => console.warn("Automated email pass trigger warning:", err));
       } catch (emailErr) {
-        console.warn("Email pass dispatch notice:", emailErr);
+        console.warn("Automated email pass dispatch notice:", emailErr);
       }
 
+      // 3. Trigger celebration confetti
       try {
         confetti({
-          particleCount: 70,
-          spread: 60,
+          particleCount: 80,
+          spread: 70,
           origin: { y: 0.6 },
           colors: ["#111111", "#3b2262", "#d4af37"],
         });
@@ -93,7 +95,10 @@ export default function RegistrationForm({
       setPhone("");
       setVision("");
       onSuccess(newMember);
-    }, 500);
+    } catch (err) {
+      console.error("Error submitting registration:", err);
+      setIsSubmitting(false);
+    }
   };
 
   return (

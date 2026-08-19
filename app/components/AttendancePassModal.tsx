@@ -224,17 +224,17 @@ https://www.lifebuildglobal.com.ng`;
           </h3>
         </div>
 
-        {/* Live Registration & Email Confirmation Banner */}
-        <div className="p-3.5 bg-emerald-50/90 border border-emerald-200 rounded-2xl flex items-start gap-3 shadow-xs">
-          <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+        {/* Live Automatic Registration & Email Confirmation Banner */}
+        <div className="p-4 bg-emerald-50/95 border-2 border-emerald-300 rounded-2xl flex items-start gap-3 shadow-sm">
+          <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-sm shadow-xs">
             ✓
           </div>
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             <span className="text-xs font-bold text-emerald-950 block">
-              Registration Successful!
+              ✨ Registration Confirmed &amp; Pass Automatically Emailed!
             </span>
             <span className="text-[11px] text-emerald-800 leading-snug block">
-              Your official credentials and pass have been dispatched to <span className="font-mono font-bold text-emerald-950">{member.email}</span> via Resend.
+              Your official credentials and welcome package have been dispatched to <span className="font-mono font-bold text-emerald-950 underline">{member.email}</span>. Check your inbox!
             </span>
           </div>
         </div>
@@ -343,7 +343,7 @@ https://www.lifebuildglobal.com.ng`;
               className="py-3 px-4 rounded-full bg-black text-white text-xs font-mono font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-md disabled:opacity-50"
             >
               <Download className="w-4 h-4 text-[#d4af37]" />
-              <span>{isDownloading ? "Generating PNG..." : "Download Pass"}</span>
+              <span>{isDownloading ? "Generating PNG..." : "Download Pass (PNG)"}</span>
             </button>
 
             <button
@@ -360,22 +360,22 @@ https://www.lifebuildglobal.com.ng`;
               {emailStatus === "sending" ? (
                 <>
                   <Send className="w-3.5 h-3.5 animate-spin text-zinc-600" />
-                  <span>Dispatching...</span>
+                  <span>Sending Copy...</span>
                 </>
               ) : emailStatus === "sent" ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Sent to Email!</span>
+                  <span>Copy Sent!</span>
                 </>
               ) : emailStatus === "error" ? (
                 <>
                   <Mail className="w-3.5 h-3.5 text-red-600" />
-                  <span>Retry Email</span>
+                  <span>Retry Dispatch</span>
                 </>
               ) : (
                 <>
                   <Mail className="w-3.5 h-3.5 text-zinc-700" />
-                  <span>Email Pass to Me</span>
+                  <span>Resend Email Copy</span>
                 </>
               )}
             </button>

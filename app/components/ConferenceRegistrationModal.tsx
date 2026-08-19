@@ -35,13 +35,13 @@ export default function ConferenceRegistrationModal({
 
     setIsSubmitting(true);
 
-    setTimeout(async () => {
+    try {
       const conferencePass: MemberData = {
         memberId: `4T-CONF-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-        fullName,
-        email,
-        phone: phone || "+1 555-0199",
-        role: `${delegateCategory} (${organization || "Independent Builder"})`,
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim() || "+1 555-0199",
+        role: `${delegateCategory} (${organization.trim() || "Independent Builder"})`,
         vision: `[4T Conference Delegate] Focus: ${workshopFocus}`,
         attendanceMode: conferenceMode,
         joinedDate: new Date().toLocaleDateString("en-US", {
@@ -51,9 +51,10 @@ export default function ConferenceRegistrationModal({
         }),
       };
 
+      // 1. Save delegate record to database for admin follow-up
       await saveMemberRecord(conferencePass);
 
-      // Dispatch automated Resend conference pass email
+      // 2. Automatically dispatch confirmation email with delegate pass via Resend
       try {
         fetch("/api/send-pass", {
           method: "POST",
@@ -62,17 +63,18 @@ export default function ConferenceRegistrationModal({
             type: "CONFERENCE_PASS",
             member: conferencePass,
           }),
-        }).catch((err) => console.warn("Email pass trigger warning:", err));
+        }).catch((err) => console.warn("Automated conference pass trigger warning:", err));
       } catch (emailErr) {
-        console.warn("Email pass dispatch notice:", emailErr);
+        console.warn("Automated conference pass dispatch notice:", emailErr);
       }
 
+      // 3. Trigger celebration confetti
       try {
         confetti({
           particleCount: 90,
           spread: 80,
           origin: { y: 0.5 },
-          colors: ["#d4af37", "#111111", "#3b2262", "#10b981"],
+          colors: ["#d4af37", "#ffffff", "#3b2262", "#10b981"],
         });
       } catch (err) {
         console.log("Confetti trigger:", err);
@@ -84,7 +86,10 @@ export default function ConferenceRegistrationModal({
       setPhone("");
       setOrganization("");
       onSuccess(conferencePass);
-    }, 600);
+    } catch (err) {
+      console.error("Error registering conference delegate:", err);
+      setIsSubmitting(false);
+    }
   };
 
   return (
