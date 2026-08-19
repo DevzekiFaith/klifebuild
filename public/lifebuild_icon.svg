@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" width="100%" height="100%">
+  <!-- House Outline with Smooth Rounded Geometry -->
+  <path
+    d="M 100 26 
+       L 44 72 
+       A 8 8 0 0 0 40 78 
+       L 40 162 
+       A 16 16 0 0 0 56 178 
+       L 144 178 
+       A 16 16 0 0 0 160 162 
+       L 160 80 
+       A 8 8 0 0 0 156 74 
+       L 100 26 Z"
+    stroke="#3b2262"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- Central Stem -->
+  <path
+    d="M 100 176 L 100 106"
+    stroke="#3b2262"
+    stroke-width="12"
+    stroke-linecap="round"
+  />
+
+  <!-- Center Top Leaf -->
+  <path
+    d="M 100 106 
+       C 86 92, 86 64, 100 48 
+       C 114 64, 114 92, 100 106 Z"
+    fill="#3b2262"
+  />
+
+  <!-- Left Leaf -->
+  <path
+    d="M 96 112 
+       C 78 116, 52 104, 52 82 
+       C 70 78, 92 94, 96 112 Z"
+    fill="#3b2262"
+  />
+
+  <!-- Right Leaf -->
+  <path
+    d="M 104 112 
+       C 122 116, 148 104, 148 82 
+       C 130 78, 108 94, 104 112 Z"
+    fill="#3b2262"
+  />
+</svg>

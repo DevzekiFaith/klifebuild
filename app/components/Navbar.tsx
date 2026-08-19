@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Sparkles, Ticket } from "lucide-react";
 import RotatingTagline from "./RotatingTagline";
+import LifebuildLogo from "./LifebuildLogo";
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -85,9 +86,9 @@ export default function Navbar({
           {/* Right Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-700">
             {/* Meeting Schedule Badge */}
-            <div className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-xs font-mono text-zinc-700 font-semibold flex items-center gap-1.5 shrink-0">
+            <div className="px-3 py-1 rounded-full bg-purple-50/70 border border-purple-200/60 text-xs font-mono text-zinc-800 font-semibold flex items-center gap-1.5 shrink-0">
               <Clock className="w-3.5 h-3.5 text-[#3b2262]" />
-              <span>2nd & 4th Sun @ 5:00 PM (60 mins)</span>
+              <span>2nd &amp; 4th Sun @ 5:00 PM (60 mins)</span>
             </div>
 
             <a
@@ -150,9 +151,9 @@ export default function Navbar({
                           setToolsOpen(false);
                           onOpenConference();
                         }}
-                        className="w-full px-3 py-2 text-left rounded-xl bg-amber-50 hover:bg-amber-100 transition-colors text-xs font-mono font-bold text-amber-950 flex items-center gap-2 cursor-pointer border border-amber-200/60"
+                        className="w-full px-3 py-2 text-left rounded-xl bg-purple-50/70 hover:bg-purple-100/70 transition-colors text-xs font-mono font-bold text-[#3b2262] flex items-center gap-2 cursor-pointer border border-purple-200/60"
                       >
-                        <Ticket className="w-4 h-4 text-[#d4af37]" />
+                        <Ticket className="w-4 h-4 text-[#3b2262]" />
                         <span>Request Conference Pass</span>
                       </button>
                     )}
@@ -165,7 +166,7 @@ export default function Navbar({
                         }}
                         className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
                       >
-                        <Sparkles className="w-4 h-4 text-emerald-600" />
+                        <Sparkles className="w-4 h-4 text-[#3b2262]" />
                         <span>August Prophetic Flyer</span>
                       </button>
                     )}
@@ -190,7 +191,7 @@ export default function Navbar({
                       }}
                       className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
                     >
-                      <QrCode className="w-4 h-4 text-zinc-900" />
+                      <QrCode className="w-4 h-4 text-[#3b2262]" />
                       <span>Entrance QR Scanner</span>
                     </button>
 
@@ -202,7 +203,7 @@ export default function Navbar({
                         }}
                         className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer border-t border-gray-100 pt-2"
                       >
-                        <Users className="w-4 h-4 text-amber-700" />
+                        <Users className="w-4 h-4 text-[#3b2262]" />
                         <span>Live Headcount</span>
                       </button>
                     )}
@@ -217,7 +218,7 @@ export default function Navbar({
                 onClick={onOpenPass}
                 className="px-4 py-1.5 rounded-full border border-zinc-900 bg-zinc-900 text-white text-xs font-medium hover:bg-black transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#3b2262]" />
                 <span>My QR Pass</span>
               </button>
             ) : (
@@ -226,7 +227,7 @@ export default function Navbar({
                 className="px-4 py-1.5 rounded-full border border-zinc-900 text-black hover:bg-black hover:text-white transition-all text-xs font-medium flex items-center gap-1 cursor-pointer"
               >
                 <span>Join the Vision</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#3b2262]" />
               </button>
             )}
           </nav>
@@ -238,14 +239,14 @@ export default function Navbar({
                 onClick={onOpenPass}
                 className="p-1.5 rounded-full border border-zinc-900 text-black text-xs font-medium"
               >
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 text-[#3b2262]" />
               </button>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-black hover:opacity-60"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-[#3b2262]" /> : <Menu className="w-6 h-6 text-[#3b2262]" />}
             </button>
           </div>
 
@@ -257,9 +258,9 @@ export default function Navbar({
         <div className="md:hidden bg-white border-b border-gray-200 px-6 pt-4 pb-8 space-y-4">
           
           {/* Mobile Meeting Time Badge */}
-          <div className="p-3 rounded-2xl bg-gray-50 border border-gray-200 text-xs font-mono text-zinc-800 flex items-center gap-2 font-bold">
+          <div className="p-3 rounded-2xl bg-purple-50/70 border border-purple-200/60 text-xs font-mono text-zinc-800 flex items-center gap-2 font-bold">
             <Clock className="w-4 h-4 text-[#3b2262]" />
-            <span>2nd & 4th Sunday: 5:00 PM GMT+1 (60 mins)</span>
+            <span>2nd &amp; 4th Sunday: 5:00 PM GMT+1 (60 mins)</span>
           </div>
 
           <nav className="flex flex-col space-y-4 text-base font-medium text-zinc-900">
@@ -284,10 +285,10 @@ export default function Navbar({
             <a
               href="#live-review"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-amber-600 font-semibold flex items-center justify-between"
+              className="text-[#3b2262] font-semibold flex items-center justify-between"
             >
               <span>Live Reviews</span>
-              <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-mono uppercase">Live</span>
+              <span className="px-2 py-0.5 rounded bg-purple-100 text-[#3b2262] text-[10px] font-mono uppercase font-bold">Live</span>
             </a>
           </nav>
 
@@ -303,9 +304,9 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   onOpenConference();
                 }}
-                className="w-full text-left px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200/60 text-xs font-mono font-bold text-amber-950 flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2.5 rounded-xl bg-purple-50 border border-purple-200/60 text-xs font-mono font-bold text-[#3b2262] flex items-center gap-2 cursor-pointer"
               >
-                <Ticket className="w-4 h-4 text-[#d4af37]" />
+                <Ticket className="w-4 h-4 text-[#3b2262]" />
                 Request Conference Pass
               </button>
             )}
@@ -318,7 +319,7 @@ export default function Navbar({
                 }}
                 className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-emerald-600" />
+                <Sparkles className="w-4 h-4 text-[#3b2262]" />
                 August Prophetic Flyer
               </button>
             )}
@@ -343,7 +344,7 @@ export default function Navbar({
               }}
               className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
             >
-              <QrCode className="w-4 h-4 text-zinc-900" />
+              <QrCode className="w-4 h-4 text-[#3b2262]" />
               Entrance QR Scanner
             </button>
 
@@ -355,7 +356,7 @@ export default function Navbar({
                 }}
                 className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
               >
-                <Users className="w-4 h-4 text-amber-700" />
+                <Users className="w-4 h-4 text-[#3b2262]" />
                 Admin Live Headcount
               </button>
             )}
