@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import JsonLd from "./components/JsonLd";
 import "./globals.css";
 
@@ -125,7 +126,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo_icon_nobg.png" />
         <JsonLd />
       </head>
-      <body suppressHydrationWarning className="min-h-full flex flex-col">{children}</body>
+      <body suppressHydrationWarning className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
