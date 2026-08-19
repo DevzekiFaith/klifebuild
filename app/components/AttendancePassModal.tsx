@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
-import { X, Download, ShieldCheck, QrCode, Check, Copy, Calendar, Info } from "lucide-react";
+import { X, Download, ShieldCheck, QrCode, Check, Copy, Calendar, Info, Mail, Send } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 
 interface AttendancePassModalProps {
@@ -21,6 +21,7 @@ export default function AttendancePassModal({
 }: AttendancePassModalProps) {
   const [copied, setCopied] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   if (!isOpen || !member) return null;
 
@@ -46,6 +47,34 @@ https://www.lifebuildglobal.com.ng`;
     navigator.clipboard.writeText(member.memberId);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleResendEmail = async () => {
+    if (!member.email || emailStatus === "sending") return;
+    setEmailStatus("sending");
+    try {
+      const isConference = member.memberId.startsWith("4T-CONF");
+      const res = await fetch("/api/send-pass", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: isConference ? "CONFERENCE_PASS" : "MEMBER_PASS",
+          member,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setEmailStatus("sent");
+        setTimeout(() => setEmailStatus("idle"), 4000);
+      } else {
+        setEmailStatus("error");
+        setTimeout(() => setEmailStatus("idle"), 4000);
+      }
+    } catch (err) {
+      console.warn("Email dispatch error:", err);
+      setEmailStatus("error");
+      setTimeout(() => setEmailStatus("idle"), 4000);
+    }
   };
 
   // High-Resolution PNG Pass Card Generator & Downloader
@@ -191,8 +220,23 @@ https://www.lifebuildglobal.com.ng`;
             Official Credential
           </span>
           <h3 className="font-serif-headline text-2xl text-zinc-950">
-            Lifebuild Attendance Pass
+            {member.memberId.startsWith("4T-CONF") ? "4T Conference Delegate Pass" : "Lifebuild Attendance Pass"}
           </h3>
+        </div>
+
+        {/* Live Registration & Email Confirmation Banner */}
+        <div className="p-3.5 bg-emerald-50/90 border border-emerald-200 rounded-2xl flex items-start gap-3 shadow-xs">
+          <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+            ✓
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-emerald-950 block">
+              Registration Successful!
+            </span>
+            <span className="text-[11px] text-emerald-800 leading-snug block">
+              Your official credentials and pass have been dispatched to <span className="font-mono font-bold text-emerald-950">{member.email}</span> via Resend.
+            </span>
+          </div>
         </div>
 
         {/* Digital Membership Pass Card (Monochrome High Contrast) */}
@@ -203,7 +247,7 @@ https://www.lifebuildglobal.com.ng`;
             <div className="flex items-center gap-2.5">
               <div className="relative w-8 h-8 flex items-center justify-center bg-white rounded-md shrink-0 p-0.5">
                 <Image
-                  src="/images/logo_icon_nobg.png"
+                  src="/images/lifebuild_official_logo.png"
                   alt="Lifebuild Logo"
                   width={32}
                   height={32}
@@ -283,7 +327,7 @@ https://www.lifebuildglobal.com.ng`;
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons & Email Dispatch */}
         <div className="space-y-2.5">
           <div className="p-3 bg-zinc-50 border border-gray-200 rounded-xl flex items-start gap-2.5 text-xs text-zinc-600">
             <Info className="w-4 h-4 text-black shrink-0 mt-0.5" />
@@ -292,22 +336,57 @@ https://www.lifebuildglobal.com.ng`;
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <button
               onClick={handleDownloadPng}
               disabled={isDownloading}
-              className="flex-1 py-3.5 rounded-full bg-black text-white text-xs font-mono font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-md disabled:opacity-50"
+              className="py-3 px-4 rounded-full bg-black text-white text-xs font-mono font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all cursor-pointer shadow-md disabled:opacity-50"
             >
               <Download className="w-4 h-4 text-[#d4af37]" />
-              <span>{isDownloading ? "Generating PNG..." : "Download Pass (PNG)"}</span>
+              <span>{isDownloading ? "Generating PNG..." : "Download Pass"}</span>
             </button>
+
             <button
-              onClick={onClose}
-              className="px-6 py-3.5 rounded-full border border-gray-300 text-zinc-700 hover:border-black text-xs font-mono cursor-pointer"
+              onClick={handleResendEmail}
+              disabled={emailStatus === "sending"}
+              className={`py-3 px-4 rounded-full text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm border ${
+                emailStatus === "sent"
+                  ? "bg-emerald-50 text-emerald-700 border-emerald-300"
+                  : emailStatus === "error"
+                  ? "bg-red-50 text-red-700 border-red-300"
+                  : "bg-zinc-100 text-zinc-800 hover:bg-zinc-200 border-zinc-300"
+              }`}
             >
-              Close
+              {emailStatus === "sending" ? (
+                <>
+                  <Send className="w-3.5 h-3.5 animate-spin text-zinc-600" />
+                  <span>Dispatching...</span>
+                </>
+              ) : emailStatus === "sent" ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Sent to Email!</span>
+                </>
+              ) : emailStatus === "error" ? (
+                <>
+                  <Mail className="w-3.5 h-3.5 text-red-600" />
+                  <span>Retry Email</span>
+                </>
+              ) : (
+                <>
+                  <Mail className="w-3.5 h-3.5 text-zinc-700" />
+                  <span>Email Pass to Me</span>
+                </>
+              )}
             </button>
           </div>
+
+          <button
+            onClick={onClose}
+            className="w-full py-2.5 rounded-full border border-gray-200 text-zinc-500 hover:text-black hover:border-zinc-400 text-xs font-mono cursor-pointer transition-colors"
+          >
+            Close Window
+          </button>
         </div>
 
       </div>

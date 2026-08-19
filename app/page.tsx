@@ -24,7 +24,7 @@ import ConferenceRegistrationModal from "./components/ConferenceRegistrationModa
 import LiveReviewSection from "./components/LiveReviewSection";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
-import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight } from "lucide-react";
+import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight, CheckCircle2, Mail, X as CloseIcon } from "lucide-react";
 
 export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -37,6 +37,7 @@ export default function Home() {
   const [isFlyerOpen, setIsFlyerOpen] = useState(false);
   const [authRole, setAuthRole] = useState<AuthRole>(null);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
+  const [registrationToast, setRegistrationToast] = useState<{ title: string; email: string; passType: string } | null>(null);
 
   // Global Page Scroll Progress Bar
   const { scrollYProgress } = useScroll();
@@ -70,7 +71,19 @@ export default function Home() {
   const handleRegistrationSuccess = (newMember: MemberData) => {
     setCurrentMember(newMember);
     setIsRegisterOpen(false);
+    setIsConferenceOpen(false);
     setIsPassOpen(true);
+
+    const isConference = newMember.memberId.startsWith("4T-CONF");
+    setRegistrationToast({
+      title: isConference ? "4T Conference Delegate Pass Issued!" : "Life Build Membership Pass Issued!",
+      email: newMember.email,
+      passType: isConference ? "Conference VIP Pass" : "Sunday Gathering Pass",
+    });
+
+    setTimeout(() => {
+      setRegistrationToast(null);
+    }, 8000);
   };
 
   const handleOpenDashboardRequest = () => {
@@ -387,6 +400,35 @@ export default function Home() {
         onClose={() => setIsConferenceOpen(false)}
         onSuccess={handleRegistrationSuccess}
       />
+
+      {/* Floating Global Registration & Email Toast Notification */}
+      {registrationToast && (
+        <div className="fixed top-6 right-6 z-[200] max-w-md w-[calc(100vw-3rem)] bg-zinc-950 text-white p-4 rounded-2xl border-2 border-[#d4af37]/60 shadow-2xl shadow-black/80 animate-slideDown flex items-start gap-3.5 backdrop-blur-md">
+          <div className="w-9 h-9 rounded-xl bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0 mt-0.5">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+          <div className="flex-1 min-w-0 pr-2">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#d4af37]">
+                {registrationToast.passType}
+              </span>
+            </div>
+            <h4 className="text-sm font-semibold text-white truncate">
+              {registrationToast.title}
+            </h4>
+            <p className="text-xs text-zinc-400 mt-0.5 flex items-center gap-1.5 truncate">
+              <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>Pass dispatched to <strong className="text-white font-mono">{registrationToast.email}</strong></span>
+            </p>
+          </div>
+          <button
+            onClick={() => setRegistrationToast(null)}
+            className="w-6 h-6 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center shrink-0 cursor-pointer transition-colors"
+          >
+            <CloseIcon className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </main>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import confetti from "canvas-confetti";
-import { X, ArrowUpRight, ShieldCheck, Sparkles, Building2, Ticket, Check } from "lucide-react";
+import { X, ArrowUpRight, Sparkles, Ticket } from "lucide-react";
 import { saveMemberRecord } from "../../lib/supabase";
 import { MemberData } from "./RegistrationForm";
 
@@ -52,18 +53,36 @@ export default function ConferenceRegistrationModal({
 
       await saveMemberRecord(conferencePass);
 
+      // Dispatch automated Resend conference pass email
+      try {
+        fetch("/api/send-pass", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "CONFERENCE_PASS",
+            member: conferencePass,
+          }),
+        }).catch((err) => console.warn("Email pass trigger warning:", err));
+      } catch (emailErr) {
+        console.warn("Email pass dispatch notice:", emailErr);
+      }
+
       try {
         confetti({
           particleCount: 90,
           spread: 80,
           origin: { y: 0.5 },
-          colors: ["#d4af37", "#ffffff", "#3b2262", "#10b981"],
+          colors: ["#d4af37", "#111111", "#3b2262", "#10b981"],
         });
       } catch (err) {
         console.log("Confetti trigger:", err);
       }
 
       setIsSubmitting(false);
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setOrganization("");
       onSuccess(conferencePass);
     }, 600);
   };
@@ -73,170 +92,196 @@ export default function ConferenceRegistrationModal({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
+      className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md overflow-y-auto animate-fadeIn"
     >
-      <div className="relative w-full max-w-2xl bg-zinc-950 text-white p-6 sm:p-10 rounded-3xl border-2 border-zinc-800 shadow-2xl my-auto max-h-[92vh] overflow-y-auto space-y-6">
+      <div className="relative w-full max-w-2xl bg-white text-zinc-950 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[92vh] overflow-hidden flex flex-col">
         
         {/* Prominent High-Contrast Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-zinc-900 hover:bg-white hover:text-black text-zinc-400 flex items-center justify-center transition-colors shadow-sm cursor-pointer border border-zinc-800"
+          className="absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors shadow-md cursor-pointer border border-white/20 backdrop-blur-sm"
           title="Close Modal"
         >
           <X className="w-4 h-4" />
         </button>
 
-        {/* Modal Header (Flagship Dark & Gold Design) */}
-        <div className="space-y-3 border-b border-zinc-800 pb-5 pr-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-[#d4af37]/40 text-[#d4af37] text-[10px] font-mono font-bold uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Annual Flagship Gathering • 3-Day Pass</span>
+        {/* Modal Header with Graphic Image Design */}
+        <div className="relative h-44 sm:h-48 w-full shrink-0 overflow-hidden bg-black">
+          <Image
+            src="/images/pattern_tribal_gold.jpg"
+            alt="4T Conference Pattern"
+            fill
+            className="object-cover opacity-80"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
+
+          {/* Header Content on Image */}
+          <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end text-white space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="relative w-9 h-9 rounded-lg bg-white p-1 shrink-0 flex items-center justify-center shadow-md">
+                <Image
+                  src="/images/lifebuild_official_logo.png"
+                  alt="Lifebuild Official Logo"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                />
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/60 text-[#d4af37] text-[10px] font-mono font-bold uppercase tracking-widest backdrop-blur-sm">
+                <Sparkles className="w-3 h-3" />
+                <span>4T Annual Gathering • 3-Day Pass</span>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-serif-headline text-2xl sm:text-3xl font-normal text-white leading-tight">
+                4T Conference Delegate Pass
+              </h3>
+              <p className="text-xs text-zinc-300 font-light line-clamp-2 max-w-xl">
+                Annual gathering of Kingdom builders, investors, conveners, and societal leaders across the 4Tribe Network.
+              </p>
+            </div>
           </div>
-
-          <h3 className="font-serif-headline text-3xl sm:text-4xl font-normal text-white leading-tight">
-            Request 4T Conference Delegate Pass
-          </h3>
-
-          <p className="text-xs text-zinc-400 font-light leading-relaxed">
-            Our annual gathering of Kingdom builders, investors, conveners, and societal leaders across the 4Tribe Network. 3 days of intensive commissioning and strategic reconstruction.
-          </p>
         </div>
 
-        {/* Form Fields */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-mono text-zinc-400 block mb-1">
-                FULL NAME *
-              </label>
-              <input
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="e.g. Dr. Zeki Ubor"
-                className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white placeholder:text-zinc-600"
-              />
+        {/* Form Body with Crisp White Background */}
+        <div className="p-6 sm:p-8 overflow-y-auto space-y-5 flex-1 bg-white">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-mono text-zinc-600 block mb-1">
+                  FULL NAME *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="e.g. Dr. Zeki Ubor"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 placeholder:text-zinc-400"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-mono text-zinc-600 block mb-1">
+                  ORGANIZATION / COMPANY
+                </label>
+                <input
+                  type="text"
+                  value={organization}
+                  onChange={(e) => setOrganization(e.target.value)}
+                  placeholder="Company or Ministry Name"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 placeholder:text-zinc-400"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-mono text-zinc-600 block mb-1">
+                  EMAIL ADDRESS *
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="delegate@domain.com"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 placeholder:text-zinc-400"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-mono text-zinc-600 block mb-1">
+                  PHONE / WHATSAPP
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 placeholder:text-zinc-400"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-mono text-zinc-700 font-semibold block mb-1">
+                  DELEGATE CATEGORY
+                </label>
+                <select
+                  value={delegateCategory}
+                  onChange={(e) => setDelegateCategory(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 cursor-pointer"
+                >
+                  <option value="Kingdom Investor / Business Owner">Kingdom Investor / Business Owner</option>
+                  <option value="Convener / Societal Leader">Convener / Societal Leader</option>
+                  <option value="Executive / Corporate Leader">Executive / Corporate Leader</option>
+                  <option value="Minister / Spiritual Builder">Minister / Spiritual Builder</option>
+                  <option value="Tech Builder / Strategist">Tech Builder / Strategist</option>
+                  <option value="Next-Gen Rebuilder">Next-Gen Rebuilder</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-mono text-zinc-700 font-semibold block mb-1">
+                  PARTICIPATION MODE
+                </label>
+                <select
+                  value={conferenceMode}
+                  onChange={(e) => setConferenceMode(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 cursor-pointer"
+                >
+                  <option value="3-Day In-Person VIP Delegate Pass">3-Day In-Person VIP Delegate Pass</option>
+                  <option value="3-Day Global HD Stream Access">3-Day Global HD Stream Access</option>
+                  <option value="Executive Roundtable & Gala Pass">Executive Roundtable & Gala Pass</option>
+                </select>
+              </div>
             </div>
 
             <div>
-              <label className="text-xs font-mono text-zinc-400 block mb-1">
-                ORGANIZATION / COMPANY
-              </label>
-              <input
-                type="text"
-                value={organization}
-                onChange={(e) => setOrganization(e.target.value)}
-                placeholder="Company or Ministry Name"
-                className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white placeholder:text-zinc-600"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-mono text-zinc-400 block mb-1">
-                EMAIL ADDRESS *
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="delegate@domain.com"
-                className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white placeholder:text-zinc-600"
-              />
-            </div>
-
-            <div>
-              <label className="text-xs font-mono text-zinc-400 block mb-1">
-                PHONE / WHATSAPP
-              </label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+1 (555) 000-0000"
-                className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white placeholder:text-zinc-600"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-mono text-[#d4af37] font-bold block mb-1">
-                DELEGATE CATEGORY
+              <label className="text-xs font-mono text-zinc-600 block mb-1">
+                STRATEGIC RECONSTRUCTION WORKSHOP FOCUS
               </label>
               <select
-                value={delegateCategory}
-                onChange={(e) => setDelegateCategory(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white cursor-pointer"
+                value={workshopFocus}
+                onChange={(e) => setWorkshopFocus(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:outline-none text-sm bg-gray-50/70 text-zinc-900 cursor-pointer"
               >
-                <option value="Kingdom Investor / Business Owner">Kingdom Investor / Business Owner</option>
-                <option value="Convener / Societal Leader">Convener / Societal Leader</option>
-                <option value="Executive / Corporate Leader">Executive / Corporate Leader</option>
-                <option value="Minister / Spiritual Builder">Minister / Spiritual Builder</option>
-                <option value="Tech Builder / Strategist">Tech Builder / Strategist</option>
-                <option value="Next-Gen Rebuilder">Next-Gen Rebuilder</option>
+                <option value="Economic Ecosystems & Wealth Transfer">01. Economic Ecosystems & Wealth Transfer</option>
+                <option value="Rebuilding Broken Walls & Governance">02. Rebuilding Broken Walls & Governance</option>
+                <option value="Kingdom Leadership & Spiritual Alignment">03. Kingdom Leadership & Spiritual Alignment</option>
+                <option value="Youth & Next-Gen Generational Legacy">04. Youth & Next-Gen Generational Legacy</option>
               </select>
             </div>
 
-            <div>
-              <label className="text-xs font-mono text-[#d4af37] font-bold block mb-1">
-                PARTICIPATION MODE
-              </label>
-              <select
-                value={conferenceMode}
-                onChange={(e) => setConferenceMode(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white cursor-pointer"
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-4 rounded-full bg-black hover:bg-zinc-800 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl disabled:opacity-50"
               >
-                <option value="3-Day In-Person VIP Delegate Pass">3-Day In-Person VIP Delegate Pass</option>
-                <option value="3-Day Global HD Stream Access">3-Day Global HD Stream Access</option>
-                <option value="Executive Roundtable & Gala Pass">Executive Roundtable & Gala Pass</option>
-              </select>
+                {isSubmitting ? (
+                  <span>Commissioning 4T Pass...</span>
+                ) : (
+                  <>
+                    <Ticket className="w-4 h-4 text-[#d4af37]" />
+                    <span>Request 4T Conference Pass</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
             </div>
+
+          </form>
+
+          <div className="text-center text-[10px] font-mono text-zinc-400 uppercase tracking-widest pt-2 border-t border-gray-100">
+            4Tribe Network • 3-Day Intensive Commissioning • Isaiah 58:12
           </div>
-
-          <div>
-            <label className="text-xs font-mono text-zinc-400 block mb-1">
-              STRATEGIC RECONSTRUCTION WORKSHOP FOCUS
-            </label>
-            <select
-              value={workshopFocus}
-              onChange={(e) => setWorkshopFocus(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-zinc-800 focus:border-[#d4af37] focus:outline-none text-sm bg-zinc-900 text-white cursor-pointer"
-            >
-              <option value="Economic Ecosystems & Wealth Transfer">01. Economic Ecosystems & Wealth Transfer</option>
-              <option value="Rebuilding Broken Walls & Governance">02. Rebuilding Broken Walls & Governance</option>
-              <option value="Kingdom Leadership & Spiritual Alignment">03. Kingdom Leadership & Spiritual Alignment</option>
-              <option value="Youth & Next-Gen Generational Legacy">04. Youth & Next-Gen Generational Legacy</option>
-            </select>
-          </div>
-
-          {/* Submit Button */}
-          <div className="pt-3">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-4 rounded-full bg-[#d4af37] hover:bg-[#c5a028] text-black font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg disabled:opacity-50"
-            >
-              {isSubmitting ? (
-                <span>Commissioning 4T Pass...</span>
-              ) : (
-                <>
-                  <Ticket className="w-4 h-4" />
-                  <span>Request 4T Conference Pass</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-          </div>
-
-        </form>
-
-        <div className="text-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest pt-2 border-t border-zinc-900">
-          4Tribe Network • 3-Day Intensive Commissioning • Isaiah 58:12
         </div>
 
       </div>
