@@ -4,12 +4,18 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifebuildgloba
 
 /**
  * Generate exciting luxury branded HTML email for Sunday Gathering / Membership Pass
- * Unified with Single Purple Brand Colour (#3b2262) and clean vector SVG icons
+ * Includes:
+ * - Single Brand Purple (#3b2262)
+ * - Clean SVG Icons
+ * - 2 Attached & Downloadable 3-Page E-Books with Nigerian Cultural Covers
  */
 export function generateMemberPassEmail(member: MemberData): { subject: string; html: string; text: string } {
-  const subject = `Welcome to the Family, ${member.fullName}! Your Lifebuild Pass is Ready [${member.memberId}]`;
-  const logoUrl = `${BASE_URL}/images/lifebuild_official_logo.png`;
+  const subject = `Welcome to the Family, ${member.fullName}! Your Lifebuild Pass & 2 Welcome Books are Ready [${member.memberId}]`;
   const happyBuildersUrl = `${BASE_URL}/images/welcome_happy_builders.jpg`;
+  const book1CoverUrl = `${BASE_URL}/images/book_cover_identity.jpg`;
+  const book2CoverUrl = `${BASE_URL}/images/book_cover_placement.jpg`;
+  const book1PdfUrl = `${BASE_URL}/books/self-discovery-divine-identity.pdf`;
+  const book2PdfUrl = `${BASE_URL}/books/kingdom-placement-marketplace-dominion.pdf`;
 
   const text = `
 WELCOME TO THE LIFE BUILD VISION & MOVEMENT!
@@ -28,16 +34,22 @@ OFFICIAL CREDENTIALS:
 • Date Issued: ${member.joinedDate}
 ${member.vision ? `• Declared Vision: "${member.vision}"` : ""}
 
+🎁 YOUR WELCOME GIFT (2 ATTACHED E-BOOKS):
+As a gift for joining the movement, we have attached 2 quick-read, high-impact 3-page guidebooks to this email:
+
+1. "Self-Discovery: The Blueprint of Divine Identity" (3 Pages)
+   - Awakening the rebuilder within & recovering original Kingdom DNA.
+   - Direct Link: ${book1PdfUrl}
+
+2. "Kingdom Placement: Positioning for Marketplace Dominion" (3 Pages)
+   - Strategic positioning, wealth transfer & the 4T framework.
+   - Direct Link: ${book2PdfUrl}
+
 SUNDAY GATHERING DETAILS:
 • When: 2nd & 4th Sunday of Every Month @ 5:00 PM (GMT+1)
 • Where: Life Build Gathering Center & Global HD Stream
 • Convener: Zeki Ubor
-• Anchor Scripture: Isaiah 58:12 ("And they that shall be of thee shall build the old waste places: thou shalt raise up the foundations of many generations; and thou shalt be called, The repairer of the breach...")
-
-3 QUICK STEPS TO GET READY:
-1. Save your Pass ID (${member.memberId}) for quick check-in at the gates.
-2. Set a reminder for the 2nd & 4th Sunday @ 5:00 PM GMT+1.
-3. Come ready for apostolic alignment, prophetic empowerment, and strategic marketplace networking!
+• Anchor Scripture: Isaiah 58:12
 
 We can't wait to fellowship and build with you!
 
@@ -219,6 +231,90 @@ https://www.lifebuildglobal.com.ng
             </td>
           </tr>
 
+          <!-- EXCLUSIVE WELCOME GIFT: 2 Impact E-Books Section -->
+          <tr>
+            <td style="padding: 0 32px 24px 32px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #fcfaff; border-radius: 20px; border: 2px solid #3b2262; padding: 22px;">
+                <tr>
+                  <td>
+                    <!-- Section Title -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 12px;">
+                      <tr>
+                        <td valign="middle" style="padding-right: 8px;">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b2262" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                            <path d="M6 6h10"/>
+                            <path d="M6 10h10"/>
+                          </svg>
+                        </td>
+                        <td valign="middle">
+                          <span style="font-size: 11px; font-family: monospace; font-weight: 800; color: #3b2262; letter-spacing: 1.5px; text-transform: uppercase;">
+                            🎁 EXCLUSIVE WELCOME GIFT: 2 E-BOOKS (ATTACHED)
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p style="margin: 0 0 16px 0; font-size: 12.5px; line-height: 1.5; color: #524e5a;">
+                      We have prepared 2 quick-read, high-impact 3-page guidebooks to empower your spiritual identity and marketplace positioning. Both are attached as PDFs to this email and available for instant download below:
+                    </p>
+
+                    <!-- Book 1 Card: Self-Discovery -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1.5px solid #e3dced; border-radius: 14px; margin-bottom: 14px; overflow: hidden;">
+                      <tr>
+                        <td width="95" valign="top" style="padding: 0; background-color: #3b2262;">
+                          <img src="${book1CoverUrl}" alt="Self-Discovery Book Cover" width="95" style="display: block; width: 95px; height: 125px; object-fit: cover;" />
+                        </td>
+                        <td valign="top" style="padding: 12px 14px;">
+                          <span style="display: inline-block; font-size: 8px; font-family: monospace; font-weight: 800; color: #3b2262; text-transform: uppercase; background-color: #f5f2fa; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px;">
+                            VOL. 1 • 3-PAGE GUIDE
+                          </span>
+                          <div style="font-size: 13px; font-weight: 800; color: #1e1b24; line-height: 1.3;">
+                            Self-Discovery: The Blueprint of Divine Identity
+                          </div>
+                          <div style="font-size: 11px; color: #696374; margin-top: 4px; line-height: 1.4;">
+                            Discover your spiritual DNA, dismantle imposter syndrome, and awaken the rebuilder within.
+                          </div>
+                          <div style="margin-top: 8px;">
+                            <a href="${book1PdfUrl}" target="_blank" style="display: inline-block; padding: 6px 14px; background-color: #3b2262; color: #ffffff; text-decoration: none; border-radius: 50px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">
+                              Download Book 1 (PDF) →
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Book 2 Card: Kingdom Placement -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1.5px solid #e3dced; border-radius: 14px; overflow: hidden;">
+                      <tr>
+                        <td width="95" valign="top" style="padding: 0; background-color: #3b2262;">
+                          <img src="${book2CoverUrl}" alt="Kingdom Placement Book Cover" width="95" style="display: block; width: 95px; height: 125px; object-fit: cover;" />
+                        </td>
+                        <td valign="top" style="padding: 12px 14px;">
+                          <span style="display: inline-block; font-size: 8px; font-family: monospace; font-weight: 800; color: #3b2262; text-transform: uppercase; background-color: #f5f2fa; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px;">
+                            VOL. 2 • 3-PAGE GUIDE
+                          </span>
+                          <div style="font-size: 13px; font-weight: 800; color: #1e1b24; line-height: 1.3;">
+                            Kingdom Placement: Positioning for Marketplace Dominion
+                          </div>
+                          <div style="font-size: 11px; color: #696374; margin-top: 4px; line-height: 1.4;">
+                            Strategic positioning, the 4T framework, ethical wealth transfer, and the 100-year legacy.
+                          </div>
+                          <div style="margin-top: 8px;">
+                            <a href="${book2PdfUrl}" target="_blank" style="display: inline-block; padding: 6px 14px; background-color: #3b2262; color: #ffffff; text-decoration: none; border-radius: 50px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">
+                              Download Book 2 (PDF) →
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
           <!-- Sunday Gathering Details Box (Purple Vector Calendar Icon) -->
           <tr>
             <td style="padding: 0 32px 24px 32px;">
@@ -247,50 +343,6 @@ https://www.lifebuildglobal.com.ng
                     <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #5c5666;">
                       Join us in-person at the Life Build Center or stream globally. Bring your Member Pass ID for seamless check-in verification.
                     </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- 3 Steps Callout Box with Purple SVG Number Icons -->
-          <tr>
-            <td style="padding: 0 32px 24px 32px;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 16px; border: 1.5px solid #e7e0f0; padding: 20px;">
-                <tr>
-                  <td>
-                    <div style="font-size: 11px; font-family: monospace; font-weight: 800; color: #3b2262; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">
-                      NEXT STEPS:
-                    </div>
-                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                      <tr>
-                        <td width="28" valign="top" style="padding-bottom: 10px;">
-                          <!-- Step 1 Purple Badge -->
-                          <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3b2262; color: #ffffff; font-size: 11px; font-weight: bold; text-align: center; line-height: 20px;">1</div>
-                        </td>
-                        <td style="font-size: 12px; color: #433e4b; line-height: 1.5; padding-bottom: 10px;">
-                          <strong>Save your Pass ID:</strong> Keep <code style="background: #f5f2fa; color: #3b2262; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #e1d8ee;">${member.memberId}</code> handy for entrance.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td width="28" valign="top" style="padding-bottom: 10px;">
-                          <!-- Step 2 Purple Badge -->
-                          <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3b2262; color: #ffffff; font-size: 11px; font-weight: bold; text-align: center; line-height: 20px;">2</div>
-                        </td>
-                        <td style="font-size: 12px; color: #433e4b; line-height: 1.5; padding-bottom: 10px;">
-                          <strong>Mark your Calendar:</strong> Block out 2nd &amp; 4th Sunday @ 5:00 PM GMT+1.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td width="28" valign="top">
-                          <!-- Step 3 Purple Badge -->
-                          <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3b2262; color: #ffffff; font-size: 11px; font-weight: bold; text-align: center; line-height: 20px;">3</div>
-                        </td>
-                        <td style="font-size: 12px; color: #433e4b; line-height: 1.5;">
-                          <strong>Engage the Vision:</strong> Prepare to be equipped for leadership and marketplace impact.
-                        </td>
-                      </tr>
-                    </table>
                   </td>
                 </tr>
               </table>
@@ -348,13 +400,16 @@ https://www.lifebuildglobal.com.ng
 
 /**
  * Generate exciting luxury branded HTML email for 4T Conference Delegate Pass
- * Unified with Single Purple Brand Colour (#3b2262) and clean vector SVG icons
+ * Includes attached & downloadable ebooks with Nigerian cultural covers
  */
 export function generateConferencePassEmail(member: MemberData): { subject: string; html: string; text: string } {
   const subject = `4T Conference Pass Confirmed — Delegate ${member.fullName} [${member.memberId}]`;
-  const logoUrl = `${BASE_URL}/images/lifebuild_official_logo.png`;
   const headerBannerUrl = `${BASE_URL}/images/pattern_tribal_gold.jpg`;
   const happyBuildersUrl = `${BASE_URL}/images/welcome_happy_builders.jpg`;
+  const book1CoverUrl = `${BASE_URL}/images/book_cover_identity.jpg`;
+  const book2CoverUrl = `${BASE_URL}/images/book_cover_placement.jpg`;
+  const book1PdfUrl = `${BASE_URL}/books/self-discovery-divine-identity.pdf`;
+  const book2PdfUrl = `${BASE_URL}/books/kingdom-placement-marketplace-dominion.pdf`;
 
   const text = `
 4TRIBE NETWORK • ANNUAL 4T FLAGSHIP CONFERENCE PASS CONFIRMED
@@ -363,8 +418,6 @@ Dear Delegate ${member.fullName},
 
 Congratulations! Your official 3-Day Delegate Pass for the Annual 4T Flagship Conference has been confirmed and reserved.
 
-We are excited to welcome you into this intensive gathering of Kingdom builders, marketplace investors, societal leaders, and spiritual conveners.
-
 DELEGATE CREDENTIALS:
 • Pass Reference: ${member.memberId}
 • Delegate Name: ${member.fullName}
@@ -372,12 +425,9 @@ DELEGATE CREDENTIALS:
 • Participation Tier: ${member.attendanceMode}
 • Details: ${member.vision}
 
-CONFERENCE HIGHLIGHTS:
-• 3 Days of Intensive Strategic Reconstruction & Apostolic Commissioning
-• The 4T Pillars: Rebuilding, Restoring, Repairing, Replenishing
-• Executive Roundtables, Wealth Transfer Sessions & Strategic Keynotes
-
-Please keep this email and Pass ID (${member.memberId}) for entrance verification at the delegate desk.
+🎁 YOUR DELEGATE EMPOWERMENT PACKAGE (2 ATTACHED E-BOOKS):
+1. "Self-Discovery: The Blueprint of Divine Identity" -> ${book1PdfUrl}
+2. "Kingdom Placement: Positioning for Marketplace Dominion" -> ${book2PdfUrl}
 
 We look forward to building the future with you!
 
@@ -536,6 +586,58 @@ Isaiah 58:12 • https://www.lifebuildglobal.com.ng
                         ${member.vision}
                       </div>
                     </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- DELEGATE E-BOOKS PACKAGE SECTION -->
+          <tr>
+            <td style="padding: 0 32px 20px 32px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #1f1929; border-radius: 18px; border: 1.5px solid #3b2262; padding: 20px;">
+                <tr>
+                  <td>
+                    <div style="font-size: 11px; font-family: monospace; font-weight: 800; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">
+                      📚 2 DELEGATE E-BOOKS ATTACHED
+                    </div>
+
+                    <!-- Book 1 -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #13101a; border: 1px solid #3b2262; border-radius: 12px; margin-bottom: 10px; overflow: hidden;">
+                      <tr>
+                        <td width="85" valign="top">
+                          <img src="${book1CoverUrl}" alt="Self-Discovery Book" width="85" style="display: block; width: 85px; height: 110px; object-fit: cover;" />
+                        </td>
+                        <td valign="top" style="padding: 10px 12px;">
+                          <div style="font-size: 12px; font-weight: 800; color: #ffffff;">Self-Discovery: The Blueprint of Divine Identity</div>
+                          <div style="font-size: 10px; color: #a9a0b8; margin-top: 3px;">3-Page Executive Guide on Identity &amp; Purpose</div>
+                          <div style="margin-top: 8px;">
+                            <a href="${book1PdfUrl}" target="_blank" style="display: inline-block; padding: 5px 12px; background-color: #3b2262; color: #ffffff; text-decoration: none; border-radius: 50px; font-size: 9px; font-weight: bold; text-transform: uppercase; border: 1px solid #5a3891;">
+                              Download PDF →
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Book 2 -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #13101a; border: 1px solid #3b2262; border-radius: 12px; overflow: hidden;">
+                      <tr>
+                        <td width="85" valign="top">
+                          <img src="${book2CoverUrl}" alt="Kingdom Placement Book" width="85" style="display: block; width: 85px; height: 110px; object-fit: cover;" />
+                        </td>
+                        <td valign="top" style="padding: 10px 12px;">
+                          <div style="font-size: 12px; font-weight: 800; color: #ffffff;">Kingdom Placement: Marketplace Dominion</div>
+                          <div style="font-size: 10px; color: #a9a0b8; margin-top: 3px;">3-Page Operational Framework for the 4T Pillars</div>
+                          <div style="margin-top: 8px;">
+                            <a href="${book2PdfUrl}" target="_blank" style="display: inline-block; padding: 5px 12px; background-color: #3b2262; color: #ffffff; text-decoration: none; border-radius: 50px; font-size: 9px; font-weight: bold; text-transform: uppercase; border: 1px solid #5a3891;">
+                              Download PDF →
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+
                   </td>
                 </tr>
               </table>

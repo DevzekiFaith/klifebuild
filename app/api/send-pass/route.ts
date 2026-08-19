@@ -42,13 +42,38 @@ export async function POST(req: Request) {
         ? generateConferencePassEmail(member)
         : generateMemberPassEmail(member);
 
-    // 1. Send confirmation pass email to the user
+    // Prepare E-Book Attachments
+    const attachments: Array<{ filename: string; content: Buffer }> = [];
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+      const identityBookPath = path.join(process.cwd(), "public", "books", "self-discovery-divine-identity.pdf");
+      const placementBookPath = path.join(process.cwd(), "public", "books", "kingdom-placement-marketplace-dominion.pdf");
+
+      if (fs.existsSync(identityBookPath)) {
+        attachments.push({
+          filename: "Self-Discovery-Divine-Identity.pdf",
+          content: fs.readFileSync(identityBookPath),
+        });
+      }
+      if (fs.existsSync(placementBookPath)) {
+        attachments.push({
+          filename: "Kingdom-Placement-Marketplace-Dominion.pdf",
+          content: fs.readFileSync(placementBookPath),
+        });
+      }
+    } catch (attachErr) {
+      console.warn("Could not read PDF attachments for email:", attachErr);
+    }
+
+    // 1. Send confirmation pass email to the user with 2 attached ebooks
     const sendResult = await resend.emails.send({
       from: fromEmail,
       to: [member.email],
       subject: emailData.subject,
       html: emailData.html,
       text: emailData.text,
+      attachments: attachments.length > 0 ? attachments : undefined,
     });
 
     if (sendResult.error) {

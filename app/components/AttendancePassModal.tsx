@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
-import { X, Download, ShieldCheck, QrCode, Check, Copy, Calendar, Info, Mail, Send } from "lucide-react";
+import { X, Download, ShieldCheck, QrCode, Check, Copy, Calendar, Info, Mail, Send, BookOpen } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 
 interface AttendancePassModalProps {
@@ -327,10 +327,85 @@ https://www.lifebuildglobal.com.ng`;
           </div>
         </div>
 
+        {/* Exclusive Member Welcome Gift: 2 E-Books */}
+        <div className="p-4 bg-purple-50/80 border border-purple-200 rounded-2xl space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-[#3b2262]" />
+              <span className="text-xs font-mono font-bold text-[#3b2262] uppercase tracking-wider">
+                🎁 2 Welcome E-Books Included
+              </span>
+            </div>
+            <span className="text-[9px] font-mono font-bold bg-[#3b2262] text-white px-2 py-0.5 rounded-full">
+              FREE PDF
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+            {/* Book 1 */}
+            <div className="bg-white p-2.5 rounded-xl border border-purple-100 shadow-xs flex items-center gap-3">
+              <div className="relative w-12 h-16 shrink-0 rounded-md overflow-hidden bg-[#3b2262]">
+                <Image
+                  src="/images/book_cover_identity.jpg"
+                  alt="Self Discovery"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="text-[8px] font-mono text-[#3b2262] font-bold block uppercase">
+                  Vol 1 • 3 Pages
+                </span>
+                <h5 className="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">
+                  Self-Discovery: Identity
+                </h5>
+                <a
+                  href="/books/self-discovery-divine-identity.pdf"
+                  target="_blank"
+                  download="Self-Discovery-Divine-Identity.pdf"
+                  className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#3b2262] hover:underline"
+                >
+                  <Download className="w-2.5 h-2.5" />
+                  <span>Download PDF</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Book 2 */}
+            <div className="bg-white p-2.5 rounded-xl border border-purple-100 shadow-xs flex items-center gap-3">
+              <div className="relative w-12 h-16 shrink-0 rounded-md overflow-hidden bg-[#3b2262]">
+                <Image
+                  src="/images/book_cover_placement.jpg"
+                  alt="Kingdom Placement"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="text-[8px] font-mono text-[#3b2262] font-bold block uppercase">
+                  Vol 2 • 3 Pages
+                </span>
+                <h5 className="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">
+                  Kingdom Placement: 4T
+                </h5>
+                <a
+                  href="/books/kingdom-placement-marketplace-dominion.pdf"
+                  target="_blank"
+                  download="Kingdom-Placement-Marketplace-Dominion.pdf"
+                  className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#3b2262] hover:underline"
+                >
+                  <Download className="w-2.5 h-2.5" />
+                  <span>Download PDF</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Action Buttons & Email Dispatch */}
         <div className="space-y-2.5">
           <div className="p-3 bg-zinc-50 border border-gray-200 rounded-xl flex items-start gap-2.5 text-xs text-zinc-600">
-            <Info className="w-4 h-4 text-black shrink-0 mt-0.5" />
+            <Info className="w-4 h-4 text-[#3b2262] shrink-0 mt-0.5" />
             <p className="leading-snug">
               Point any smartphone camera at this QR code to view your Sunday Vision credentials and meeting details.
             </p>
