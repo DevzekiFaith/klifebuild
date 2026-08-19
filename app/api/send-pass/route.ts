@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       console.warn("Could not read PDF attachments for email:", attachErr);
     }
 
-    const adminEmail = process.env.RESEND_ADMIN_ALERT_EMAIL || "hello@lifebuildglobal.com.ng";
+    const adminEmail = process.env.RESEND_ADMIN_ALERT_EMAIL || "lifebuildinnovators@gmail.com";
 
     // 1. Send confirmation pass email to the user with 2 attached ebooks + BCC to admin mailbox
     const sendResult = await resend.emails.send({
