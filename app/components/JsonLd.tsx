@@ -4,8 +4,8 @@ export default function JsonLd() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Lifebuild",
-    "alternateName": ["4Tribe Network", "Lifebuild Center"],
+    "name": "Lifebuild Nation",
+    "alternateName": ["4Tribe Network", "Lifebuild Center", "Lifebuild"],
     "url": "https://klifebuild.com",
     "logo": "https://klifebuild.com/images/logo_icon_nobg.png",
     "founder": {

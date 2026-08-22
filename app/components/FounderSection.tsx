@@ -126,7 +126,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                   Zeki Ubor
                 </h3>
                 <p className="text-xs font-mono text-[#d4af37]">
-                  Founder, Lifebuild & 4Tribe Network
+                  Founder, Lifebuild<span className="text-[10px] font-semibold text-[#d4af37]/80 ml-1">nation</span> &amp; 4Tribe Network
                 </p>
                 <p className="text-xs text-zinc-400 font-light pt-1 border-t border-zinc-800">
                   "Rebuilding ancient ruins and raising up age-old foundations."

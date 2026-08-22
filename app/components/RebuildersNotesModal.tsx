@@ -116,7 +116,7 @@ ${content || "(No reflections recorded)"}
 --- 4T ACTION ITEMS & DEPLOYMENT TARGETS ---
 ${actionItems || "(No action items recorded)"}
 
-— Lifebuild 4Tribe Network • Isaiah 58:12`;
+— Lifebuild Nation 4Tribe Network • Isaiah 58:12`;
 
     const blob = new Blob([textData], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
