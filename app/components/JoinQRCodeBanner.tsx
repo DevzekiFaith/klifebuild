@@ -66,7 +66,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                       />
                     </div>
                     <span className="font-heading font-extrabold text-xs tracking-tight">
-                      lifebuild<span className="text-[#d4af37]">.</span>
+                      lifebuild<span className="text-[9px] font-semibold text-zinc-400 ml-0.5">nation</span><span className="text-[#d4af37]">.</span>
                     </span>
                   </div>
                   <span className="text-[8px] font-mono uppercase bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">

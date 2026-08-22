@@ -17,12 +17,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.lifebuildglobal.com.ng"),
   title: {
-    default: "Life Build • Rebuilding Everywhere You Go & Positioning in the Marketplace | 4Tribe Network & Zeki Ubor",
-    template: "%s | Lifebuild",
+    default: "Life Build Nation • Rebuilding Everywhere You Go & Positioning in the Marketplace | 4Tribe Network & Zeki Ubor",
+    template: "%s | Lifebuild Nation",
   },
   description:
-    "Official Life Build platform led by Zeki Ubor. Anchored in Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy through bi-weekly gatherings & the annual 4T Conference.",
+    "Official Life Build Nation platform led by Zeki Ubor. Anchored in Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy through bi-weekly gatherings & the annual 4T Conference.",
   keywords: [
+    "Lifebuild Nation",
     "Lifebuild",
     "Zeki Ubor",
     "4Tribe Network",
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Zeki Ubor", url: "https://www.lifebuildglobal.com.ng" }],
   creator: "Zeki Ubor",
-  publisher: "Lifebuild & 4Tribe Network",
+  publisher: "Lifebuild Nation & 4Tribe Network",
   formatDetection: {
     email: false,
     address: false,
@@ -58,11 +59,11 @@ export const metadata: Metadata = {
     canonical: "https://www.lifebuildglobal.com.ng",
   },
   openGraph: {
-    title: "Lifebuild • Rebuilding Everywhere You Go | 4Tribe Network",
+    title: "Lifebuild Nation • Rebuilding Everywhere You Go | 4Tribe Network",
     description:
-      "Driven by Isaiah 58:12, Lifebuild is a propelling movement led by Zeki Ubor to rebuild broken walls, restore human dignity, and raise up foundations across generations.",
+      "Driven by Isaiah 58:12, Lifebuild Nation is a propelling movement led by Zeki Ubor to rebuild broken walls, restore human dignity, and raise up foundations across generations.",
     url: "https://www.lifebuildglobal.com.ng",
-    siteName: "Lifebuild",
+    siteName: "Lifebuild Nation",
     images: [
       {
         url: "/images/worship_nigerian_african.png",

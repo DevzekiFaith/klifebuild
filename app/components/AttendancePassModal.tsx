@@ -99,7 +99,7 @@ https://www.lifebuildglobal.com.ng`;
       // 2. Header Strip
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 36px sans-serif";
-      ctx.fillText("lifebuild.", 60, 90);
+      ctx.fillText("lifebuild nation.", 60, 90);
 
       ctx.fillStyle = "#d4af37";
       ctx.font = "bold 18px monospace";
@@ -256,7 +256,7 @@ https://www.lifebuildglobal.com.ng`;
               </div>
               <div>
                 <span className="font-heading font-extrabold text-sm tracking-tight text-white block">
-                  lifebuild<span className="text-[#d4af37]">.</span>
+                  lifebuild<span className="text-[10px] font-semibold text-zinc-400 ml-1">nation</span><span className="text-[#d4af37]">.</span>
                 </span>
                 <span className="text-[9px] font-mono text-zinc-400 block uppercase">
                   Founder Pass

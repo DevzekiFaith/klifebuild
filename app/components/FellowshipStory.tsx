@@ -75,7 +75,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   </div>
                   <div>
                     <span className="font-heading font-extrabold text-sm tracking-tight text-black block">
-                      lifebuild<span className="text-[#3b2262]">.</span>
+                      lifebuild<span className="text-[10px] font-semibold text-zinc-500 ml-1">nation</span><span className="text-[#3b2262]">.</span>
                     </span>
                     <span className="text-[9px] font-mono text-zinc-500 uppercase block">
                       4Tribe Network

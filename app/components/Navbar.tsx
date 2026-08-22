@@ -77,7 +77,7 @@ export default function Navbar({
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight leading-none">
-                lifebuild<span className="text-[#3b2262]">.</span>
+                lifebuild<span className="text-xs sm:text-sm font-semibold text-zinc-600 ml-1">nation</span><span className="text-[#3b2262]">.</span>
               </span>
               <RotatingTagline className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium" />
             </div>

@@ -69,7 +69,7 @@ export default function LifebuildLogo({
             fontFamily: "var(--font-heading, sans-serif)",
           }}
         >
-          Lifebuild<span style={{ color: "#d4af37" }}>.</span>
+          Lifebuild<span style={{ fontSize: "0.6em", fontWeight: 600, marginLeft: "3px", opacity: 0.8 }}>nation</span><span style={{ color: "#d4af37" }}>.</span>
         </span>
         <span
           className="text-[9px] font-bold tracking-[3px] uppercase block"
@@ -93,7 +93,7 @@ export default function LifebuildLogo({
             fontFamily: "var(--font-heading, sans-serif)",
           }}
         >
-          lifebuild<span style={{ color: "#d4af37" }}>.</span>
+          lifebuild<span className="text-xs font-semibold ml-1 opacity-75">nation</span><span style={{ color: "#d4af37" }}>.</span>
         </span>
         <span
           className="text-[8px] font-mono font-bold tracking-[2px] uppercase block mt-0.5"

@@ -218,7 +218,7 @@ export default function Home() {
             </span>
 
             <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-              The 4T Pillars of Lifebuild.
+              The 4T Pillars of Lifebuild Nation.
             </h2>
 
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">

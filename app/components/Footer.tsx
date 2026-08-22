@@ -35,7 +35,7 @@ export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: 
                 />
               </div>
               <span className="font-heading font-extrabold text-2xl text-black tracking-tight block">
-                lifebuild<span className="text-[#3b2262]">.</span>
+                lifebuild<span className="text-sm font-semibold text-zinc-600 ml-1">nation</span><span className="text-[#3b2262]">.</span>
               </span>
             </div>
             <p className="text-xs text-zinc-500 max-w-sm font-light">
@@ -83,7 +83,7 @@ export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: 
 
         {/* Bottom Metadata */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
-          <p suppressHydrationWarning>© 2011 - {new Date().getFullYear()} Lifebuild. Est. 2011.</p>
+          <p suppressHydrationWarning>© 2011 - {new Date().getFullYear()} Lifebuild Nation. Est. 2011.</p>
           
           <button
             onClick={scrollToTop}

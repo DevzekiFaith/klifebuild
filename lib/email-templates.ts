@@ -99,7 +99,7 @@ https://www.lifebuildglobal.com.ng
                         </td>
                         <td valign="middle">
                           <div style="font-size: 20px; font-weight: 800; color: #3b2262; letter-spacing: -0.5px; line-height: 1;">
-                            lifebuild<span style="color: #3b2262;">.</span>
+                            lifebuild<span style="font-size: 12px; font-weight: 600; opacity: 0.75; margin-left: 2px;">nation</span><span style="color: #3b2262;">.</span>
                           </div>
                           <div style="font-size: 8px; font-family: monospace; font-weight: 700; color: #3b2262; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; opacity: 0.85;">
                             REBUILDING EVERYWHERE YOU GO
@@ -475,7 +475,7 @@ Isaiah 58:12 • https://www.lifebuildglobal.com.ng
                         </td>
                         <td valign="middle">
                           <div style="font-size: 20px; font-weight: 800; color: #3b2262; letter-spacing: -0.5px; line-height: 1;">
-                            lifebuild<span style="color: #3b2262;">.</span>
+                            lifebuild<span style="font-size: 12px; font-weight: 600; opacity: 0.75; margin-left: 2px;">nation</span><span style="color: #3b2262;">.</span>
                           </div>
                           <div style="font-size: 8px; font-family: monospace; font-weight: 700; color: #3b2262; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px;">
                             4TRIBE NETWORK
