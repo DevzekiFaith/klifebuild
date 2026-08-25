@@ -187,7 +187,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
               {/* Card Footer */}
               <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2 border-t border-gray-100">
                 <span className="text-black font-bold">The 4T Framework</span>
-                <span>Est. 2011</span>
+                <span>Est. 2009</span>
               </div>
             </motion.div>
           </motion.div>
