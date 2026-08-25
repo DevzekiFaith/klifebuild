@@ -4,31 +4,31 @@ export default function JsonLd() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Lifebuild Nation",
-    "alternateName": ["4Tribe Network", "Lifebuild Center", "Lifebuild"],
-    "url": "https://klifebuild.com",
-    "logo": "https://klifebuild.com/images/logo_icon_nobg.png",
+    "name": "LifeBuild Global",
+    "alternateName": ["4Tribe Network", "LifeBuild Center", "LifeBuild Global Movement"],
+    "url": "https://www.lifebuildglobal.com.ng",
+    "logo": "https://www.lifebuildglobal.com.ng/images/logo_icon_nobg.png",
     "founder": {
       "@type": "Person",
       "name": "Zeki Ubor",
       "jobTitle": "Founder & Convener",
-      "sameAs": ["https://github.com/DevzekiFaith/klifebuild"]
+      "sameAs": ["https://www.lifebuildglobal.com.ng"]
     },
-    "description": "A propelling movement of transformation driven by Isaiah 58:12 to rebuild broken walls, restore identity, repair breaches, and replenish legacy across communities and organizations.",
+    "description": "A faith-driven movement helping people rebuild broken foundations, develop their God-given capacity and create transformation in lives, families and communities under Isaiah 58:12.",
     "slogan": "Rebuilding Everywhere You Go",
     "sameAs": [
-      "https://github.com/DevzekiFaith/klifebuild"
+      "https://www.lifebuildglobal.com.ng"
     ]
   };
 
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "Life Build Sunday Gathering & 4T Conference",
-    "startDate": "2026-08-02T17:00:00+01:00",
+    "name": "LifeBuild Global Bi-Weekly Gathering & 4T Conference",
+    "startDate": "2026-08-09T17:00:00+01:00",
     "eventSchedule": {
       "@type": "Schedule",
-      "repeatFrequency": "P1W",
+      "repeatFrequency": "P2W",
       "byDay": "https://schema.org/Sunday",
       "startTime": "17:00:00+01:00"
     },
@@ -37,7 +37,7 @@ export default function JsonLd() {
     "location": [
       {
         "@type": "Place",
-        "name": "Life Build Center",
+        "name": "LifeBuild Center",
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "NG"
@@ -45,18 +45,18 @@ export default function JsonLd() {
       },
       {
         "@type": "VirtualLocation",
-        "url": "https://klifebuild.com"
+        "url": "https://www.lifebuildglobal.com.ng"
       }
     ],
     "image": [
-      "https://klifebuild.com/images/worship_nigerian_african.png",
-      "https://klifebuild.com/images/zeki_ubor_official.png"
+      "https://www.lifebuildglobal.com.ng/images/worship_nigerian_african.png",
+      "https://www.lifebuildglobal.com.ng/images/zeki_ubor_official.png"
     ],
-    "description": "Weekly 60-minute spiritual grounding, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and strategic alignment for founders and leaders led by Zeki Ubor.",
+    "description": "Bi-weekly 60-minute spiritual alignment, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and strategic equipping for builders and leaders led by Zeki Ubor.",
     "organizer": {
       "@type": "Organization",
-      "name": "Lifebuild & 4Tribe Network",
-      "url": "https://klifebuild.com"
+      "name": "LifeBuild Global & 4Tribe Network",
+      "url": "https://www.lifebuildglobal.com.ng"
     },
     "performer": {
       "@type": "Person",
@@ -67,11 +67,11 @@ export default function JsonLd() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Lifebuild",
-    "url": "https://klifebuild.com",
+    "name": "LifeBuild Global",
+    "url": "https://www.lifebuildglobal.com.ng",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://klifebuild.com/#search?q={search_term_string}",
+      "target": "https://www.lifebuildglobal.com.ng/#search?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };

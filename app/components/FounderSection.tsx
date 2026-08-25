@@ -59,11 +59,11 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
 
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
             Zeki Ubor. <br />
-            Founder & Convener of Lifebuild.
+            Founder &amp; Convener of LifeBuild Global.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            A propelling movement of transformation and impact, centered on spiritual alignment, rebuilding broken walls, and empowering leaders to reconstruct broken foundations across lives, families, and communities under Isaiah 58:12.
+            Convening a faith-driven movement focused on spiritual alignment, leadership development, rebuilding broken foundations, and empowering people to create transformation wherever they are.
           </p>
         </motion.div>
 
@@ -91,7 +91,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 <motion.div style={{ scale: imageScale }} className="relative w-full h-full scale-x-[-1]">
                   <Image
                     src="/images/zeki_ubor_official.png"
-                    alt="Zeki Ubor - Founder & Convener of Lifebuild"
+                    alt="Zeki Ubor - Founder & Convener of LifeBuild Global"
                     fill
                     sizes="(max-width: 768px) 100vw, 384px"
                     className="object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
@@ -107,7 +107,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute top-4 left-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 text-[10px] font-mono text-white font-bold uppercase shadow-sm"
                 >
-                  Founder & Convener
+                  Founder &amp; Convener
                 </motion.div>
 
                 {/* Floating Mandate Badge */}
@@ -126,10 +126,10 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                   Zeki Ubor
                 </h3>
                 <p className="text-xs font-mono text-[#d4af37]">
-                  Founder, Lifebuild<span className="text-[10px] font-semibold text-[#d4af37]/80 ml-1">nation</span> &amp; 4Tribe Network
+                  Founder &amp; Convener, LifeBuild Global &amp; 4Tribe Network
                 </p>
                 <p className="text-xs text-zinc-400 font-light pt-1 border-t border-zinc-800">
-                  "Rebuilding ancient ruins and raising up age-old foundations."
+                  "Building people who are equipped to rebuild everywhere they go."
                 </p>
               </div>
 
@@ -153,7 +153,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 Building People to Rebuild Everywhere You Go.
               </h3>
               <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-                Propelled by divine authority and an unyielding commitment to giving, Zeki Ubor convenes founders, executives, and visionaries under the <strong>Lifebuild & 4Tribe Network</strong>. This movement is dedicated to raising mighties, imparting wisdom, and deploying strategic resources to rebuild broken walls across business, family, and society.
+                Driven by Isaiah 58:12, Zeki Ubor convenes leaders, executives, and builders under <strong>LifeBuild Global &amp; 4Tribe Network</strong>. The mandate focuses on spiritual grounding, character development, and equipping individuals to become agents of reconstruction across business, family, and society.
               </p>
             </div>
 
@@ -182,7 +182,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
               >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
                   <Target className="w-4 h-4 text-black" />
-                  <span>01 / DIVINE PURPOSE & ALIGNMENT</span>
+                  <span>01 / DIVINE PURPOSE &amp; ALIGNMENT</span>
                 </div>
                 <h4 className="font-heading font-bold text-base text-black">Spiritual Grounding First</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -218,11 +218,11 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
               >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
                   <Heart className="w-4 h-4 text-black" />
-                  <span>03 / COMMUNITY & VISION</span>
+                  <span>03 / COMMUNITY &amp; VISION</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Raising Mighties & Transforming Communities</h4>
+                <h4 className="font-heading font-bold text-base text-black">Equipping Builders &amp; Transforming Communities</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Gathering builders every Sunday for strategic alignment, 4T teaching, and genuine connection.
+                  Gathering builders bi-weekly for strategic alignment, 4T teaching, and genuine fellowship.
                 </p>
               </motion.div>
 
@@ -242,7 +242,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 onClick={onOpenRegister}
                 className="px-8 py-4 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Join the Vision with Zeki Ubor</span>
+                <span>Join the Movement with Zeki Ubor</span>
                 <ArrowUpRight className="w-4 h-4" />
               </motion.button>
             </motion.div>

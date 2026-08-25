@@ -76,7 +76,7 @@ export default function Home() {
 
     const isConference = newMember.memberId.startsWith("4T-CONF");
     setRegistrationToast({
-      title: isConference ? "4T Conference Delegate Pass Issued!" : "Life Build Membership Pass Issued!",
+      title: isConference ? "4T Conference Delegate Pass Issued!" : "LifeBuild Global Membership Pass Issued!",
       email: newMember.email,
       passType: isConference ? "Conference VIP Pass" : "Sunday Gathering Pass",
     });
@@ -218,11 +218,11 @@ export default function Home() {
             </span>
 
             <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-              The 4T Pillars of Lifebuild Nation.
+              The 4T Pillars of LifeBuild Global.
             </h2>
 
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 58:12, our core mission is focused on rebuilding broken walls across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
+              Driven by Isaiah 58:12, our core mission is focused on equipping builders of transformation across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
             </p>
           </motion.div>
 

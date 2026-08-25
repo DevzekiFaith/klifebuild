@@ -75,7 +75,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                   </div>
                   <div>
                     <span className="font-heading font-extrabold text-sm tracking-tight text-black block">
-                      lifebuild<span className="text-[10px] font-semibold text-zinc-500 ml-1">nation</span><span className="text-[#3b2262]">.</span>
+                      lifebuild<span className="text-[10px] font-semibold text-zinc-500 ml-1">global</span><span className="text-[#3b2262]">.</span>
                     </span>
                     <span className="text-[9px] font-mono text-zinc-500 uppercase block">
                       4Tribe Network
@@ -179,7 +179,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
 
                 {/* Sub-Tagline */}
                 <div className="pt-2 text-center border-t border-gray-200 text-[10px] font-mono text-zinc-600 font-bold uppercase tracking-wider">
-                  4TribeNetwork • Raising Mighties • Transforming Communities
+                  4Tribe Network • Equipping Builders • Transforming Communities
                 </div>
 
               </div>
@@ -216,19 +216,19 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
               Rebuilding the broken walls and raising up foundations for generations.
             </h2>
 
-            {/* Star Ratings / Trust Indicator */}
-            <div className="flex items-center gap-1 text-[#d4af37]">
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <span className="text-xs font-mono text-zinc-600 font-bold ml-2">Propelled by Divine Vision</span>
+            {/* Spiritual & Movement Anchor Indicator */}
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-zinc-100 border border-gray-200 text-zinc-800 text-xs font-mono font-semibold">
+                Isaiah 58:12 Foundation
+              </span>
+              <span className="text-xs font-mono text-zinc-500 font-medium">
+                • Faith-Driven Transformation
+              </span>
             </div>
 
             {/* Description Paragraph */}
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 58:12, Life Build is a global movement of people maximizing their giftings and career paths to bring light and transformation to communities. Through our weekly alignment sessions and annual <strong>4T Conference</strong>, we equip builders to rebuild, restore, repair, and replenish.
+              Driven by Isaiah 58:12, <strong>LifeBuild Global</strong> is a faith-driven movement helping people rebuild broken foundations, develop their God-given capacity and create lasting transformation across lives, families, careers and communities. Through our bi-weekly gatherings and the annual <strong>4T Conference</strong>, we equip individuals to rebuild, restore, repair, and replenish.
             </p>
 
             {/* Action Link */}
@@ -238,7 +238,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 onClick={onOpenRegister || onOpenPass}
                 className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer bg-transparent border-t-0 border-x-0"
               >
-                <span>Join the Vision & 4T Conference</span>
+                <span>Join the Movement &amp; 4T Conference</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </motion.button>
             </div>

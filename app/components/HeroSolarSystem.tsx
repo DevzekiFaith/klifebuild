@@ -219,7 +219,7 @@ export default function HeroSolarSystem({
               <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
                 <Image
                   src="/images/logo_icon_nobg.png"
-                  alt="Lifebuild emblem"
+                  alt="LifeBuild Global emblem"
                   fill
                   sizes="24px"
                   className="object-contain"
@@ -227,18 +227,38 @@ export default function HeroSolarSystem({
                   loading="eager"
                 />
               </div>
-              <span>Isaiah 58:12 • Bi-Weekly 4Tribe Network</span>
+              <span>Isaiah 58:12 • Bi-Weekly Gathering • 4Tribe Network</span>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+            {/* Headline & Subtitle */}
+            <div className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.6 }}
+                className="text-xs sm:text-sm font-mono font-bold uppercase tracking-[0.25em] text-[#3b2262]"
+              >
+                LifeBuild Global
+              </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="font-serif-headline text-5xl sm:text-7xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-zinc-950"
+              >
+                Rebuilding Everywhere You Go.
+              </motion.h1>
+            </div>
+
+            {/* Supporting Movement Message */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif-headline text-5xl sm:text-7xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-zinc-950"
+              transition={{ delay: 0.35, duration: 0.6 }}
+              className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light max-w-xl"
             >
-              Rebuilding broken walls. Raising people, transforming communities.
-            </motion.h1>
+              A faith-driven movement helping people rebuild broken foundations, develop their God-given capacity and become builders of transformation in their lives, families, careers and communities.
+            </motion.p>
 
             {/* 4T Sub-row links */}
             <motion.div
@@ -277,17 +297,27 @@ export default function HeroSolarSystem({
                 onClick={onOpenRegister}
                 className="px-6 py-3.5 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Join the Vision</span>
+                <span>Join the Movement</span>
                 <ArrowUpRight className="w-4 h-4 text-white" />
               </motion.button>
               
+              <motion.a
+                href="#pillars"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer bg-white"
+              >
+                <span>Explore LifeBuild Global</span>
+              </motion.a>
+
               <motion.button
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={onOpenScanner}
-                className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer bg-white"
+                className="px-4 py-3.5 rounded-full border border-gray-200 text-zinc-600 font-mono text-xs hover:border-black hover:text-black transition-all flex items-center gap-1.5 cursor-pointer bg-gray-50/70"
+                title="Check-In Entrance Pass"
               >
-                <QrCode className="w-4 h-4" />
+                <QrCode className="w-3.5 h-3.5" />
                 <span>Check-In</span>
               </motion.button>
             </motion.div>
@@ -430,7 +460,7 @@ export default function HeroSolarSystem({
             </div>
             <h3 className="font-heading font-bold text-sm text-black">01. REBUILDING</h3>
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
-              Reconstructing broken walls, business systems, and economic foundations under Isaiah 58:12.
+              Reconstructing broken walls, organizational systems, and economic foundations under Isaiah 58:12.
             </p>
           </motion.div>
 
@@ -447,7 +477,7 @@ export default function HeroSolarSystem({
             </div>
             <h3 className="font-heading font-bold text-sm text-black">02. RESTORING</h3>
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
-              Unlocking keys to identity, restoring human dignity, calling, and peace in communities.
+              Restoring God-given identity, spiritual authority, and human dignity in leaders, families, and organizations.
             </p>
           </motion.div>
 
@@ -464,7 +494,7 @@ export default function HeroSolarSystem({
             </div>
             <h3 className="font-heading font-bold text-sm text-black">03. REPAIRING</h3>
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
-              Binding wounds, unifying builders, and strengthening community fabric step by step.
+              Repairing systemic breaches, healing character gaps, and weaving a resilient community fabric for mutual growth.
             </p>
           </motion.div>
 
@@ -481,7 +511,7 @@ export default function HeroSolarSystem({
             </div>
             <h3 className="font-heading font-bold text-sm text-black">04. REPLENISHING</h3>
             <p className="text-xs text-zinc-500 leading-relaxed font-light">
-              Unlocking abundance, sustainable stewardship, and overflowing resources for generations.
+              Unlocking sustainable stewardship, resource overflow, and generational legacy that outlasts your lifetime.
             </p>
           </motion.div>
 

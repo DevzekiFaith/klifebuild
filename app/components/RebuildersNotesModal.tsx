@@ -116,13 +116,13 @@ ${content || "(No reflections recorded)"}
 --- 4T ACTION ITEMS & DEPLOYMENT TARGETS ---
 ${actionItems || "(No action items recorded)"}
 
-— Lifebuild Nation 4Tribe Network • Isaiah 58:12`;
+— LifeBuild Global • 4Tribe Network • Isaiah 58:12`;
 
     const blob = new Blob([textData], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `Lifebuild_Meeting_Note_${Date.now()}.txt`;
+    link.download = `LifeBuild_Global_Meeting_Note_${Date.now()}.txt`;
     link.click();
     URL.revokeObjectURL(url);
   };

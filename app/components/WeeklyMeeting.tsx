@@ -59,11 +59,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
   }, []);
 
   const getGoogleCalendarUrl = () => {
-    const title = encodeURIComponent("Life Build Gathering & 4T Conference (Isaiah 58:12)");
+    const title = encodeURIComponent("LifeBuild Global Gathering & 4T Conference (Isaiah 58:12)");
     const details = encodeURIComponent(
-      "Join us on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 60 minutes of spiritual grounding, 4T teaching, and connecting to bring light and transformation to our communities."
+      "Join the LifeBuild Global gathering on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 60 minutes of spiritual alignment, personal development, and rebuilding broken foundations."
     );
-    const location = encodeURIComponent("Life Build Global Live Stream");
+    const location = encodeURIComponent("LifeBuild Global Center & Global Live Stream");
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&recur=RRULE:FREQ=MONTHLY;BYDAY=2SU,4SU`;
   };
 
@@ -87,8 +87,8 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
         className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none"
       >
         <Image
-          src="/images/logo_icon.jpg"
-          alt="Lifebuild Overlay"
+          src="/images/logo_icon_nobg.png"
+          alt="LifeBuild Overlay"
           fill
           sizes="500px"
           className="object-contain filter grayscale"
@@ -106,16 +106,15 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
-            Bi-Weekly Gathering (2nd & 4th Sundays) & 4T Conference
+            BI-WEEKLY LIFE-BUILD GATHERING • EVERY 2ND &amp; 4TH SUNDAY
           </span>
           
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-            Weekly Alignment. <br />
-            Bi-Weekly Gathering & Annual 4T Conference.
+            Come Build With Us.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Every 2nd and 4th Sunday at 5:00 PM GMT+1, we gather globally for 60 minutes of spiritual grounding, 4T teaching, and connecting to bring light and transformation to our communities.
+            Join the next LifeBuild Global gathering and experience a community committed to spiritual alignment, personal development and rebuilding broken foundations. Every 2nd &amp; 4th Sunday at 5:00 PM GMT+1.
           </p>
         </motion.div>
 
@@ -145,7 +144,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
           <div className="lg:col-span-5 p-8 sm:p-12 space-y-4 relative z-10">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[#d4af37] text-[10px] font-mono font-bold uppercase tracking-widest">
               <ShieldCheck className="w-3.5 h-3.5" />
-              Presence • Alignment • Impact
+              Presence • Alignment • Transformation
             </span>
 
             <h3 className="font-serif-headline text-2xl sm:text-3xl text-white font-normal leading-tight">
@@ -177,7 +176,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   onClick={onOpenRegister}
                   className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer shadow-sm"
                 >
-                  Join the Vision
+                  Join the Movement
                 </motion.button>
 
                 <motion.button

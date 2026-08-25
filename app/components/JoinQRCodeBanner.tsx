@@ -66,7 +66,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                       />
                     </div>
                     <span className="font-heading font-extrabold text-xs tracking-tight">
-                      lifebuild<span className="text-[9px] font-semibold text-zinc-400 ml-0.5">nation</span><span className="text-[#d4af37]">.</span>
+                      lifebuild<span className="text-[9px] font-semibold text-zinc-400 ml-0.5">global</span><span className="text-[#d4af37]">.</span>
                     </span>
                   </div>
                   <span className="text-[8px] font-mono uppercase bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">
@@ -80,7 +80,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                     SUNDAY GATHERING
                   </span>
                   <h4 className="font-serif-headline text-3xl font-extrabold tracking-tight leading-none text-white">
-                    JOIN THE <br /> VISION
+                    JOIN THE <br /> MOVEMENT
                   </h4>
                   <p className="text-[10px] text-zinc-400 font-mono">
                     Rebuilding Broken Walls • Isaiah 58:12
@@ -159,7 +159,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 </div>
 
                 <p className="text-xs text-zinc-400 font-light">
-                  2nd & 4th Sunday @ 5:00 PM GMT+1 • Life Build Center & Global Stream
+                  2nd & 4th Sunday @ 5:00 PM GMT+1 • LifeBuild Global Center & Global Stream
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1">
@@ -167,7 +167,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                     onClick={onOpenRegister}
                     className="px-6 py-3 rounded-full bg-white text-black font-medium text-xs uppercase tracking-wider hover:bg-gray-200 transition-all flex items-center gap-2 cursor-pointer shadow-md"
                   >
-                    <span>Join the Vision Now</span>
+                    <span>Join the Movement</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </button>
 

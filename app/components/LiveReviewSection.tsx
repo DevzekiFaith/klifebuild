@@ -266,19 +266,19 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
             <div className="flex items-center gap-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-900 text-xs font-mono tracking-wider uppercase flex items-center gap-1.5 font-bold">
                 <Radio className="w-3.5 h-3.5 animate-pulse text-amber-600" />
-                Live Response Feed
+                Community Voices
               </span>
               <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline-block">
-                Isaiah 58:12 Community Reviews
+                Isaiah 58:12 Community Reflections
               </span>
             </div>
 
             <h2 className="font-serif-headline text-4xl sm:text-5xl lg:text-6xl font-normal text-zinc-950 leading-tight">
-              Share Your Experience & See Live Reviews.
+              Community Reflections &amp; Experiences.
             </h2>
 
             <p className="text-zinc-600 text-base leading-relaxed font-light">
-              Submit your live review or scan the mobile QR code to give feedback directly from your phone. Responses update in real-time for everyone across the network.
+              Share your gathering reflections, testimony, or feedback. Experiences update in real-time across the LifeBuild Global movement.
             </p>
           </div>
 
@@ -286,18 +286,18 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
           <div className="flex items-center gap-6 p-5 bg-white border border-zinc-200/90 rounded-2xl shadow-sm">
             <div className="text-center border-r border-zinc-200 pr-6">
               <div className="flex items-center justify-center gap-1 text-2xl font-bold text-amber-600 font-mono">
-                <span>{avgRating}</span>
-                <Star className="w-5 h-5 fill-amber-500 text-amber-500" />
+                <span>{totalReviews}</span>
+                <MessageSquare className="w-5 h-5 text-amber-500" />
               </div>
               <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider block mt-0.5 font-semibold">
-                Avg Rating
+                Reflections
               </span>
             </div>
 
             <div className="text-center">
-              <div className="text-2xl font-bold text-zinc-950 font-mono">{totalReviews}</div>
+              <div className="text-2xl font-bold text-zinc-950 font-mono">Live</div>
               <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider block mt-0.5 font-semibold">
-                Verified Reviews
+                Community Feed
               </span>
             </div>
           </div>
@@ -348,9 +348,9 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     <div className="w-14 h-14 bg-emerald-100 border border-emerald-300 rounded-full flex items-center justify-center mx-auto text-emerald-700">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
-                    <h4 className="text-2xl font-bold text-emerald-950">Review Submitted Live!</h4>
+                    <h4 className="text-2xl font-bold text-emerald-950">Reflection Submitted!</h4>
                     <p className="text-sm text-emerald-800 max-w-md mx-auto font-light">
-                      Thank you for strengthening the Lifebuild community. Your review is now live in the stream below.
+                      Thank you for contributing to the LifeBuild Global movement. Your reflection is now live in the community stream below.
                     </p>
                   </motion.div>
                 ) : (
@@ -747,7 +747,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                 <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono text-zinc-600">
                   <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    100% Verified Lifebuilder Feedback
+                    Real Participant Experiences &amp; Reflections
                   </span>
                 </div>
               </div>

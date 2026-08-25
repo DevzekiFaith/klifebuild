@@ -77,7 +77,7 @@ export default function Navbar({
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight leading-none">
-                lifebuild<span className="text-xs sm:text-sm font-semibold text-zinc-600 ml-1">nation</span><span className="text-[#3b2262]">.</span>
+                lifebuild<span className="text-xs sm:text-sm font-semibold text-zinc-600 ml-1">global</span><span className="text-[#3b2262]">.</span>
               </span>
               <RotatingTagline className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium" />
             </div>
@@ -226,7 +226,7 @@ export default function Navbar({
                 onClick={onOpenRegister}
                 className="px-4 py-1.5 rounded-full border border-zinc-900 text-black hover:bg-black hover:text-white transition-all text-xs font-medium flex items-center gap-1 cursor-pointer"
               >
-                <span>Join the Vision</span>
+                <span>Join the Movement</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-[#3b2262]" />
               </button>
             )}
@@ -370,7 +370,7 @@ export default function Navbar({
               }}
               className="w-full py-3 rounded-full bg-black text-white font-medium text-sm text-center"
             >
-              {hasPass ? "View My Attendance Pass" : "Join the Vision"}
+              {hasPass ? "View My Attendance Pass" : "Join the Movement"}
             </button>
           </div>
         </div>

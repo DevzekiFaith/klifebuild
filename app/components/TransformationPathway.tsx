@@ -35,62 +35,61 @@ export default function TransformationPathway({
     {
       id: "01",
       stepNumber: "STAGE 01",
-      title: "Awakening & Purpose",
-      subtitle: "Finding Your Placement",
+      title: "DISCOVER",
+      subtitle: "Understand Purpose & Calling",
       icon: Compass,
-      scripture: "Isaiah 58:12a — 'Your people will rebuild the ancient ruins'",
+      scripture: "Jeremiah 1:5 — 'Before I formed you in the belly I knew you; and I ordained you'",
       description:
-        "Recognizing broken areas in life, business, or community, and discovering your placement as a builder of new foundations.",
+        "Understand your purpose and what has been entrusted to you. Discover your unique placement and divine blueprint as a builder of transformation.",
       keyOutputs: [
-        "Auditing areas of life and work needing alignment",
-        "Discerning your unique spiritual focus",
-        "Aligning with the divine vision",
+        "Uncovering your God-given assignment and core burden",
+        "Auditing areas of life, leadership, and work needing alignment",
+        "Clarifying your foundation and spiritual grounding",
       ],
     },
     {
       id: "02",
       stepNumber: "STAGE 02",
-      title: "Maximizing Giftings & Career",
-      subtitle: "Stewardship of Skills & Profession",
+      title: "DEVELOP",
+      subtitle: "Build Capacity & Character",
       icon: Sparkles,
-      scripture: "Isaiah 61:3 — 'Beauty for ashes, oil of joy for mourning'",
+      scripture: "Isaiah 61:3 — 'Trees of righteousness, the planting of the Lord'",
       description:
-        "Identifying and fully utilizing your unique talents and professional career path for community-wide transformation.",
+        "Build your capacity, character, leadership, and professional skills. Strengthen your internal foundations so you can sustain external influence.",
       keyOutputs: [
-        "Aligning professional career with kingdom purpose",
-        "Maximizing personal giftings and marketplace skills",
-        "Preparing talents for real community impact",
+        "Building spiritual maturity and personal discipline",
+        "Cultivating character, excellence, and leadership acumen",
+        "Equipping professional skills for marketplace impact",
       ],
     },
     {
       id: "03",
       stepNumber: "STAGE 03",
-      title: "The 4T Framework",
-      subtitle: "Active Application of the Pillars",
+      title: "DEPLOY",
+      subtitle: "Steward Gifts & Marketplace Influence",
       icon: Hammer,
       scripture: "Nehemiah 4:6 — 'So built we the wall; for the people had a mind to work'",
       description:
-        "Systematic application of the 4T Framework (Rebuilding, Restoring, Repairing, Replenishing) across your career, business, and daily life.",
+        "Use your gifts and capabilities in your career, family, and community. Channel your professional and leadership influence into meaningful kingdom service.",
       keyOutputs: [
-        "Rebuilding broken economic & business foundations",
-        "Restoring identity, dignity, and authority in spheres",
-        "Repairing community and structural breaches",
-        "Replenishing generational legacy & overflow",
+        "Positioning strategically in your industry and calling",
+        "Operating with integrity, stewardship, and excellence",
+        "Deploying resources and skills to solve real problems",
       ],
     },
     {
       id: "04",
       stepNumber: "STAGE 04",
-      title: "People of Light & Transformation",
-      subtitle: "Community & Societal Impact",
+      title: "REBUILD",
+      subtitle: "Restore Foundations Everywhere You Go",
       icon: ShieldCheck,
-      scripture: "Isaiah 58:12b — 'You will be called Repairer of Broken Walls, Restorer of Streets with Dwellings'",
+      scripture: "Isaiah 58:12 — 'You will be called Repairer of the Breach, Restorer of Paths to Dwell in'",
       description:
-        "Stepping forth as a fully active builder, bringing tangible change to people, families, and communities.",
+        "Become a person who contributes to restoring what is broken around you. Carry transformation into your family, business, sphere of influence, and city.",
       keyOutputs: [
-        "Launching initiatives that transform local communities",
-        "Translating career influence into systemic restoration",
-        "Leaving a lasting legacy of abundance and stewardship",
+        "Rebuilding broken walls across families and institutions",
+        "Restoring human dignity and creating community transformation",
+        "Replenishing generational legacy that outlasts your lifetime",
       ],
     },
   ];
@@ -235,7 +234,7 @@ export default function TransformationPathway({
                     onClick={onOpenRegister}
                     className="px-6 py-3.5 rounded-full bg-black text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
                   >
-                    <span>Join the Vision</span>
+                    <span>Join the Movement</span>
                     <ArrowRight className="w-4 h-4 text-white" />
                   </motion.button>
                 </div>

@@ -99,7 +99,7 @@ https://www.lifebuildglobal.com.ng`;
       // 2. Header Strip
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 36px sans-serif";
-      ctx.fillText("lifebuild nation.", 60, 90);
+      ctx.fillText("lifebuild global.", 60, 90);
 
       ctx.fillStyle = "#d4af37";
       ctx.font = "bold 18px monospace";
@@ -204,7 +204,7 @@ https://www.lifebuildglobal.com.ng`;
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-fadeIn"
     >
       <div className="relative w-full max-w-md bg-white text-black p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xl my-auto max-h-[88vh] overflow-y-auto space-y-6">
-        
+
         {/* Prominent High-Contrast Close Button */}
         <button
           onClick={onClose}
@@ -241,7 +241,7 @@ https://www.lifebuildglobal.com.ng`;
 
         {/* Digital Membership Pass Card (Monochrome High Contrast) */}
         <div className="relative bg-[#141414] text-white p-6 rounded-2xl border border-zinc-800 space-y-6 shadow-xl">
-          
+
           {/* Top Pass Strip */}
           <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
             <div className="flex items-center gap-2.5">
@@ -256,7 +256,7 @@ https://www.lifebuildglobal.com.ng`;
               </div>
               <div>
                 <span className="font-heading font-extrabold text-sm tracking-tight text-white block">
-                  lifebuild<span className="text-[10px] font-semibold text-zinc-400 ml-1">nation</span><span className="text-[#d4af37]">.</span>
+                  lifebuild<span className="text-[10px] font-semibold text-zinc-400 ml-1">global</span><span className="text-[#d4af37]">.</span>
                 </span>
                 <span className="text-[9px] font-mono text-zinc-400 block uppercase">
                   Founder Pass
@@ -424,13 +424,12 @@ https://www.lifebuildglobal.com.ng`;
             <button
               onClick={handleResendEmail}
               disabled={emailStatus === "sending"}
-              className={`py-3 px-4 rounded-full text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm border ${
-                emailStatus === "sent"
-                  ? "bg-emerald-50 text-emerald-700 border-emerald-300"
-                  : emailStatus === "error"
+              className={`py-3 px-4 rounded-full text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm border ${emailStatus === "sent"
+                ? "bg-emerald-50 text-emerald-700 border-emerald-300"
+                : emailStatus === "error"
                   ? "bg-red-50 text-red-700 border-red-300"
                   : "bg-zinc-100 text-zinc-800 hover:bg-zinc-200 border-zinc-300"
-              }`}
+                }`}
             >
               {emailStatus === "sending" ? (
                 <>
