@@ -301,7 +301,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
             <div className="border-b border-gray-200 pb-4">
               <h3 className="font-heading text-lg font-bold text-black flex items-center gap-2">
                 <Zap className="w-4 h-4 text-black" />
-                60-Minute Meeting Blueprint
+                90-Minute Gathering Blueprint
               </h3>
             </div>
 
@@ -316,9 +316,9 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 01</span>
-                  <span>10 MINS</span>
+                  <span>15 MINS</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Grounding & Devotional Focus</h4>
+                <h4 className="font-heading font-bold text-base text-black">Grounding &amp; Devotional Focus</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Stripping away workweek noise. Centering mind and spirit in worship, gratitude, and divine perspective under Isaiah 58:12.
                 </p>
@@ -334,9 +334,9 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 02</span>
-                  <span>30 MINS</span>
+                  <span>45 MINS</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">4T Teaching & Kingdom Principles</h4>
+                <h4 className="font-heading font-bold text-base text-black">4T Teaching &amp; Kingdom Principles</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Actionable teaching on Rebuilding, Restoring, Repairing, and Replenishing broken systems and leaders.
                 </p>
@@ -352,9 +352,9 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 03</span>
-                  <span>10 MINS</span>
+                  <span>15 MINS</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Rebuilder's Prayer & Strategy</h4>
+                <h4 className="font-heading font-bold text-base text-black">Rebuilder's Prayer &amp; Strategy</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
                   Targeted prayer, faith declarations, and strategic alignment across the 4Tribe Network. Iron sharpening iron.
                 </p>
@@ -370,11 +370,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span>STEP 04</span>
-                  <span>10 MINS</span>
+                  <span>15 MINS</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Commissioning & Prophetic Alignment</h4>
+                <h4 className="font-heading font-bold text-base text-black">Commissioning &amp; Prophetic Alignment</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Final blessing, weekly commissioning, and sending forth leaders into their spheres of impact with authority.
+                  Final blessing, bi-weekly commissioning, and sending forth leaders into their spheres of impact with authority.
                 </p>
               </motion.div>
 
