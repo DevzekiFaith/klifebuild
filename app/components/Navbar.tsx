@@ -88,7 +88,7 @@ export default function Navbar({
             {/* Meeting Schedule Badge */}
             <div className="px-3 py-1 rounded-full bg-purple-50/70 border border-purple-200/60 text-xs font-mono text-zinc-800 font-semibold flex items-center gap-1.5 shrink-0">
               <Clock className="w-3.5 h-3.5 text-[#3b2262]" />
-              <span>2nd &amp; 4th Sun @ 5:00 PM (60 mins)</span>
+              <span>2nd &amp; 4th Sun @ 5:00 PM (90 mins)</span>
             </div>
 
             <a
@@ -260,7 +260,7 @@ export default function Navbar({
           {/* Mobile Meeting Time Badge */}
           <div className="p-3 rounded-2xl bg-purple-50/70 border border-purple-200/60 text-xs font-mono text-zinc-800 flex items-center gap-2 font-bold">
             <Clock className="w-4 h-4 text-[#3b2262]" />
-            <span>2nd &amp; 4th Sunday: 5:00 PM GMT+1 (60 mins)</span>
+            <span>2nd &amp; 4th Sunday: 5:00 PM GMT+1 (90 mins)</span>
           </div>
 
           <nav className="flex flex-col space-y-4 text-base font-medium text-zinc-900">

@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Hammer, RefreshCw, HeartHandshake, Shield, Sparkles } from "lucide-react";
+import gatheringRebuildersImg from "@/public/images/gathering_rebuilders.jpg";
 
 interface EmotionalConnectionSectionProps {
   onOpenRegister?: () => void;
@@ -59,7 +60,7 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
                 Come. Connect. Build.
               </div>
               <p className="text-xs font-mono uppercase tracking-widest text-zinc-500">
-                Bi-Weekly Gathering • 2nd &amp; 4th Sunday • 5:00 PM GMT+1
+                Bi-Weekly Gathering • 2nd &amp; 4th Sunday • 5:00 PM GMT+1 (90 mins)
               </p>
               {onOpenRegister && (
                 <div className="pt-2">
@@ -87,9 +88,10 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
               
               {/* Background Photo */}
               <Image
-                src="/images/gathering_rebuilders.jpg"
+                src={gatheringRebuildersImg}
                 alt="Lifebuild Global Gathering Rebuilders"
                 fill
+                placeholder="blur"
                 sizes="(max-width: 1024px) 100vw, 58vw"
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 priority

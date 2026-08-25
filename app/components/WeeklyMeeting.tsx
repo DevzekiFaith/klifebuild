@@ -61,7 +61,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
   const getGoogleCalendarUrl = () => {
     const title = encodeURIComponent("LifeBuild Global Gathering & 4T Conference (Isaiah 58:12)");
     const details = encodeURIComponent(
-      "Join the LifeBuild Global gathering on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 60 minutes of spiritual alignment, personal development, and rebuilding broken foundations."
+      "Join the LifeBuild Global gathering on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 90 minutes of spiritual alignment, personal development, and rebuilding broken foundations."
     );
     const location = encodeURIComponent("LifeBuild Global Center & Global Live Stream");
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&recur=RRULE:FREQ=MONTHLY;BYDAY=2SU,4SU`;
@@ -245,11 +245,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                 </li>
                 <li className="flex items-start justify-between border-b border-gray-100 pb-2">
                   <span className="font-mono text-xs text-zinc-400 uppercase">Time</span>
-                  <span className="font-medium text-black">5:00 PM – 6:00 PM (GMT+1)</span>
+                  <span className="font-medium text-black">5:00 PM – 6:30 PM (GMT+1)</span>
                 </li>
                 <li className="flex items-start justify-between border-b border-gray-100 pb-2">
                   <span className="font-mono text-xs text-zinc-400 uppercase">Duration</span>
-                  <span className="font-medium text-black">60 Minutes</span>
+                  <span className="font-medium text-black">90 Minutes</span>
                 </li>
                 <li className="flex items-start justify-between border-b border-gray-100 pb-2">
                   <span className="font-mono text-xs text-zinc-400 uppercase">Format</span>
