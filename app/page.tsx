@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import HeroSolarSystem from "./components/HeroSolarSystem";
 import SundaySelfCheckInBanner from "./components/SundaySelfCheckInBanner";
 import JoinQRCodeBanner from "./components/JoinQRCodeBanner";
+import EmotionalConnectionSection from "./components/EmotionalConnectionSection";
 import FellowshipStory from "./components/FellowshipStory";
 import FounderSection from "./components/FounderSection";
 import WeeklyMeeting from "./components/WeeklyMeeting";
@@ -147,7 +148,12 @@ export default function Home() {
         onOpenConference={() => setIsConferenceOpen(true)}
       />
 
-      {/* High-Impact Scan QR Code To Join Banner (Below Hero Section) */}
+      {/* Short Emotional Connection & Gathering Invitation Bridge */}
+      <EmotionalConnectionSection
+        onOpenRegister={() => setIsRegisterOpen(true)}
+      />
+
+      {/* High-Impact Scan QR Code To Join Banner */}
       <JoinQRCodeBanner
         onOpenRegister={() => setIsRegisterOpen(true)}
         compact={true}
