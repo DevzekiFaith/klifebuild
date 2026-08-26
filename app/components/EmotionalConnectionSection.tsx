@@ -42,7 +42,10 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
   const activeSlide = GALLERY_SLIDES[activeSlideIndex];
 
   return (
-    <section className="relative w-full bg-white text-zinc-950 py-20 sm:py-28 border-b border-gray-100 overflow-hidden">
+    <section
+      id="gathering-invitation"
+      className="relative w-full bg-white text-zinc-950 py-20 sm:py-28 border-b border-gray-100 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         
         {/* 2-Column Responsive Grid matching reference UI */}
@@ -57,9 +60,9 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
             className="lg:col-span-5 flex flex-col justify-between space-y-8"
           >
             <div className="space-y-6">
-              {/* Interactive Pill Indicator (Matching Reference Dots Bar) */}
-              <div className="inline-flex items-center gap-2 p-1 pl-3 pr-2 rounded-full bg-zinc-100 border border-zinc-200/80 text-zinc-700">
-                <div className="flex items-center gap-1.5">
+              {/* Interactive Pill Indicator (Matching Reference Dots Bar - Stable Width) */}
+              <div className="inline-flex items-center gap-2 p-1 pl-3 pr-3 rounded-full bg-zinc-100 border border-zinc-200/80 text-zinc-700 select-none">
+                <div className="flex items-center gap-1.5 shrink-0">
                   {GALLERY_SLIDES.map((slide, idx) => (
                     <button
                       key={slide.id}
@@ -73,9 +76,9 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
                     />
                   ))}
                 </div>
-                <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-zinc-700 ml-1">
+                <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-zinc-700 ml-1 min-w-[140px] text-left">
                   {activeSlide.title}
-                </span>
+                </div>
               </div>
 
               {/* Headline */}

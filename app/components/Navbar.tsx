@@ -63,8 +63,8 @@ export default function Navbar({
         <div className="flex items-center justify-between">
           
           {/* Logo Identity (Featuring Official Lifebuild Logo Image + Text) */}
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform">
+          <a href="#" className="flex items-center gap-3 group shrink-0">
+            <div className="relative w-11 h-11 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform shrink-0">
               <Image
                 src="/images/logo_icon_nobg.png"
                 alt="Lifebuild Logo"
@@ -75,11 +75,17 @@ export default function Navbar({
                 loading="eager"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col justify-center w-[225px] sm:w-[245px] shrink-0 overflow-hidden">
               <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight leading-none">
                 lifebuild<span className="text-xs sm:text-sm font-semibold text-zinc-600 ml-1">global</span><span className="text-[#3b2262]">.</span>
               </span>
-              <RotatingTagline className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium" />
+              <div className="h-3.5 relative overflow-hidden flex items-center mt-0.5">
+                <RotatingTagline
+                  className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium whitespace-nowrap"
+                  phrases={["Rebuilding Everywhere You Go", "Positioning in the Marketplace"]}
+                  intervalMs={3200}
+                />
+              </div>
             </div>
           </a>
 
@@ -96,12 +102,6 @@ export default function Navbar({
               className="hover:text-black transition-colors"
             >
               Vision
-            </a>
-            <a
-              href="#founder"
-              className="hover:text-black transition-colors font-bold text-black"
-            >
-              Zeki Ubor
             </a>
             <a
               href="#fellowship"
