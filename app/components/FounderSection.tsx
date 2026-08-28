@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, UserCheck, Heart, Sparkles, Target } from "lucide-react";
+import zekiUborOfficialImg from "@/public/images/zeki_ubor_official.jpg";
 
 interface FounderSectionProps {
   onOpenRegister: () => void;
@@ -81,25 +82,26 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
           >
             <div className="relative w-full max-w-sm rounded-3xl overflow-hidden border border-gray-200 shadow-2xl bg-[#141414] text-white space-y-4 group">
               
-              {/* Photo Container with Horizontal Flip (scale-x-[-1]) and Framer Motion Scale */}
-              <div className="relative w-full aspect-[3/4] bg-gradient-to-b from-zinc-900 via-zinc-950 to-black overflow-hidden flex items-end justify-center pt-6">
+              {/* Photo Container with Framer Motion Scale */}
+              <div className="relative w-full aspect-[3/4] bg-zinc-950 overflow-hidden flex items-end justify-center">
                 
                 {/* Background Glow */}
-                <div className="absolute inset-0 bg-radial from-[#3b2262]/30 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-radial from-[#3b2262]/30 via-transparent to-transparent pointer-events-none z-10"></div>
 
-                {/* Flipped Image with Parallax Scale */}
-                <motion.div style={{ scale: imageScale }} className="relative w-full h-full scale-x-[-1]">
+                {/* Portrait Image with Parallax Scale */}
+                <motion.div style={{ scale: imageScale }} className="relative w-full h-full">
                   <Image
-                    src="/images/zeki_ubor_official.png"
+                    src={zekiUborOfficialImg}
                     alt="Zeki Ubor - Founder & Convener of LifeBuild Global"
                     fill
+                    placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 384px"
-                    className="object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     priority
                   />
                 </motion.div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent pointer-events-none z-10"></div>
                 
                 {/* Floating Badge Overlay */}
                 <motion.div

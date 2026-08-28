@@ -72,7 +72,7 @@ export const metadata: Metadata = {
         alt: "LifeBuild Global Gathering & 4T Conference",
       },
       {
-        url: "/images/zeki_ubor_official.png",
+        url: "/images/zeki_ubor_official.jpg",
         width: 800,
         height: 1000,
         alt: "Zeki Ubor - Founder & Convener of LifeBuild Global",

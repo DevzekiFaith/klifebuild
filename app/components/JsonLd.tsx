@@ -50,9 +50,9 @@ export default function JsonLd() {
     ],
     "image": [
       "https://www.lifebuildglobal.com.ng/images/worship_nigerian_african.png",
-      "https://www.lifebuildglobal.com.ng/images/zeki_ubor_official.png"
+      "https://www.lifebuildglobal.com.ng/images/zeki_ubor_official.jpg"
     ],
-    "description": "Bi-weekly 60-minute spiritual alignment, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and strategic equipping for builders and leaders led by Zeki Ubor.",
+    "description": "Bi-weekly 90-minute spiritual alignment, 4T teaching (Rebuilding, Restoring, Repairing, Replenishing), and strategic equipping for builders and leaders led by Zeki Ubor.",
     "organizer": {
       "@type": "Organization",
       "name": "LifeBuild Global & 4Tribe Network",
