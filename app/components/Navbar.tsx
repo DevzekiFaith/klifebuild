@@ -167,7 +167,7 @@ export default function Navbar({
                         className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
                       >
                         <Sparkles className="w-4 h-4 text-[#3b2262]" />
-                        <span>August Prophetic Flyer</span>
+                        <span>September Prophetic Flyer</span>
                       </button>
                     )}
 
@@ -320,7 +320,7 @@ export default function Navbar({
                 className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-[#3b2262]" />
-                August Prophetic Flyer
+                September Prophetic Flyer
               </button>
             )}
 

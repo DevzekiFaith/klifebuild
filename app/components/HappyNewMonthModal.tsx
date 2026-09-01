@@ -21,16 +21,16 @@ export default function HappyNewMonthModal({
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "/images/happy_new_month_august.jpg";
-    link.download = "Lifebuild_Happy_New_Month_August_Growth.jpg";
+    link.href = "/images/happy_new_month_september.jpg";
+    link.download = "Lifebuild_Happy_New_Month_September_New_Beginnings.jpg";
     link.click();
   };
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: "Lifebuild Happy New Month of August",
-        text: "Happy New Month of August! It's the Month of Growth and the Prophesy for this month is ENLARGEMENT.",
+        title: "Lifebuild Happy New Month of September",
+        text: "Happy New Month of September! It's our Month of New Beginnings. A fresh mindset. A renewed focus. A stronger you.",
         url: window.location.href,
       }).catch(() => {});
     } else {
@@ -62,8 +62,8 @@ export default function HappyNewMonthModal({
           <div className="lg:col-span-6 relative min-h-[380px] sm:min-h-[480px] bg-black flex items-center justify-center p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-zinc-800">
             <div className="relative w-full h-full min-h-[360px] sm:min-h-[460px] rounded-2xl overflow-hidden shadow-2xl border border-zinc-800/80 group">
               <Image
-                src="/images/happy_new_month_august.jpg"
-                alt="Lifebuild Happy New Month of August Flyer"
+                src="/images/happy_new_month_september.jpg"
+                alt="Lifebuild Happy New Month of September - New Beginnings Flyer"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain transition-transform duration-500 group-hover:scale-102"
@@ -78,7 +78,7 @@ export default function HappyNewMonthModal({
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Happy New Month of August</span>
+                <span>Happy New Month • September</span>
               </div>
 
               {/* Theme & Prophesy Headline */}
@@ -87,18 +87,29 @@ export default function HappyNewMonthModal({
                   Prophetic Declaration
                 </span>
                 <h2 className="font-serif-headline text-3xl sm:text-4xl text-white font-normal leading-tight">
-                  The Month of <span className="text-emerald-400 italic">Growth</span> & <span className="text-[#d4af37]">Enlargement</span>.
+                  My Month of <span className="text-emerald-400 italic">New</span> <span className="text-[#d4af37]">Beginnings</span>.
                 </h2>
               </div>
 
               {/* Message Block */}
               <div className="p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-2 text-xs text-zinc-300 font-light leading-relaxed">
-                <p>
-                  "This is your season to grow higher, go further and become more. New opportunities. Greater impact. Stronger you. Let's grow — together."
-                </p>
+                <div className="space-y-1 text-sm font-medium text-white">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <span>A fresh <strong className="text-emerald-300 font-semibold">mindset</strong>.</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
+                    <span>A renewed <strong className="text-[#d4af37] font-semibold">focus</strong>.</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                    <span>A stronger <strong className="text-purple-300 font-semibold">you</strong>.</span>
+                  </div>
+                </div>
                 <div className="pt-2 text-[11px] font-mono text-[#d4af37] font-bold flex items-center justify-between border-t border-zinc-800">
-                  <span>PROPHESY: ENLARGEMENT</span>
-                  <span>ISAIAH 58:12</span>
+                  <span>THEME: NEW BEGINNINGS</span>
+                  <span>LIFEBUILD GLOBAL</span>
                 </div>
               </div>
 
@@ -106,10 +117,10 @@ export default function HappyNewMonthModal({
               <div className="space-y-1.5 text-xs text-zinc-400 font-light">
                 <div className="flex items-center gap-2 text-white font-mono font-semibold">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>August Alignment & 4T Gathering Focus</span>
+                  <span>September Alignment & 4T Gathering Focus</span>
                 </div>
                 <p className="text-[11px] leading-relaxed pl-6">
-                  Rebuilding foundations, expanding capacity, and stepping into divine enlargement across personal calling, business, and community impact.
+                  Rebuilding foundations, stepping into divine clarity, and embracing fresh starts across personal calling, business, and community impact.
                 </p>
               </div>
             </div>
@@ -126,7 +137,7 @@ export default function HappyNewMonthModal({
                   }}
                   className="flex-1 min-w-[160px] py-3 rounded-full bg-white text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
                 >
-                  <span>Join August Gathering</span>
+                  <span>Join Gathering</span>
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
 

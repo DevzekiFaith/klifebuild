@@ -129,7 +129,7 @@ export default function Home() {
         hasPass={!!currentMember}
       />
 
-      {/* Happy New Month of August Banner */}
+      {/* Happy New Month of September Banner */}
       <div className="pt-20">
         <HappyNewMonthBanner
           onOpenFlyer={() => setIsFlyerOpen(true)}
