@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     "Isaiah 58:12",
     "Rebuilding broken walls",
     "Rebuilding everywhere you go",
-    "Positioning in the marketplace",
     "LifeBuild Vision",
     "Bi-weekly Gathering",
     "Kingdom leadership",

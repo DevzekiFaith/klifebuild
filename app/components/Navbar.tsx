@@ -75,15 +75,14 @@ export default function Navbar({
                 loading="eager"
               />
             </div>
-            <div className="flex flex-col justify-center w-[225px] sm:w-[245px] shrink-0 overflow-hidden">
+            <div className="flex flex-col justify-center shrink-0">
               <span className="font-heading font-extrabold text-xl sm:text-2xl text-black tracking-tight leading-none">
                 lifebuild<span className="text-xs sm:text-sm font-semibold text-zinc-600 ml-1">global</span><span className="text-[#3b2262]">.</span>
               </span>
               <div className="h-3.5 relative overflow-hidden flex items-center mt-0.5">
                 <RotatingTagline
                   className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium whitespace-nowrap"
-                  phrases={["Rebuilding Everywhere You Go", "Positioning in the Marketplace"]}
-                  intervalMs={3200}
+                  phrases={["Rebuilding Everywhere You Go"]}
                 />
               </div>
             </div>

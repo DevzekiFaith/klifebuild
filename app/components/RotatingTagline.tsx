@@ -13,7 +13,7 @@ interface RotatingTaglineProps {
 
 export default function RotatingTagline({
   className = "text-[9px] font-mono uppercase tracking-widest text-zinc-500 font-medium",
-  phrases = ["Rebuilding Everywhere You Go", "Positioning in the Marketplace"],
+  phrases = ["Rebuilding Everywhere You Go"],
   intervalMs = 3200,
   prefix = "",
   suffix = "",
@@ -23,14 +23,15 @@ export default function RotatingTagline({
 
   useEffect(() => {
     setMounted(true);
+    if (phrases.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % phrases.length);
     }, intervalMs);
     return () => clearInterval(timer);
   }, [phrases.length, intervalMs]);
 
-  if (!mounted) {
-    return <span className={className}>{prefix}{phrases[0]}{suffix}</span>;
+  if (!mounted || phrases.length <= 1) {
+    return <span className={className}>{prefix}{phrases[0] || ""}{suffix}</span>;
   }
 
   return (
