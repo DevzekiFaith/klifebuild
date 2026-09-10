@@ -124,6 +124,9 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/images/logo_icon_nobg.png" sizes="any" />
         <link rel="shortcut icon" href="/images/logo_icon_nobg.png" type="image/png" />
         <link rel="apple-touch-icon" href="/images/logo_icon_nobg.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#09090b" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <JsonLd />
       </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col">

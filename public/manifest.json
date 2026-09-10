@@ -1,0 +1,26 @@
+{
+  "name": "LifeBuild Global | Rebuilding Everywhere You Go",
+  "short_name": "LifeBuild",
+  "description": "Rebuilding broken walls, restoring calling and generational foundations (Isaiah 58:12).",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/images/logo_icon_nobg.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logo_icon_nobg.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "productivity", "social"]
+}

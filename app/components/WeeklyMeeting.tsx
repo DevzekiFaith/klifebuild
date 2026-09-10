@@ -18,6 +18,8 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
 
   const [nextEventType, setNextEventType] = useState("2nd Sunday Gathering");
+  const [nextTargetDate, setNextTargetDate] = useState<Date | null>(null);
+  const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
 
   useEffect(() => {
     const calculateCountdown = () => {
@@ -53,6 +55,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
       }
 
       setNextEventType(eventName);
+      setNextTargetDate(targetDate);
 
       const diffMs = targetDate.getTime() - now.getTime();
       if (diffMs > 0) {
@@ -69,13 +72,77 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
     return () => clearInterval(interval);
   }, []);
 
+  const getCalendarDateRange = () => {
+    const start = nextTargetDate ? new Date(nextTargetDate) : new Date(Date.now() + 86400000);
+    // 5:00 PM (17:00) duration 90 mins -> 18:30
+    const end = new Date(start.getTime() + 90 * 60 * 1000);
+
+    const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+    const toUtcString = (d: Date) =>
+      `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
+
+    return {
+      startUtc: toUtcString(start),
+      endUtc: toUtcString(end),
+      startIso: start.toISOString(),
+      endIso: end.toISOString(),
+      formattedDisplay: start.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+    };
+  };
+
   const getGoogleCalendarUrl = () => {
-    const title = encodeURIComponent("LifeBuild Global Gathering & Activation (Isaiah 58:12)");
+    const dates = getCalendarDateRange();
+    const title = encodeURIComponent(`LifeBuild Global ${nextEventType} (Isaiah 58:12)`);
     const details = encodeURIComponent(
-      "Join the LifeBuild Global gathering (2nd Sunday) and special activation program (Last Sunday) at 5:00 PM GMT+1 for spiritual alignment, capacity development, and practical rebuilding."
+      `Join the LifeBuild Global gathering (${nextEventType}) at 5:00 PM GMT+1.\n\nMandate: Rebuilding Broken Walls (Isaiah 58:12).\nPlatform: In-Person & Global Live Stream.\nWebsite: https://www.lifebuildglobal.com.ng`
     );
     const location = encodeURIComponent("LifeBuild Global Center & Global Live Stream");
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates.startUtc}/${dates.endUtc}&details=${details}&location=${location}`;
+  };
+
+  const getOutlookCalendarUrl = () => {
+    const dates = getCalendarDateRange();
+    const title = encodeURIComponent(`LifeBuild Global ${nextEventType} (Isaiah 58:12)`);
+    const details = encodeURIComponent(
+      `Join the LifeBuild Global gathering (${nextEventType}) at 5:00 PM GMT+1. Mandate: Rebuilding Broken Walls (Isaiah 58:12).`
+    );
+    const location = encodeURIComponent("LifeBuild Global Center & Global Live Stream");
+    return `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&location=${location}&startdt=${dates.startIso}&enddt=${dates.endIso}`;
+  };
+
+  const handleDownloadIcs = () => {
+    const dates = getCalendarDateRange();
+    const icsContent = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//LifeBuild Global//Gathering Calendar//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "BEGIN:VEVENT",
+      `SUMMARY:LifeBuild Global ${nextEventType} (Isaiah 58:12)`,
+      `DESCRIPTION:Join LifeBuild Global at 5:00 PM GMT+1 for spiritual alignment, capacity development, and practical rebuilding.`,
+      `LOCATION:LifeBuild Global Center & Global Live Stream`,
+      `DTSTART:${dates.startUtc}`,
+      `DTEND:${dates.endUtc}`,
+      `STATUS:CONFIRMED`,
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `lifebuild-${nextEventType.toLowerCase().replace(/\s+/g, "-")}.ics`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setCalendarMenuOpen(false);
   };
 
   const { scrollYProgress } = useScroll({
@@ -212,17 +279,90 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   </motion.button>
                 )}
 
-                <motion.a
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  href={getGoogleCalendarUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-full border border-zinc-700 hover:border-[#d4af37] text-zinc-300 hover:text-[#d4af37] font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-950"
-                >
-                  <Calendar className="w-3.5 h-3.5 text-[#d4af37]" />
-                  <span>Add to Calendar</span>
-                </motion.a>
+                {/* Real-time Multi-Calendar RSVP Selector */}
+                <div className="relative">
+                  <motion.button
+                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
+                    className="px-5 py-2.5 rounded-full border border-zinc-700 hover:border-[#d4af37] text-zinc-200 hover:text-[#d4af37] font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-950 shadow-md"
+                  >
+                    <Calendar className="w-3.5 h-3.5 text-[#d4af37]" />
+                    <span>Add to Calendar</span>
+                    {nextTargetDate && (
+                      <span className="ml-1 px-2 py-0.5 rounded-full bg-[#d4af37]/20 text-[#d4af37] text-[10px] font-bold">
+                        {getCalendarDateRange().formattedDisplay}
+                      </span>
+                    )}
+                  </motion.button>
+
+                  {calendarMenuOpen && (
+                    <div className="absolute left-0 bottom-full mb-2 w-72 rounded-2xl bg-zinc-950/95 border border-zinc-700/80 backdrop-blur-xl p-3 shadow-2xl z-50 space-y-2 text-left">
+                      <div className="flex items-center justify-between pb-2 border-b border-zinc-800">
+                        <div>
+                          <div className="text-[10px] font-mono uppercase tracking-wider text-[#d4af37] font-bold">
+                            {nextEventType}
+                          </div>
+                          <div className="text-xs font-semibold text-white">
+                            {getCalendarDateRange().formattedDisplay} • 5:00 PM GMT+1
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setCalendarMenuOpen(false)}
+                          className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-900 cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      </div>
+
+                      <div className="space-y-1 pt-1">
+                        <a
+                          href={getGoogleCalendarUrl()}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setCalendarMenuOpen(false)}
+                          className="flex items-center justify-between w-full p-2.5 rounded-xl hover:bg-zinc-900 text-xs text-zinc-200 hover:text-white transition-colors cursor-pointer group"
+                        >
+                          <span className="font-medium flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+                            Google Calendar
+                          </span>
+                          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+                        </a>
+
+                        <button
+                          onClick={handleDownloadIcs}
+                          className="flex items-center justify-between w-full p-2.5 rounded-xl hover:bg-zinc-900 text-xs text-zinc-200 hover:text-white transition-colors cursor-pointer group text-left"
+                        >
+                          <span className="font-medium flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            Apple / iCal (.ics download)
+                          </span>
+                          <span className="text-[10px] font-mono text-zinc-500 uppercase">iOS / Mac</span>
+                        </button>
+
+                        <a
+                          href={getOutlookCalendarUrl()}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setCalendarMenuOpen(false)}
+                          className="flex items-center justify-between w-full p-2.5 rounded-xl hover:bg-zinc-900 text-xs text-zinc-200 hover:text-white transition-colors cursor-pointer group"
+                        >
+                          <span className="font-medium flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-sky-400"></span>
+                            Outlook / Office 365
+                          </span>
+                          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+                        </a>
+                      </div>
+
+                      <div className="pt-2 border-t border-zinc-800 text-[10px] text-zinc-400 font-mono flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3 h-3 text-[#d4af37]" />
+                        <span>Pre-filled with zoom &amp; venue details</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -259,7 +399,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                 <span className="text-[#3b2262] font-semibold">5:00 PM GMT+1 (90 Mins)</span>
               </div>
               <h4 className="font-serif-headline text-lg text-black font-normal">
-                Lifebuild Movement Gathering
+                Lifebuild Gathering
               </h4>
               <p className="text-xs text-zinc-600 leading-relaxed font-light">
                 The regular gathering of Rebuilders to encounter God, understand the principles of rebuilding, connect with other builders, develop practical capacity, receive direction, and be commissioned into real environments.
@@ -275,7 +415,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                 <span className="text-amber-700 font-semibold">Special Focus</span>
               </div>
               <h4 className="font-serif-headline text-lg text-black font-normal">
-                Lifebuild Activation / Special Program
+                Lifebuild Special Focus
               </h4>
               <p className="text-xs text-zinc-600 leading-relaxed font-light">
                 A focused application program addressing practical areas of rebuilding: People, Work, Family, Leadership, Business, Community, Economic realities, and Systems. Highly targeted toward real-life solutions.
@@ -345,11 +485,14 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span className="font-bold text-black">01 / ENCOUNTER</span>
-                  <span>Worship &amp; Alignment</span>
+                  <span className="flex items-center gap-2">
+                    <span>Worship &amp; Alignment</span>
+                    <span className="px-2 py-0.5 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 font-bold text-[10px]">20 mins</span>
+                  </span>
                 </div>
                 <h4 className="font-heading font-bold text-sm text-black">Worship, Prayer &amp; Scripture</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Centering mind and heart in reverent worship, prayer, and deep alignment with God’s presence and divine perspective.
+                  Centering mind and heart in reverent worship, prayer, and deep alignment with God's presence and divine perspective.
                 </p>
               </motion.div>
 
@@ -361,7 +504,10 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span className="font-bold text-black">02 / UNDERSTAND</span>
-                  <span>Teaching &amp; Vision</span>
+                  <span className="flex items-center gap-2">
+                    <span>Teaching &amp; Vision</span>
+                    <span className="px-2 py-0.5 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 font-bold text-[10px]">25 mins</span>
+                  </span>
                 </div>
                 <h4 className="font-heading font-bold text-sm text-black">Teaching on Rebuilding &amp; 4T Principles</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -377,7 +523,10 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span className="font-bold text-black">03 / CONNECT</span>
-                  <span>Authentic Fellowship</span>
+                  <span className="flex items-center gap-2">
+                    <span>Authentic Fellowship</span>
+                    <span className="px-2 py-0.5 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 font-bold text-[10px]">10 mins</span>
+                  </span>
                 </div>
                 <h4 className="font-heading font-bold text-sm text-black">Relational Fellowship with Rebuilders</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -393,7 +542,10 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span className="font-bold text-black">04 / DEVELOP</span>
-                  <span>Capacity Building</span>
+                  <span className="flex items-center gap-2">
+                    <span>Capacity Building</span>
+                    <span className="px-2 py-0.5 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 font-bold text-[10px]">15 mins</span>
+                  </span>
                 </div>
                 <h4 className="font-heading font-bold text-sm text-black">Practical Discussion &amp; Reflection</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -409,7 +561,10 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span className="font-bold text-black">05 / COMMISSION</span>
-                  <span>Direction &amp; Prayer</span>
+                  <span className="flex items-center gap-2">
+                    <span>Direction &amp; Prayer</span>
+                    <span className="px-2 py-0.5 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 font-bold text-[10px]">10 mins</span>
+                  </span>
                 </div>
                 <h4 className="font-heading font-bold text-sm text-black">Identifying What Needs Rebuilding</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
@@ -425,7 +580,10 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                   <span className="font-bold text-black">06 / GO</span>
-                  <span>Marketplace &amp; Civic Action</span>
+                  <span className="flex items-center gap-2">
+                    <span>Marketplace &amp; Civic Action</span>
+                    <span className="px-2 py-0.5 rounded-full bg-black border border-black text-white font-bold text-[10px]">10 mins</span>
+                  </span>
                 </div>
                 <h4 className="font-heading font-bold text-sm text-black">Return to Everyday Environments Equipped</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">

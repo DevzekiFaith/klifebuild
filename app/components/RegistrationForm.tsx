@@ -125,6 +125,7 @@ export default function RegistrationForm({
             src="/images/green_architectural_vase.jpg"
             alt="Life Build Architectural Design"
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 672px"
             className="object-cover opacity-85"
             priority
           />

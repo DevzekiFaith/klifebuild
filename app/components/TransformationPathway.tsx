@@ -132,7 +132,7 @@ export default function TransformationPathway({
           </span>
 
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-            Lifebuild does not simply gather people. It develops people who can rebuild.
+            The Gathering is not your destination. It is your commissioning.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">

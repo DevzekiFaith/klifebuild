@@ -14,6 +14,7 @@ interface NavbarProps {
   onOpenNotes?: () => void;
   onOpenFlyer?: () => void;
   onOpenConference?: () => void;
+  onOpenDiagnostic?: () => void;
   hasPass: boolean;
 }
 
@@ -25,6 +26,7 @@ export default function Navbar({
   onOpenNotes,
   onOpenFlyer,
   onOpenConference,
+  onOpenDiagnostic,
   hasPass,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -131,6 +133,16 @@ export default function Navbar({
                     transition={{ duration: 0.15 }}
                     className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl p-2 z-50 space-y-1"
                   >
+                    {onOpenDiagnostic && (
+                      <button
+                        onClick={() => { setToolsOpen(false); onOpenDiagnostic(); }}
+                        className="w-full px-3 py-2 text-left rounded-xl bg-amber-500/10 hover:bg-amber-500/20 transition-colors text-[10px] font-mono font-bold text-amber-800 flex items-center gap-2 cursor-pointer border border-amber-300/60"
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                        <span>4T Mandate Quiz</span>
+                      </button>
+                    )}
+
                     {onOpenConference && (
                       <button
                         onClick={() => { setToolsOpen(false); onOpenConference(); }}
@@ -262,6 +274,16 @@ export default function Navbar({
               {/* Tools */}
               <div className="border-t border-gray-100 pt-3 space-y-2">
                 <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 mb-2">Gathering Tools</p>
+
+                {onOpenDiagnostic && (
+                  <button
+                    onClick={() => { setMobileMenuOpen(false); onOpenDiagnostic(); }}
+                    className="w-full text-left px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-300/60 text-xs font-mono font-bold text-amber-900 flex items-center gap-2 cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    4T Mandate Diagnostic
+                  </button>
+                )}
 
                 {onOpenConference && (
                   <button

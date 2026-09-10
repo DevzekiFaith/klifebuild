@@ -22,7 +22,10 @@ import RebuildersNotesModal from "./components/RebuildersNotesModal";
 import HappyNewMonthBanner from "./components/HappyNewMonthBanner";
 import HappyNewMonthModal from "./components/HappyNewMonthModal";
 import ConferenceRegistrationModal from "./components/ConferenceRegistrationModal";
-
+import MobileQuickDock from "./components/MobileQuickDock";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import GlobalRebuilderPulse from "./components/GlobalRebuilderPulse";
+import RebuilderDiagnosticModal from "./components/RebuilderDiagnosticModal";
 
 import LiveReviewSection from "./components/LiveReviewSection";
 import Footer from "./components/Footer";
@@ -38,6 +41,7 @@ export default function Home() {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
   const [isFlyerOpen, setIsFlyerOpen] = useState(false);
+  const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
   const [authRole, setAuthRole] = useState<AuthRole>(null);
   const [currentMember, setCurrentMember] = useState<MemberData | null>(null);
   const [registrationToast, setRegistrationToast] = useState<{ title: string; email: string; passType: string } | null>(null);
@@ -128,6 +132,7 @@ export default function Home() {
         onOpenNotes={() => setIsNotesOpen(true)}
         onOpenFlyer={() => setIsFlyerOpen(true)}
         onOpenConference={() => setIsConferenceOpen(true)}
+        onOpenDiagnostic={() => setIsDiagnosticOpen(true)}
         hasPass={!!currentMember}
       />
 
@@ -301,6 +306,32 @@ export default function Home() {
 
           </motion.div>
 
+          {/* Interactive 4T Diagnostic Assessment Callout Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-6 sm:p-8 rounded-3xl bg-zinc-950 text-white border border-[#d4af37]/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+          >
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-wider font-bold">
+                Interactive Mandate Assessment
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold font-serif-headline text-white">
+                Discover Which Rebuilder Pillar You Are Called To.
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 font-light">
+                Take our 30-second assessment to discover whether your primary mandate is Rebuilding, Restoring, Repairing, or Replenishing, and receive your personalized card.
+              </p>
+            </div>
+            <button
+              onClick={() => setIsDiagnosticOpen(true)}
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-[#d4af37] to-amber-600 text-black font-mono text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity cursor-pointer shrink-0 shadow-lg"
+            >
+              Take 30s Diagnostic
+            </button>
+          </motion.div>
+
         </div>
       </section>
 
@@ -334,7 +365,10 @@ export default function Home() {
         />
       </div>
 
-      {/* 07 COMMUNITY / NETWORK & REBUILDER DECLARATIONS */}
+      {/* 07 GLOBAL NETWORK & CITY PULSE */}
+      <GlobalRebuilderPulse onOpenRegister={() => setIsRegisterOpen(true)} />
+
+      {/* 08 COMMUNITY / NETWORK & REBUILDER DECLARATIONS */}
       <div id="declarations" className="scroll-mt-20">
         <RebuildVisionWall />
       </div>
@@ -413,6 +447,34 @@ export default function Home() {
         isOpen={isConferenceOpen}
         onClose={() => setIsConferenceOpen(false)}
         onSuccess={handleRegistrationSuccess}
+      />
+
+      {/* 4T Rebuilder Diagnostic & Mandate Card Generator Modal */}
+      <RebuilderDiagnosticModal
+        isOpen={isDiagnosticOpen}
+        onClose={() => setIsDiagnosticOpen(false)}
+        defaultName={currentMember?.fullName}
+      />
+
+      {/* PWA Install & Offline Pass Reliability Prompt */}
+      <PWAInstallPrompt
+        hasPass={!!currentMember}
+        onOpenPass={() => setIsPassOpen(true)}
+      />
+
+      {/* Mobile Floating Glassmorphism Quick-Action Dock */}
+      <MobileQuickDock
+        currentMember={currentMember}
+        onOpenPass={() => setIsPassOpen(true)}
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        onOpenCheckIn={() => {
+          const el = document.getElementById("gathering");
+          el?.scrollIntoView({ behavior: "smooth" });
+        }}
+        onOpenCalendar={() => {
+          const el = document.getElementById("fellowship");
+          el?.scrollIntoView({ behavior: "smooth" });
+        }}
       />
 
       {/* Floating Global Registration & Email Toast Notification */}

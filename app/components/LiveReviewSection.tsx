@@ -89,11 +89,16 @@ function TiltCard({
   );
 }
 
+const REVIEWS_PER_PAGE = 6;
+
 export default function LiveReviewSection({ currentMemberName }: LiveReviewSectionProps) {
   const [reviews, setReviews] = useState<ReviewData[]>(DEFAULT_REVIEWS);
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_PAGE);
+  const [toast, setToast] = useState<{ name: string; text: string } | null>(null);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Form states
   const [rating, setRating] = useState<number>(5);
@@ -135,16 +140,21 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
 
     loadData();
 
-    // Real-time listener
+    // Real-time listener — also fires toast for new reviews from others
     unsubscribe = subscribeToLiveReviews((newRev) => {
       setReviews((prev) => {
         if (prev.some((r) => r.id === newRev.id)) return prev;
+        // Show toast for reviews arriving from the real-time feed (not own submission)
+        if (toastTimer.current) clearTimeout(toastTimer.current);
+        setToast({ name: newRev.authorName, text: newRev.reviewText.slice(0, 80) });
+        toastTimer.current = setTimeout(() => setToast(null), 5000);
         return [newRev, ...prev];
       });
     });
 
     return () => {
       if (unsubscribe) unsubscribe();
+      if (toastTimer.current) clearTimeout(toastTimer.current);
     };
   }, []);
 
@@ -212,6 +222,12 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
     if (activeCategory === "ALL") return true;
     return r.category === activeCategory;
   });
+
+  const visibleReviews = filteredReviews.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredReviews.length;
+
+  const handleShowMore = () => setVisibleCount((c) => c + REVIEWS_PER_PAGE);
+  const handleCollapse = () => setVisibleCount(REVIEWS_PER_PAGE);
 
   // Calculate analytics metrics
   const totalReviews = reviews.length;
@@ -569,11 +585,13 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                         No reviews submitted in this category yet. Be the first!
                       </div>
                     ) : (
-                      filteredReviews.map((rev) => (
+                      visibleReviews.map((rev) => (
                         <motion.div
                           key={rev.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
                           whileHover={{ scale: 1.015, y: -3, rotateX: -1.5, rotateY: 1.5 }}
-                          transition={{ duration: 0.2 }}
                           className="p-6 bg-white border border-zinc-200/90 hover:border-zinc-300 shadow-xs hover:shadow-lg rounded-2xl space-y-3 relative group"
                         >
                           <div className="flex items-start justify-between gap-4">
@@ -626,6 +644,33 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     )}
                   </motion.div>
                 </AnimatePresence>
+
+                {/* Show More / Collapse Button */}
+                {filteredReviews.length > REVIEWS_PER_PAGE && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center justify-center pt-2"
+                  >
+                    {hasMore ? (
+                      <button
+                        onClick={handleShowMore}
+                        className="px-6 py-3 rounded-full border border-zinc-300 bg-white text-zinc-700 hover:border-black hover:text-black text-xs font-mono font-semibold transition-all flex items-center gap-2 shadow-sm cursor-pointer"
+                      >
+                        <span>See more reflections ({filteredReviews.length - visibleCount} remaining)</span>
+                        <span className="text-[10px] opacity-60">↓</span>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleCollapse}
+                        className="px-6 py-3 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-500 hover:border-zinc-400 hover:text-zinc-700 text-xs font-mono font-semibold transition-all flex items-center gap-2 cursor-pointer"
+                      >
+                        <span>Collapse</span>
+                        <span className="text-[10px] opacity-60">↑</span>
+                      </button>
+                    )}
+                  </motion.div>
+                )}
               </div>
             </div>
 
@@ -818,6 +863,49 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
               </div>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Real-time Review Toast Notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-6 right-6 z-50 max-w-sm w-full"
+          >
+            <div className="bg-zinc-950 border border-amber-500/30 rounded-2xl shadow-2xl p-4 flex items-start gap-3">
+              {/* Avatar */}
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500/30 to-purple-600/30 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">
+                {toast.name.charAt(0).toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">New Reflection</span>
+                </div>
+                <p className="text-xs font-bold text-white leading-none mb-1">{toast.name}</p>
+                <p className="text-[11px] text-zinc-400 leading-snug line-clamp-2">
+                  "{toast.text}{toast.text.length >= 80 ? "…" : ""}"
+                </p>
+              </div>
+              <button
+                onClick={() => setToast(null)}
+                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-white transition-colors cursor-pointer shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            {/* Auto-dismiss progress bar */}
+            <motion.div
+              initial={{ scaleX: 1 }}
+              animate={{ scaleX: 0 }}
+              transition={{ duration: 5, ease: "linear" }}
+              className="h-0.5 bg-amber-500/60 rounded-full mt-1 origin-left"
+            />
+          </motion.div>
         )}
       </AnimatePresence>
     </section>
