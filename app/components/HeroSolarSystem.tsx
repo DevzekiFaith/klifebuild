@@ -227,7 +227,7 @@ export default function HeroSolarSystem({
                   loading="eager"
                 />
               </div>
-              <span>Isaiah 58:12 • Bi-Weekly Gathering • 4Tribe Network</span>
+              <span>Isaiah 58:12 • A Faith-Rooted Movement for Rebuilding</span>
             </motion.div>
 
             {/* Headline & Subtitle */}
@@ -257,7 +257,7 @@ export default function HeroSolarSystem({
               transition={{ delay: 0.35, duration: 0.6 }}
               className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light max-w-xl"
             >
-              A faith-driven movement helping people rebuild broken foundations, develop their God-given capacity and become builders of transformation in their lives, families, careers and communities.
+              A faith-rooted vision and movement equipping people to rebuild broken foundations, develop their God-given capacity, and create lasting transformation across their lives, families, careers, organisations, and communities.
             </motion.p>
 
             {/* 4T Sub-row links */}
@@ -297,29 +297,27 @@ export default function HeroSolarSystem({
                 onClick={onOpenRegister}
                 className="px-6 py-3.5 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Join the Movement</span>
+                <span>Become a Rebuilder</span>
                 <ArrowUpRight className="w-4 h-4 text-white" />
               </motion.button>
               
               <motion.a
-                href="#pillars"
+                href="#vision"
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer bg-white"
+                className="px-5 py-3.5 rounded-full border border-gray-300 text-zinc-800 font-mono text-xs hover:border-black transition-all flex items-center gap-2 cursor-pointer bg-white shadow-xs"
               >
-                <span>Explore LifeBuild Global</span>
+                <span>Explore the Vision</span>
               </motion.a>
 
-              <motion.button
+              <motion.a
+                href="#gathering"
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={onOpenScanner}
-                className="px-4 py-3.5 rounded-full border border-gray-200 text-zinc-600 font-mono text-xs hover:border-black hover:text-black transition-all flex items-center gap-1.5 cursor-pointer bg-gray-50/70"
-                title="Check-In Entrance Pass"
+                className="px-5 py-3.5 rounded-full border border-gray-200 text-zinc-700 font-mono text-xs hover:border-black hover:text-black transition-all flex items-center gap-1.5 cursor-pointer bg-gray-50/70"
               >
-                <QrCode className="w-3.5 h-3.5" />
-                <span>Check-In</span>
-              </motion.button>
+                <span>The Gathering</span>
+              </motion.a>
             </motion.div>
 
           </motion.div>

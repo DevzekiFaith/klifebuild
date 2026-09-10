@@ -55,7 +55,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest shadow-xs">
             <UserCheck className="w-3.5 h-3.5 text-[#3b2262]" />
-            <span>Meet The Founder</span>
+            <span>The Convener • Carrying the Vision</span>
           </div>
 
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
@@ -64,7 +64,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Convening a faith-driven movement focused on spiritual alignment, leadership development, rebuilding broken foundations, and empowering people to create transformation wherever they are.
+            Convening a faith-rooted vision and movement for rebuilding broken foundations, developing God-given capacity, and building people who can rebuild wherever they go.
           </p>
         </motion.div>
 
@@ -244,7 +244,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 onClick={onOpenRegister}
                 className="px-8 py-4 rounded-full bg-black text-white font-medium text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Join the Movement with Zeki Ubor</span>
+                <span>Become a Rebuilder</span>
                 <ArrowUpRight className="w-4 h-4" />
               </motion.button>
             </motion.div>

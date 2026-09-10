@@ -22,6 +22,8 @@ import RebuildersNotesModal from "./components/RebuildersNotesModal";
 import HappyNewMonthBanner from "./components/HappyNewMonthBanner";
 import HappyNewMonthModal from "./components/HappyNewMonthModal";
 import ConferenceRegistrationModal from "./components/ConferenceRegistrationModal";
+
+
 import LiveReviewSection from "./components/LiveReviewSection";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
@@ -134,62 +136,22 @@ export default function Home() {
         <HappyNewMonthBanner
           onOpenFlyer={() => setIsFlyerOpen(true)}
         />
-        <SundaySelfCheckInBanner
-          currentMember={currentMember}
-          onOpenRegister={() => setIsRegisterOpen(true)}
-          onOpenPass={() => setIsPassOpen(true)}
-        />
       </div>
 
-      {/* Hero Solar System Section */}
+      {/* 01 WHAT IS LIFEBUILD? — Hero Section */}
       <HeroSolarSystem
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenScanner={() => setIsScannerOpen(true)}
         onOpenConference={() => setIsConferenceOpen(true)}
       />
 
-      {/* Short Emotional Connection & Gathering Invitation Bridge */}
-      <EmotionalConnectionSection
-        onOpenRegister={() => setIsRegisterOpen(true)}
-      />
-
-      {/* High-Impact Scan QR Code To Join Banner */}
-      <JoinQRCodeBanner
-        onOpenRegister={() => setIsRegisterOpen(true)}
-        compact={true}
-      />
-
-      {/* High-Contrast Featured Showcase Block with 4T Emblem */}
+      {/* 02 WHY DOES IT EXIST? — The Vision & Mission */}
       <FellowshipStory
         onOpenRegister={() => setIsRegisterOpen(true)}
         onOpenPass={() => setIsPassOpen(true)}
       />
 
-      {/* Feature 4: The 4T Transformation Pathway (Interactive Roadmap) */}
-      <TransformationPathway
-        onOpenRegister={() => setIsRegisterOpen(true)}
-      />
-
-      {/* Founder Zeki Ubor Section */}
-      <FounderSection
-        onOpenRegister={() => setIsRegisterOpen(true)}
-      />
-
-      {/* Weekly Meeting & 4T Conference */}
-      <WeeklyMeeting
-        onOpenRegister={() => setIsRegisterOpen(true)}
-        onOpenScanner={() => setIsScannerOpen(true)}
-        onOpenNotes={() => setIsNotesOpen(true)}
-        onOpenConference={() => setIsConferenceOpen(true)}
-      />
-
-      {/* Feature 3: Interactive Global Rebuilding Vision Wall */}
-      <RebuildVisionWall />
-
-      {/* Feature 5: Live Review Form & Real-time Mobile QR Code Response Stream */}
-      <LiveReviewSection currentMemberName={currentMember?.fullName} />
-
-      {/* Core 4T Pillars Section (Clean White Editorial Grid with Watermark Overlay) */}
+      {/* 03 HOW DOES IT WORK? — The 4T Framework */}
       <section
         ref={pillarsRef}
         id="pillars"
@@ -220,15 +182,15 @@ export default function Home() {
             className="max-w-3xl space-y-4"
           >
             <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
-              Isaiah 58:12 • 4Tribe Network
+              Isaiah 58:12 • Transformation Framework
             </span>
 
             <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-              The 4T Pillars of LifeBuild Global.
+              The 4T Framework of LifeBuild Global.
             </h2>
 
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 58:12, our core mission is focused on equipping builders of transformation across four foundational pillars: Rebuilding, Restoring, Repairing, and Replenishing.
+              <strong className="text-black font-medium">This is how Lifebuild thinks about transformation.</strong> Rebuilding is not only spiritual or personal. It actively addresses people, families, character, identity, careers, businesses, organisations, economic foundations, systems, and generational capacity.
             </p>
           </motion.div>
 
@@ -265,9 +227,9 @@ export default function Home() {
                 </span>
                 <span>ISAIAH 58:12</span>
               </div>
-              <h3 className="font-heading font-bold text-2xl text-black">Rebuilding Walls & Systems</h3>
+              <h3 className="font-heading font-bold text-2xl text-black">Rebuilding Walls &amp; Systems</h3>
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
-                Reconstructing broken walls, organizational systems, business models, and economic foundations. Raising up the foundations of many generations.
+                Rebuilding broken walls, structural foundations, organisational systems, and economic structures to raise up foundations for many generations.
               </p>
             </motion.div>
 
@@ -287,9 +249,9 @@ export default function Home() {
                 </span>
                 <span>ISAIAH 61:3</span>
               </div>
-              <h3 className="font-heading font-bold text-2xl text-black">Restoring Identity & Calling</h3>
+              <h3 className="font-heading font-bold text-2xl text-black">Restoring Identity &amp; Calling</h3>
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
-                Unlocking divine keys to human identity, restoring dignity, spiritual authority, and peace to leaders, families, and communities.
+                Restoring God-given identity, spiritual authority, dignity, and capacity to leaders, families, and communities.
               </p>
             </motion.div>
 
@@ -309,9 +271,9 @@ export default function Home() {
                 </span>
                 <span>NEHEMIAH 4:6</span>
               </div>
-              <h3 className="font-heading font-bold text-2xl text-black">Repairing Breaches & Community</h3>
+              <h3 className="font-heading font-bold text-2xl text-black">Repairing Breaches &amp; Community</h3>
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
-                Repairing systemic breaches, unifying builders, healing character gaps, and weaving a strong community fabric for mutual accountability.
+                Repairing systemic breaches, character gaps, and damaged community structures to create enduring unity and accountability.
               </p>
             </motion.div>
 
@@ -331,9 +293,9 @@ export default function Home() {
                 </span>
                 <span>PSALMS 112:3</span>
               </div>
-              <h3 className="font-heading font-bold text-2xl text-black">Replenishing Overflow & Legacy</h3>
+              <h3 className="font-heading font-bold text-2xl text-black">Replenishing Overflow &amp; Legacy</h3>
               <p className="text-sm text-zinc-600 leading-relaxed font-light">
-                Unlocking sustainable stewardship, economic overflow, and generational inheritance that outlasts your lifetime for decades ahead.
+                Creating sustainable stewardship, economic overflow, and generational legacy that outlasts your lifetime for decades ahead.
               </p>
             </motion.div>
 
@@ -342,10 +304,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Scan QR Code To Join Banner (Before Footer) */}
-      <JoinQRCodeBanner
+      {/* 04 WHAT HAPPENS TO THE PERSON? — The Rebuilder Journey */}
+      <TransformationPathway
         onOpenRegister={() => setIsRegisterOpen(true)}
       />
+
+
+
+      {/* 06 HOW DO PEOPLE EXPERIENCE THE MOVEMENT? — Expressions of the Vision (Gatherings, Activations, Conferences) */}
+      <div id="gathering" className="scroll-mt-20">
+        {/* Short Emotional Connection & Gathering Invitation Bridge */}
+        <EmotionalConnectionSection
+          onOpenRegister={() => setIsRegisterOpen(true)}
+        />
+
+        {/* Weekly Meeting & Gathering Rhythm Blueprint */}
+        <WeeklyMeeting
+          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenScanner={() => setIsScannerOpen(true)}
+          onOpenNotes={() => setIsNotesOpen(true)}
+          onOpenConference={() => setIsConferenceOpen(true)}
+        />
+
+        {/* Gathering Self Check-In Banner (Relocated cleanly within gathering expressions) */}
+        <SundaySelfCheckInBanner
+          currentMember={currentMember}
+          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenPass={() => setIsPassOpen(true)}
+        />
+      </div>
+
+      {/* 07 COMMUNITY / NETWORK & REBUILDER DECLARATIONS */}
+      <div id="declarations" className="scroll-mt-20">
+        <RebuildVisionWall />
+      </div>
+
+      {/* Scan QR Code To Join Banner */}
+      <JoinQRCodeBanner
+        onOpenRegister={() => setIsRegisterOpen(true)}
+        compact={true}
+      />
+
+      {/* 08 THE CONVENER & FOUNDER */}
+      <FounderSection
+        onOpenRegister={() => setIsRegisterOpen(true)}
+      />
+
+
+
+      {/* 10 REVIEWS & FOOTER */}
+      <LiveReviewSection currentMemberName={currentMember?.fullName} />
 
       {/* Footer */}
       <Footer

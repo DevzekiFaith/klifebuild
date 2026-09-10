@@ -36,58 +36,58 @@ export default function TransformationPathway({
       id: "01",
       stepNumber: "STAGE 01",
       title: "DISCOVER",
-      subtitle: "Understand Purpose & Calling",
+      subtitle: "Purpose, Identity & Capacity",
       icon: Compass,
       scripture: "Jeremiah 1:5 — 'Before I formed you in the belly I knew you; and I ordained you'",
       description:
-        "Understand your purpose and what has been entrusted to you. Discover your unique placement and divine blueprint as a builder of transformation.",
+        "Understand purpose, identity, calling and capacity. Discover your unique placement and divine blueprint as a builder of transformation.",
       keyOutputs: [
         "Uncovering your God-given assignment and core burden",
         "Auditing areas of life, leadership, and work needing alignment",
-        "Clarifying your foundation and spiritual grounding",
+        "Clarifying your foundation, spiritual authority, and identity",
       ],
     },
     {
       id: "02",
       stepNumber: "STAGE 02",
       title: "DEVELOP",
-      subtitle: "Build Capacity & Character",
+      subtitle: "Character, Competence & Wisdom",
       icon: Sparkles,
       scripture: "Isaiah 61:3 — 'Trees of righteousness, the planting of the Lord'",
       description:
-        "Build your capacity, character, leadership, and professional skills. Strengthen your internal foundations so you can sustain external influence.",
+        "Build character, competence, wisdom and capacity. Strengthen internal foundations so you can sustain external influence and leadership.",
       keyOutputs: [
         "Building spiritual maturity and personal discipline",
         "Cultivating character, excellence, and leadership acumen",
-        "Equipping professional skills for marketplace impact",
+        "Developing practical competence and professional wisdom",
       ],
     },
     {
       id: "03",
       stepNumber: "STAGE 03",
       title: "DEPLOY",
-      subtitle: "Steward Gifts & Marketplace Influence",
+      subtitle: "Influence & Resources in Real Environments",
       icon: Hammer,
       scripture: "Nehemiah 4:6 — 'So built we the wall; for the people had a mind to work'",
       description:
-        "Use your gifts and capabilities in your career, family, and community. Channel your professional and leadership influence into meaningful kingdom service.",
+        "Use gifts, skills, influence and resources in real environments. Channel capabilities into marketplace, institutional, and family solutions.",
       keyOutputs: [
-        "Positioning strategically in your industry and calling",
+        "Positioning strategically in your industry, career, and calling",
         "Operating with integrity, stewardship, and excellence",
-        "Deploying resources and skills to solve real problems",
+        "Deploying resources and skills to solve real-world problems",
       ],
     },
     {
       id: "04",
       stepNumber: "STAGE 04",
       title: "REBUILD",
-      subtitle: "Restore Foundations Everywhere You Go",
+      subtitle: "Transform People, Work, Systems & Communities",
       icon: ShieldCheck,
       scripture: "Isaiah 58:12 — 'You will be called Repairer of the Breach, Restorer of Paths to Dwell in'",
       description:
-        "Become a person who contributes to restoring what is broken around you. Carry transformation into your family, business, sphere of influence, and city.",
+        "Apply what has been developed to restore and transform people, work, systems and communities. Raise up foundations for generations to come.",
       keyOutputs: [
-        "Rebuilding broken walls across families and institutions",
+        "Rebuilding broken walls across families, businesses, and institutions",
         "Restoring human dignity and creating community transformation",
         "Replenishing generational legacy that outlasts your lifetime",
       ],
@@ -128,15 +128,15 @@ export default function TransformationPathway({
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
-            Isaiah 58:12 Journey
+            The Rebuilder Journey • Isaiah 58:12
           </span>
 
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-            From Broken Ruins to Restorer of Streets with Dwellings.
+            Lifebuild does not simply gather people. It develops people who can rebuild.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            A 4-stage journey to maximize your giftings and career path, bringing real transformation to families, organizations, and communities.
+            The personal pathway through the Lifebuild vision: from discovering your God-given calling and building character and capacity, to deploying capabilities in real environments and rebuilding broken foundations everywhere you go.
           </p>
         </motion.div>
 

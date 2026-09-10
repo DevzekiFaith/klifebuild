@@ -60,7 +60,7 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
             className="lg:col-span-5 flex flex-col justify-between space-y-8"
           >
             <div className="space-y-6">
-              {/* Interactive Pill Indicator (Matching Reference Dots Bar - Stable Width) */}
+              {/* Interactive Pill Indicator */}
               <div className="inline-flex items-center gap-2 p-1 pl-3 pr-3 rounded-full bg-zinc-100 border border-zinc-200/80 text-zinc-700 select-none">
                 <div className="flex items-center gap-1.5 shrink-0">
                   {GALLERY_SLIDES.map((slide, idx) => (
@@ -88,22 +88,22 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
 
               {/* Narrative Text */}
               <p className="text-zinc-600 text-base sm:text-lg font-light leading-relaxed">
-                Sometimes we lose direction. Sometimes what we built no longer looks like what we imagined.
+                Sometimes we lose direction. Sometimes what we built no longer looks like what we imagined. But the story doesn't have to end there.
               </p>
 
               {/* Turning Point Quote */}
               <p className="font-serif-headline italic text-lg sm:text-xl text-zinc-900 font-normal border-l-2 border-zinc-900 pl-4">
-                But the story doesn't have to end there.
+                "The Gathering exists to prepare people for the work of rebuilding beyond the gathering."
               </p>
             </div>
 
-            {/* Bottom Callout & Action (Matching 70% Interview rate block in reference) */}
+            {/* Bottom Callout & Action */}
             <div className="pt-4 border-t border-gray-100 space-y-3">
-              <div className="text-2xl sm:text-3xl font-serif-headline text-zinc-950 font-bold tracking-tight">
-                Come. Connect. Build.
+              <div className="text-xl sm:text-2xl font-serif-headline text-zinc-950 font-bold tracking-tight">
+                Come. Encounter. Connect. Develop. Be commissioned. Go rebuild.
               </div>
               <p className="text-xs font-mono uppercase tracking-widest text-zinc-500">
-                Bi-Weekly Gathering • 2nd &amp; 4th Sunday • 5:00 PM GMT+1 (90 mins)
+                2nd Sunday Gathering • Last Sunday Activation • 5:00 PM GMT+1
               </p>
               {onOpenRegister && (
                 <div className="pt-2">
@@ -111,7 +111,7 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
                     onClick={onOpenRegister}
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black text-white text-xs font-mono font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all shadow-sm cursor-pointer"
                   >
-                    <span>Join Us</span>
+                    <span>Join the Gathering</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>

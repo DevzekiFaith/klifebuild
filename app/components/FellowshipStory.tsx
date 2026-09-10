@@ -207,38 +207,54 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 4T
               </span>
               <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest">
-                Isaiah 58:12 • 4T Conference
+                Isaiah 58:12 • Faith-Rooted Movement
               </span>
             </div>
 
             {/* Serif Headline */}
             <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-              Rebuilding the broken walls and raising up foundations for generations.
+              Rebuilding People, Foundations, Systems &amp; Communities.
             </h2>
 
             {/* Spiritual & Movement Anchor Indicator */}
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full bg-zinc-100 border border-gray-200 text-zinc-800 text-xs font-mono font-semibold">
-                Isaiah 58:12 Foundation
+                Isaiah 58:12 Biblical Foundation
               </span>
               <span className="text-xs font-mono text-zinc-500 font-medium">
-                • Faith-Driven Transformation
+                • Faith-Rooted Transformation
               </span>
             </div>
 
             {/* Description Paragraph */}
-            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-              Driven by Isaiah 58:12, <strong>LifeBuild Global</strong> is a faith-driven movement helping people rebuild broken foundations, develop their God-given capacity and create lasting transformation across lives, families, careers and communities. Through our bi-weekly gatherings and the annual <strong>4T Conference</strong>, we equip individuals to rebuild, restore, repair, and replenish.
-            </p>
+            <div className="space-y-3 text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
+              <p>
+                <strong>Lifebuild Global is a faith-rooted vision and movement for rebuilding.</strong> It is not primarily a church, denomination, or conventional fellowship. It exists because broken foundations in people eventually produce broken systems in society.
+              </p>
+              <p>
+                The vision equips individuals to rebuild broken walls, develop their God-given capacity, and influence their workplaces, families, and cities. Lifebuild is fundamentally concerned with <em>what happens to people and what they build with their lives</em>.
+              </p>
+              <p className="text-xs font-mono text-zinc-700 pt-1 border-l-2 border-[#3b2262] pl-3 italic">
+                "The Gathering is an expression of Lifebuild, not the definition of Lifebuild."
+              </p>
+            </div>
 
-            {/* Action Link */}
-            <div className="pt-4">
+            {/* Action Links */}
+            <div className="pt-2 flex flex-wrap items-center gap-6">
+              <motion.a
+                href="#pillars"
+                whileHover={{ x: 4 }}
+                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer"
+              >
+                <span>Explore the 4T Framework</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </motion.a>
               <motion.button
                 whileHover={{ x: 4 }}
-                onClick={onOpenRegister || onOpenPass}
-                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-zinc-700 transition-colors border-b border-black pb-1 group cursor-pointer bg-transparent border-t-0 border-x-0"
+                onClick={onOpenRegister}
+                className="inline-flex items-center gap-2 text-sm font-medium text-zinc-600 hover:text-black transition-colors border-b border-zinc-300 hover:border-black pb-1 group cursor-pointer bg-transparent"
               >
-                <span>Join the Movement &amp; 4T Conference</span>
+                <span>Become a Rebuilder</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </motion.button>
             </div>

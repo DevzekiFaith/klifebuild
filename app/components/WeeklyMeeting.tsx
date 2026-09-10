@@ -17,24 +17,33 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
   const [meetingMode, setMeetingMode] = useState<"in-person" | "global-stream">("in-person");
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
 
+  const [nextEventType, setNextEventType] = useState("2nd Sunday Gathering");
+
   useEffect(() => {
     const calculateCountdown = () => {
       const now = new Date();
-      // Calculate next 2nd or 4th Sunday
       let targetDate: Date | null = null;
+      let eventName = "2nd Sunday Gathering";
 
       for (let i = 0; i < 35; i++) {
         const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i, 17, 0, 0, 0);
-        if (candidate.getDay() === 0) {
-          if (candidate.getTime() > now.getTime()) {
-            const dateNum = candidate.getDate();
-            const isSecondSunday = dateNum >= 8 && dateNum <= 14;
-            const isFourthSunday = dateNum >= 22 && dateNum <= 28;
+        if (candidate.getDay() === 0 && candidate.getTime() > now.getTime()) {
+          const dateNum = candidate.getDate();
+          const isSecondSunday = dateNum >= 8 && dateNum <= 14;
+          
+          // Check if it's the last Sunday of the month
+          const nextWeek = new Date(candidate);
+          nextWeek.setDate(nextWeek.getDate() + 7);
+          const isLastSunday = nextWeek.getMonth() !== candidate.getMonth();
 
-            if (isSecondSunday || isFourthSunday) {
-              targetDate = candidate;
-              break;
-            }
+          if (isSecondSunday) {
+            targetDate = candidate;
+            eventName = "2nd Sunday Gathering";
+            break;
+          } else if (isLastSunday) {
+            targetDate = candidate;
+            eventName = "Last Sunday Activation";
+            break;
           }
         }
       }
@@ -42,6 +51,8 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
       if (!targetDate) {
         targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7, 17, 0, 0, 0);
       }
+
+      setNextEventType(eventName);
 
       const diffMs = targetDate.getTime() - now.getTime();
       if (diffMs > 0) {
@@ -59,12 +70,12 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
   }, []);
 
   const getGoogleCalendarUrl = () => {
-    const title = encodeURIComponent("LifeBuild Global Gathering & 4T Conference (Isaiah 58:12)");
+    const title = encodeURIComponent("LifeBuild Global Gathering & Activation (Isaiah 58:12)");
     const details = encodeURIComponent(
-      "Join the LifeBuild Global gathering on the 2nd & 4th Sundays at 5:00 PM GMT+1 for 90 minutes of spiritual alignment, personal development, and rebuilding broken foundations."
+      "Join the LifeBuild Global gathering (2nd Sunday) and special activation program (Last Sunday) at 5:00 PM GMT+1 for spiritual alignment, capacity development, and practical rebuilding."
     );
     const location = encodeURIComponent("LifeBuild Global Center & Global Live Stream");
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&recur=RRULE:FREQ=MONTHLY;BYDAY=2SU,4SU`;
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
   };
 
   const { scrollYProgress } = useScroll({
@@ -106,15 +117,15 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs font-mono uppercase text-zinc-500 tracking-widest block">
-            BI-WEEKLY LIFE-BUILD GATHERING • EVERY 2ND &amp; 4TH SUNDAY
+            EXPRESSIONS OF THE VISION • GATHERINGS &amp; ACTIVATIONS
           </span>
           
           <h2 className="font-serif-headline text-4xl sm:text-6xl text-zinc-950 font-normal leading-tight">
-            Come Build With Us.
+            The Gathering Serves the Mission.
           </h2>
 
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
-            Join the next LifeBuild Global gathering and experience a community committed to spiritual alignment, personal development and rebuilding broken foundations. Every 2nd &amp; 4th Sunday at 5:00 PM GMT+1.
+            <strong className="text-black font-medium">The Gathering is an expression of Lifebuild, not the definition of Lifebuild.</strong> It exists to prepare and equip people for the real work of rebuilding beyond the gathering — in homes, workplaces, businesses, and communities.
           </p>
         </motion.div>
 
@@ -144,11 +155,11 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
           <div className="lg:col-span-5 p-8 sm:p-12 space-y-4 relative z-10">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[#d4af37] text-[10px] font-mono font-bold uppercase tracking-widest">
               <ShieldCheck className="w-3.5 h-3.5" />
-              Presence • Alignment • Transformation
+              Preparation • Alignment • Activation
             </span>
 
             <h3 className="font-serif-headline text-2xl sm:text-3xl text-white font-normal leading-tight">
-              A Space for Builders to Recharge.
+              A Space for Builders to Recharge &amp; Align.
             </h3>
 
             <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
@@ -163,7 +174,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
             <div className="pt-2 space-y-4">
               <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300">
                 <Clock className="w-4 h-4 text-[#d4af37] animate-pulse shrink-0" />
-                <span className="text-zinc-400">Next Gathering:</span>
+                <span className="text-zinc-400">{nextEventType}:</span>
                 <span className="font-bold text-white tracking-wider">
                   {timeLeft.days}d {timeLeft.hours}h {timeLeft.mins}m {timeLeft.secs}s
                 </span>
@@ -176,7 +187,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   onClick={onOpenRegister}
                   className="px-5 py-2.5 rounded-full bg-white text-black font-mono text-xs font-bold uppercase hover:bg-gray-200 transition-colors cursor-pointer shadow-sm"
                 >
-                  Join the Movement
+                  Join the Gathering
                 </motion.button>
 
                 <motion.button
@@ -186,7 +197,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   className="px-5 py-2.5 rounded-full border border-zinc-800 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
                 >
                   <QrCode className="w-3.5 h-3.5" />
-                  <span>Access Pass</span>
+                  <span>Check-In Pass</span>
                 </motion.button>
 
                 {onOpenNotes && (
@@ -197,7 +208,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                     className="px-5 py-2.5 rounded-full border border-zinc-700 hover:border-white text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer bg-zinc-900"
                   >
                     <BookOpen className="w-3.5 h-3.5 text-[#d4af37]" />
-                    <span>Take Notes</span>
+                    <span>Rebuilder Journal</span>
                   </motion.button>
                 )}
 
@@ -219,62 +230,73 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
 
         </motion.div>
 
-        {/* 2-Column Info & 60-Minute Blueprint Grid */}
+        {/* 2-Column Gathering Rhythm & 6-Stage Blueprint Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Left Column: Meeting Details */}
+          {/* Left Column: Monthly Gathering Rhythm */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5 space-y-8"
+            className="lg:col-span-5 space-y-6"
           >
-            <div className="space-y-4 border-b border-gray-200 pb-8">
+            <div className="border-b border-gray-200 pb-3">
+              <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
+                The Ecosystem
+              </span>
               <h3 className="font-heading font-bold text-2xl text-black">
-                Meeting Mechanics
+                Monthly Gathering Rhythm
               </h3>
-              <ul className="space-y-3 text-sm text-zinc-600 font-light">
-                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase">Frequency</span>
-                  <span className="font-medium text-black">Bi-Weekly (2nd & 4th Sundays)</span>
-                </li>
-                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase">Off-Week Rhythm</span>
-                  <span className="font-medium text-black">Weekly 4T Marketplace Action Notes</span>
-                </li>
-                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase">Time</span>
-                  <span className="font-medium text-black">5:00 PM – 6:30 PM (GMT+1)</span>
-                </li>
-                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase">Duration</span>
-                  <span className="font-medium text-black">90 Minutes</span>
-                </li>
-                <li className="flex items-start justify-between border-b border-gray-100 pb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase">Format</span>
-                  <span className="font-medium text-black">Hybrid (In-Person & Global Stream)</span>
-                </li>
-                <li className="flex items-start justify-between pb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase">Anchor Scripture</span>
-                  <span className="font-medium text-black font-mono text-xs">Isaiah 58:12</span>
-                </li>
-              </ul>
             </div>
 
-            {/* Annual 4T Conference Teaser Block */}
-            <motion.div
-              whileHover={{ y: -4 }}
-              className="p-8 bg-zinc-950 text-white rounded-3xl space-y-4 border border-zinc-800 shadow-lg"
-            >
-              <span className="text-xs font-mono uppercase text-[#d4af37] tracking-widest block">
-                Annual Flagship Gathering
-              </span>
-              <h4 className="font-serif-headline text-2xl text-white">The 4T Conference</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed font-light">
-                Our annual gathering of Kingdom builders, investors, conveners, and societal leaders across the 4Tribe Network. 3 days of intensive commissioning and strategic reconstruction.
+            {/* Rhythm Card 1: 2nd Sunday */}
+            <div className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2 bg-white">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="font-bold text-black uppercase tracking-wider">
+                  2ND SUNDAY
+                </span>
+                <span className="text-[#3b2262] font-semibold">5:00 PM GMT+1 (90 Mins)</span>
+              </div>
+              <h4 className="font-serif-headline text-lg text-black font-normal">
+                Lifebuild Movement Gathering
+              </h4>
+              <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                The regular gathering of Rebuilders to encounter God, understand the principles of rebuilding, connect with other builders, develop practical capacity, receive direction, and be commissioned into real environments.
               </p>
-              <div className="pt-2">
+            </div>
+
+            {/* Rhythm Card 2: Last Sunday */}
+            <div className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2 bg-white">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="font-bold text-black uppercase tracking-wider">
+                  LAST SUNDAY
+                </span>
+                <span className="text-amber-700 font-semibold">Special Focus</span>
+              </div>
+              <h4 className="font-serif-headline text-lg text-black font-normal">
+                Lifebuild Activation / Special Program
+              </h4>
+              <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                A focused application program addressing practical areas of rebuilding: People, Work, Family, Leadership, Business, Community, Economic realities, and Systems. Highly targeted toward real-life solutions.
+              </p>
+            </div>
+
+            {/* Rhythm Card 3: Quarterly Conference */}
+            <div className="p-6 bg-zinc-950 text-white rounded-2xl space-y-3 border border-zinc-800 shadow-md">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-[#d4af37] font-bold uppercase tracking-widest">
+                  QUARTERLY
+                </span>
+                <span className="text-zinc-400">Flagship Expression</span>
+              </div>
+              <h4 className="font-serif-headline text-xl text-white font-normal">
+                Lifebuild Conference
+              </h4>
+              <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                The larger, deeper activation point within the movement: strategic conversations, leadership workshops, cross-sector networking, intensive teaching, and commissioning across regions.
+              </p>
+              <div className="pt-1">
                 <button
                   onClick={onOpenConference || onOpenRegister}
                   className="inline-flex items-center gap-1.5 text-xs font-mono text-white hover:text-[#d4af37] transition-colors cursor-pointer font-bold uppercase tracking-wider"
@@ -283,98 +305,131 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </motion.div>
+            </div>
+
+            {/* Secondary Logistics Note */}
+            <div className="p-4 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono text-zinc-500 flex items-center justify-between">
+              <span>Format: Hybrid (In-Person &amp; Stream)</span>
+              <span>Scripture: Isaiah 58:12</span>
+            </div>
 
           </motion.div>
 
-          {/* Right Column: 4-Step 60-Minute Meeting Blueprint */}
+          {/* Right Column: 6-Stage Gathering Blueprint */}
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={{
               hidden: { opacity: 0 },
-              show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+              show: { opacity: 1, transition: { staggerChildren: 0.08 } },
             }}
-            className="lg:col-span-7 space-y-6"
+            className="lg:col-span-7 space-y-4"
           >
-            <div className="border-b border-gray-200 pb-4">
+            <div className="border-b border-gray-200 pb-3">
+              <span className="text-xs font-mono uppercase text-zinc-400 tracking-widest block">
+                The Progression
+              </span>
               <h3 className="font-heading text-lg font-bold text-black flex items-center gap-2">
                 <Zap className="w-4 h-4 text-black" />
-                90-Minute Gathering Blueprint
+                Encounter → Understand → Connect → Develop → Commission → Go
               </h3>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
+              {/* Step 01 */}
               <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-                whileHover={{ y: -4 }}
-                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+                variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className="p-5 border border-gray-200 rounded-2xl hover:border-black hover:shadow-sm transition-all space-y-1 bg-white"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span>STEP 01</span>
-                  <span>15 MINS</span>
+                  <span className="font-bold text-black">01 / ENCOUNTER</span>
+                  <span>Worship &amp; Alignment</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Grounding &amp; Devotional Focus</h4>
+                <h4 className="font-heading font-bold text-sm text-black">Worship, Prayer &amp; Scripture</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Stripping away workweek noise. Centering mind and spirit in worship, gratitude, and divine perspective under Isaiah 58:12.
+                  Centering mind and heart in reverent worship, prayer, and deep alignment with God’s presence and divine perspective.
                 </p>
               </motion.div>
 
+              {/* Step 02 */}
               <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-                whileHover={{ y: -4 }}
-                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+                variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className="p-5 border border-gray-200 rounded-2xl hover:border-black hover:shadow-sm transition-all space-y-1 bg-white"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span>STEP 02</span>
-                  <span>45 MINS</span>
+                  <span className="font-bold text-black">02 / UNDERSTAND</span>
+                  <span>Teaching &amp; Vision</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">4T Teaching &amp; Kingdom Principles</h4>
+                <h4 className="font-heading font-bold text-sm text-black">Teaching on Rebuilding &amp; 4T Principles</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Actionable teaching on Rebuilding, Restoring, Repairing, and Replenishing broken systems and leaders.
+                  Actionable understanding around purpose, work, character, and the 4T framework (Rebuild, Restore, Repair, Replenish).
                 </p>
               </motion.div>
 
+              {/* Step 03 */}
               <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-                whileHover={{ y: -4 }}
-                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+                variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className="p-5 border border-gray-200 rounded-2xl hover:border-black hover:shadow-sm transition-all space-y-1 bg-white"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span>STEP 03</span>
-                  <span>15 MINS</span>
+                  <span className="font-bold text-black">03 / CONNECT</span>
+                  <span>Authentic Fellowship</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Rebuilder's Prayer &amp; Strategy</h4>
+                <h4 className="font-heading font-bold text-sm text-black">Relational Fellowship with Rebuilders</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Targeted prayer, faith declarations, and strategic alignment across the 4Tribe Network. Iron sharpening iron.
+                  Forging genuine relationships and mutual accountability with other builders committed to societal transformation.
                 </p>
               </motion.div>
 
+              {/* Step 04 */}
               <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-                whileHover={{ y: -4 }}
-                className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-2"
+                variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className="p-5 border border-gray-200 rounded-2xl hover:border-black hover:shadow-sm transition-all space-y-1 bg-white"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span>STEP 04</span>
-                  <span>15 MINS</span>
+                  <span className="font-bold text-black">04 / DEVELOP</span>
+                  <span>Capacity Building</span>
                 </div>
-                <h4 className="font-heading font-bold text-base text-black">Commissioning &amp; Prophetic Alignment</h4>
+                <h4 className="font-heading font-bold text-sm text-black">Practical Discussion &amp; Reflection</h4>
                 <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                  Final blessing, bi-weekly commissioning, and sending forth leaders into their spheres of impact with authority.
+                  Interactive dialogue, case studies, and practical exercises designed to expand wisdom and operational competence.
+                </p>
+              </motion.div>
+
+              {/* Step 05 */}
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className="p-5 border border-gray-200 rounded-2xl hover:border-black hover:shadow-sm transition-all space-y-1 bg-white"
+              >
+                <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                  <span className="font-bold text-black">05 / COMMISSION</span>
+                  <span>Direction &amp; Prayer</span>
+                </div>
+                <h4 className="font-heading font-bold text-sm text-black">Identifying What Needs Rebuilding</h4>
+                <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                  Receiving strategic prayer, clarity on assignment, and commissioning to address breaches in your sphere of influence.
+                </p>
+              </motion.div>
+
+              {/* Step 06 */}
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className="p-5 border border-black rounded-2xl hover:shadow-md transition-all space-y-1 bg-zinc-50"
+              >
+                <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                  <span className="font-bold text-black">06 / GO</span>
+                  <span>Marketplace &amp; Civic Action</span>
+                </div>
+                <h4 className="font-heading font-bold text-sm text-black">Return to Everyday Environments Equipped</h4>
+                <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                  Stepping back into your workplace, company, household, and community actively executing the rebuilding mandate.
                 </p>
               </motion.div>
 
@@ -383,6 +438,29 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
           </motion.div>
 
         </div>
+
+        {/* Programme Architecture Teaser Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="p-6 bg-zinc-100 border border-gray-200 rounded-2xl"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div className="space-y-0.5">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold block">
+                Lifebuild Programme Architecture
+              </span>
+              <p className="text-xs font-mono font-semibold text-black">
+                GATHER • ACTIVATE • CONFERENCE • DEVELOP • CONNECT • DEPLOY
+              </p>
+            </div>
+            <span className="text-xs text-zinc-500 font-light max-w-md">
+              A flexible ecosystem supporting continuous development and real-world transformation beyond meetings.
+            </span>
+          </div>
+        </motion.div>
 
       </div>
     </section>

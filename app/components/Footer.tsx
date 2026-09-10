@@ -45,20 +45,29 @@ export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: 
 
           {/* Quick Action Links */}
           <div className="flex flex-wrap items-center gap-6 text-xs font-mono text-zinc-600">
-            <a href="#solar-system" className="hover:text-black transition-colors">
+            <a href="#vision" className="hover:text-black transition-colors">
               Vision
             </a>
-            <a href="#fellowship" className="hover:text-black transition-colors">
+            <a href="#pillars" className="hover:text-black transition-colors">
+              4T Framework
+            </a>
+            <a href="#transformation-pathway" className="hover:text-black transition-colors">
+              Journey
+            </a>
+            <a href="#impact-areas" className="hover:text-black transition-colors">
+              Impact
+            </a>
+            <a href="#gathering" className="hover:text-black transition-colors">
               Gathering
             </a>
-            <a href="#pillars" className="hover:text-black transition-colors">
-              Pillars
+            <a href="#vehicles" className="hover:text-black transition-colors">
+              Vehicles
             </a>
             <button
               onClick={onOpenRegister}
               className="hover:text-black transition-colors cursor-pointer"
             >
-              Membership
+              Become a Rebuilder
             </button>
             <button
               onClick={onOpenPass}
