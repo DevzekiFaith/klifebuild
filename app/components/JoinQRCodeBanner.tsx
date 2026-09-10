@@ -13,11 +13,11 @@ interface JoinQRCodeBannerProps {
 export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: JoinQRCodeBannerProps) {
   const [copied, setCopied] = useState(false);
 
-  // Scannable payload with direct vision link & meeting details
-  const qrJoinPayload = `https://www.lifebuildglobal.com.ng/join?src=qr_banner&vision=Isaiah58:12`;
+  // Scannable payload — opens the Lifebuild website directly
+  const qrJoinPayload = `https://www.lifebuildglobal.com.ng`;
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText("https://www.lifebuildglobal.com.ng/join");
+    navigator.clipboard.writeText("https://www.lifebuildglobal.com.ng");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -90,7 +90,10 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 {/* Phone Card Footer */}
                 <div className="p-4 bg-zinc-900/90 rounded-2xl border border-zinc-800 space-y-2 text-center">
                   <span className="text-[9px] font-mono text-emerald-400 font-bold block uppercase">
-                    ● GATHERING 2ND & 4TH SUNDAY @ 5PM
+                    ● 2nd Sunday Gathering @ 5 PM GMT+1
+                  </span>
+                  <span className="text-[8px] font-mono text-zinc-500 block">
+                    Last Sunday Activation · Isaiah 58:12
                   </span>
                   <button
                     onClick={onOpenRegister}
@@ -125,10 +128,10 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
             </div>
 
             {/* QR Code Card & Callout */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 p-6 bg-zinc-950 rounded-2xl border border-zinc-800">
+            <div className="flex flex-col sm:flex-row items-start gap-6 p-6 bg-zinc-950 rounded-2xl border border-zinc-800">
               
               {/* The Scannable QR Code */}
-              <div className="relative p-3 bg-white rounded-2xl shadow-xl shrink-0 flex items-center justify-center border-2 border-black">
+              <div className="relative p-3 bg-white rounded-2xl shadow-xl shrink-0 flex items-center justify-center border-2 border-black self-center sm:self-start">
                 <QRCodeSVG
                   value={qrJoinPayload}
                   size={150}
@@ -147,20 +150,51 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                 />
               </div>
 
-              {/* Instructions & Link */}
-              <div className="space-y-3 text-center sm:text-left">
+              {/* Details & Actions */}
+              <div className="space-y-4 text-center sm:text-left flex-1">
                 <div>
                   <span className="text-[10px] font-mono text-[#d4af37] uppercase font-bold block tracking-wider">
                     SCAN WITH ANY PHONE CAMERA
                   </span>
-                  <h4 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight">
-                    Sunday Gathering & 4T Pass
+                  <h4 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight mt-0.5">
+                    Lifebuild Global Gathering
                   </h4>
                 </div>
 
-                <p className="text-xs text-zinc-400 font-light">
-                  2nd & 4th Sunday @ 5:00 PM GMT+1 • LifeBuild Global Center & Global Stream
-                </p>
+                {/* Gathering Info Grid */}
+                <div className="grid grid-cols-1 gap-2 text-left">
+                  <div className="flex items-start gap-2 text-xs font-mono">
+                    <span className="text-[#d4af37] shrink-0 mt-0.5">◆</span>
+                    <span className="text-zinc-300">
+                      <span className="text-white font-bold">2nd Sunday Gathering</span> — 5:00 PM GMT+1 (90 mins)
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs font-mono">
+                    <span className="text-[#d4af37] shrink-0 mt-0.5">◆</span>
+                    <span className="text-zinc-300">
+                      <span className="text-white font-bold">Last Sunday Activation</span> — Special Focus Program
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs font-mono">
+                    <span className="text-zinc-500 shrink-0 mt-0.5">→</span>
+                    <span className="text-zinc-400">Lifebuild Center &amp; Global Live Stream</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs font-mono">
+                    <span className="text-zinc-500 shrink-0 mt-0.5">→</span>
+                    <span className="text-zinc-400">Convener: Zeki Ubor · Isaiah 58:12</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs font-mono">
+                    <span className="text-zinc-500 shrink-0 mt-0.5">→</span>
+                    <a
+                      href="https://www.lifebuildglobal.com.ng"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#d4af37] hover:underline font-bold"
+                    >
+                      www.lifebuildglobal.com.ng
+                    </a>
+                  </div>
+                </div>
 
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1">
                   <button

@@ -38,19 +38,20 @@ export default function QRScannerModal({
   const memberRole = currentMember ? currentMember.role : "Founder & Executive";
   const memberMode = currentMember ? currentMember.attendanceMode : "In-Person Gathering";
 
-  const visionMeetingInfo = `LIFE BUILD GATHERING & 4T CONFERENCE
+  const visionMeetingInfo = `LIFEBUILD GLOBAL — GATHERING PASS
 --------------------------------------------
 MEMBER: ${memberName}
 ID: ${memberId}
 ROLE: ${memberRole}
 MODE: ${memberMode}
 
-SUNDAY GATHERING DETAILS:
-• Time: 2nd & 4th Sunday @ 5:00 PM GMT+1
-• Location: Life Build Center & Global Stream
-• Convener: Zeki Ubor
-• Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
+GATHERING SCHEDULE:
+• 2nd Sunday Gathering @ 5:00 PM GMT+1 (90 mins)
+• Last Sunday Activation — Special Focus Program
+• Location: Lifebuild Center & Global Live Stream
+• Convener: Zeki Ubor | Anchor: Isaiah 58:12
 --------------------------------------------
+Rebuilding Everywhere You Go
 https://www.lifebuildglobal.com.ng`;
 
   const handleSimulateScan = () => {
@@ -156,38 +157,63 @@ https://www.lifebuildglobal.com.ng`;
 
         {/* TAB 1: PASS QR CODE DISPLAY */}
         {activeTab === "PASS" && (
-          <div className="space-y-6">
-            <div className="bg-[#141414] text-white p-6 rounded-2xl border border-zinc-800 space-y-4 text-center">
-              
+          <div className="space-y-4">
+            {!currentMember && (
+              <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl flex items-start gap-3">
+                <span className="text-amber-600 text-lg shrink-0">⚠️</span>
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-amber-900">No Membership Pass Found</p>
+                  <p className="text-[11px] text-amber-800 leading-snug">
+                    You haven't registered yet. Close this modal and click <strong>"Join the Movement"</strong> to get your personal QR pass.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="bg-[#141414] text-white p-5 rounded-2xl border border-zinc-800 space-y-4 text-center">
               <div className="space-y-1">
                 <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest block">
-                  SUNDAY GATHERING ENTRANCE
+                  Lifebuild Gathering Pass
                 </span>
-                <h4 className="font-serif-headline text-2xl text-white font-normal">
+                <h4 className="font-serif-headline text-xl text-white font-normal">
                   {memberName}
                 </h4>
-                <p className="text-xs font-mono text-zinc-400">
-                  {memberId} • {memberRole}
+                <p className="text-[11px] font-mono text-zinc-400">
+                  {memberId}
+                </p>
+                <p className="text-[10px] font-mono text-zinc-500">
+                  {memberRole} · {memberMode}
                 </p>
               </div>
 
               {/* Scannable QR Code */}
-              <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 my-2 space-y-2">
+              <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-gray-200 space-y-2">
                 <QRCodeSVG
                   value={visionMeetingInfo}
-                  size={180}
+                  size={175}
                   level="M"
                   includeMargin={true}
                   fgColor="#111111"
                   bgColor="#ffffff"
                 />
-                <span className="text-[9px] font-mono text-zinc-900 font-bold uppercase tracking-wider block pt-1 border-t border-zinc-100 w-full">
-                  SCAN WITH ANY PHONE CAMERA
+                <span className="text-[9px] font-mono text-zinc-900 font-bold uppercase tracking-wider block pt-1 border-t border-zinc-100 w-full text-center">
+                  Scan with any phone camera
                 </span>
               </div>
 
-              <div className="text-[11px] font-mono text-zinc-400 pt-1">
-                2nd & 4th Sunday @ 5:00 PM (GMT+1) • Isaiah 58:12
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <div className="p-2 bg-zinc-900 rounded-xl text-left">
+                  <span className="text-[8px] font-mono text-zinc-500 uppercase block">2nd Sunday</span>
+                  <span className="text-[10px] font-mono text-white font-bold">Gathering @ 5 PM</span>
+                </div>
+                <div className="p-2 bg-zinc-900 rounded-xl text-left">
+                  <span className="text-[8px] font-mono text-zinc-500 uppercase block">Last Sunday</span>
+                  <span className="text-[10px] font-mono text-white font-bold">Activation Program</span>
+                </div>
+              </div>
+
+              <div className="text-[10px] font-mono text-zinc-500 pt-1">
+                Isaiah 58:12 · Lifebuild Center &amp; Global Stream
               </div>
             </div>
           </div>

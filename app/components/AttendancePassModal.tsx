@@ -26,21 +26,21 @@ export default function AttendancePassModal({
   if (!isOpen || !member) return null;
 
   // Complete Vision & Meeting Information embedded in the QR Code
-  const visionMeetingInfo = `LIFE BUILD GATHERING & 4T CONFERENCE
+  const visionMeetingInfo = `LIFEBUILD GLOBAL — GATHERING PASS
 --------------------------------------------
 MEMBER: ${member.fullName}
 ID: ${member.memberId}
 ROLE: ${member.role}
 MODE: ${member.attendanceMode}
 
-SUNDAY GATHERING DETAILS:
-• Gathering Time: 2nd & 4th Sunday @ 5:00 PM GMT+1
-• Location: Life Build Center & Global Stream
-• Convener: Zeki Ubor
-• Scriptural Anchor: Isaiah 58:12 (Rebuilding Broken Walls)
-• 4T Pillars: Rebuilding • Restoring • Repairing • Replenishing
+GATHERING SCHEDULE:
+• 2nd Sunday Gathering @ 5:00 PM GMT+1 (90 mins)
+• Last Sunday Activation — Special Focus Program
+• Location: Lifebuild Center & Global Live Stream
+• Convener: Zeki Ubor | Anchor: Isaiah 58:12
+• 4T: Rebuilding · Restoring · Repairing · Replenishing
 --------------------------------------------
-Rebuilding Everywhere You Go & Positioning in the Marketplace
+Rebuilding Everywhere You Go
 https://www.lifebuildglobal.com.ng`;
 
   const handleCopyId = () => {
@@ -149,7 +149,7 @@ https://www.lifebuildglobal.com.ng`;
 
       ctx.fillStyle = "#dddddd";
       ctx.font = "16px sans-serif";
-      ctx.fillText("Gathering: 2nd & 4th Sunday @ 5:00 PM (GMT+1)", 90, 425);
+      ctx.fillText("2nd Sunday Gathering | Last Sunday Activation @ 5 PM GMT+1", 90, 425);
       ctx.fillText("Vision: Isaiah 58:12 Rebuilding Broken Walls", 90, 455);
 
       // 5. Draw QR Code from DOM SVG
