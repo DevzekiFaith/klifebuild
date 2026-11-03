@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
-import { QrCode, ArrowUpRight, ShieldCheck, Sparkles, Check, Copy } from "lucide-react";
+import { QrCode, ArrowUpRight, ShieldCheck, Ticket, Check, Copy } from "lucide-react";
 
 interface JoinQRCodeBannerProps {
   onOpenRegister: () => void;
@@ -113,7 +113,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
             
             {/* Tagline */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[#d4af37] text-xs font-mono uppercase tracking-widest">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Ticket className="w-3.5 h-3.5" />
               <span>Instant Sunday Entrance Access</span>
             </div>
 
