@@ -719,7 +719,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                     level="H"
                     includeMargin={true}
                     imageSettings={{
-                      src: "/images/logo_icon_nobg.png",
+                      src: "/lifebuild_icon.svg",
                       x: undefined,
                       y: undefined,
                       height: 38,
@@ -838,7 +838,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                   level="H"
                   includeMargin={true}
                   imageSettings={{
-                    src: "/images/logo_icon_nobg.png",
+                    src: "/lifebuild_icon.svg",
                     x: undefined,
                     y: undefined,
                     height: 52,

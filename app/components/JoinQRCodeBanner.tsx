@@ -58,11 +58,11 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                   <div className="flex items-center gap-2">
                     <div className="relative w-6 h-6 flex items-center justify-center bg-white rounded-md p-0.5">
                       <Image
-                        src="/images/logo_icon_nobg.png"
+                        src="/lifebuild_icon.svg"
                         alt="Lifebuild Logo"
                         width={24}
                         height={24}
-                        className="object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                     <span className="font-heading font-extrabold text-xs tracking-tight">
@@ -140,7 +140,7 @@ export default function JoinQRCodeBanner({ onOpenRegister, compact = false }: Jo
                   fgColor="#000000"
                   bgColor="#ffffff"
                   imageSettings={{
-                    src: "/images/logo_icon_nobg.png",
+                    src: "/lifebuild_icon.svg",
                     x: undefined,
                     y: undefined,
                     height: 32,

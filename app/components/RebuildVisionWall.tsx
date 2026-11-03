@@ -93,7 +93,7 @@ export default function RebuildVisionWall() {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] opacity-[0.03] pointer-events-none select-none"
       >
         <Image
-          src="/images/logo_icon_nobg.png"
+          src="/lifebuild_icon.svg"
           alt="Lifebuild Watermark"
           fill
           sizes="700px"

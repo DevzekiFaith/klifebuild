@@ -244,7 +244,7 @@ export default async function ImpactDetailPage({ params }: { params: Promise<{ s
                   The Core Rebuilding Principle
                 </span>
                 <p className="font-serif-headline italic text-base sm:text-lg text-zinc-900 leading-snug">
-                  "{data.coreTruth}"
+                  &ldquo;{data.coreTruth}&rdquo;
                 </p>
               </div>
 
@@ -281,7 +281,7 @@ export default async function ImpactDetailPage({ params }: { params: Promise<{ s
                     Scriptural Anchor • {data.scripture.verse}
                   </span>
                   <p className="text-xs text-zinc-300 font-light italic leading-relaxed">
-                    "{data.scripture.text}"
+                    &ldquo;{data.scripture.text}&rdquo;
                   </p>
                 </div>
               </div>
@@ -365,11 +365,11 @@ export default async function ImpactDetailPage({ params }: { params: Promise<{ s
             <div className="lg:col-span-5">
               <div className="p-8 sm:p-10 rounded-3xl bg-zinc-950 text-white border border-zinc-800 shadow-xl space-y-6">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-[#d4af37] font-bold block">
-                  The Rebuilder's Inquiry
+                  The Rebuilder&apos;s Inquiry
                 </span>
                 
                 <h4 className="font-serif-headline text-2xl text-white font-normal leading-snug">
-                  "{data.reflectionPrompt}"
+                  &ldquo;{data.reflectionPrompt}&rdquo;
                 </h4>
 
                 <p className="text-xs text-zinc-400 font-light leading-relaxed">

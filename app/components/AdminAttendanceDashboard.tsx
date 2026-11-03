@@ -157,11 +157,11 @@ export default function AdminAttendanceDashboard({
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10 flex items-center justify-center">
               <Image
-                src="/images/logo_icon_nobg.png"
+                src="/lifebuild_icon.svg"
                 alt="Lifebuild Logo"
                 width={40}
                 height={40}
-                className="object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
             <div>

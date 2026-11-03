@@ -34,7 +34,7 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
         className="absolute top-1/2 -left-20 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none"
       >
         <Image
-          src="/images/logo_icon_nobg.png"
+          src="/lifebuild_icon.svg"
           alt="Lifebuild Overlay"
           fill
           sizes="550px"
@@ -66,11 +66,11 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                 <div className="flex items-center gap-2.5">
                   <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
                     <Image
-                      src="/images/logo_icon_nobg.png"
+                      src="/lifebuild_icon.svg"
                       alt="Lifebuild Logo"
                       width={36}
                       height={36}
-                      className="object-contain"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <div>
@@ -167,11 +167,11 @@ export default function FellowshipStory({ onOpenRegister, onOpenPass }: Fellowsh
                     className="absolute inset-0 m-auto w-11 h-11 rounded-full bg-white text-black p-1 flex items-center justify-center border-2 border-black shadow-md pointer-events-none overflow-hidden"
                   >
                     <Image
-                      src="/images/logo_icon_nobg.png"
+                      src="/lifebuild_icon.svg"
                       alt="Lifebuild Emblem"
                       width={32}
                       height={32}
-                      className="object-contain"
+                      className="w-full h-full object-contain"
                     />
                   </motion.div>
 

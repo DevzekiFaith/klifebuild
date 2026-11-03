@@ -89,7 +89,7 @@ export default function AreasOfImpact({ onOpenRegister }: AreasOfImpactProps) {
         className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none"
       >
         <Image
-          src="/images/logo_icon_nobg.png"
+          src="/lifebuild_icon.svg"
           alt="Lifebuild Overlay"
           fill
           sizes="550px"

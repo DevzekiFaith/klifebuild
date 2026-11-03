@@ -26,7 +26,7 @@ export default function HappyNewMonthBanner({ onOpenFlyer }: HappyNewMonthBanner
         <div className="flex items-center gap-2.5">
           <div className="w-5 h-5 relative shrink-0">
             <Image
-              src="/images/logo_icon_nobg.png"
+              src="/lifebuild_icon.svg"
               alt="Lifebuild Emblem"
               fill
               sizes="20px"

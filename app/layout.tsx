@@ -101,11 +101,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/images/logo_icon_nobg.png", type: "image/png" },
-      { url: "/icon.png", type: "image/png" },
+      { url: "/lifebuild_icon.svg", type: "image/svg+xml" },
+      { url: "/images/lifebuild_official_logo.png", type: "image/png" },
     ],
-    shortcut: "/images/logo_icon_nobg.png",
-    apple: "/images/logo_icon_nobg.png",
+    shortcut: "/lifebuild_icon.svg",
+    apple: "/images/lifebuild_official_logo.png",
   },
 };
 
@@ -121,9 +121,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" type="image/png" href="/images/logo_icon_nobg.png" sizes="any" />
-        <link rel="shortcut icon" href="/images/logo_icon_nobg.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/logo_icon_nobg.png" />
+        <link rel="icon" type="image/svg+xml" href="/lifebuild_icon.svg" />
+        <link rel="alternate icon" type="image/png" href="/images/lifebuild_official_logo.png" />
+        <link rel="shortcut icon" href="/lifebuild_icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/images/lifebuild_official_logo.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#09090b" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

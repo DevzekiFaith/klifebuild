@@ -7,7 +7,7 @@ export default function JsonLd() {
     "name": "LifeBuild Global",
     "alternateName": ["4Tribe Network", "LifeBuild Center", "LifeBuild Global Movement"],
     "url": "https://www.lifebuildglobal.com.ng",
-    "logo": "https://www.lifebuildglobal.com.ng/images/logo_icon_nobg.png",
+    "logo": "https://www.lifebuildglobal.com.ng/images/lifebuild_official_logo.png",
     "founder": {
       "@type": "Person",
       "name": "Zeki Ubor",

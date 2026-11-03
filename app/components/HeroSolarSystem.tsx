@@ -185,7 +185,7 @@ export default function HeroSolarSystem({
         className="absolute top-12 right-0 w-[450px] h-[450px] opacity-[0.04] pointer-events-none select-none"
       >
         <Image
-          src="/images/logo_icon_nobg.png"
+          src="/lifebuild_icon.svg"
           alt="Lifebuild Overlay"
           fill
           sizes="450px"
@@ -218,7 +218,7 @@ export default function HeroSolarSystem({
             >
               <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
                 <Image
-                  src="/images/logo_icon_nobg.png"
+                  src="/lifebuild_icon.svg"
                   alt="LifeBuild Global emblem"
                   fill
                   sizes="24px"
@@ -361,11 +361,11 @@ export default function HeroSolarSystem({
                 title="Lifebuild Central Anchor"
               >
                 <Image
-                  src="/images/logo_icon_nobg.png"
+                  src="/lifebuild_icon.svg"
                   alt="Lifebuild Central Sun Emblem"
                   width={64}
                   height={64}
-                  className="object-contain"
+                  className="w-full h-full object-contain p-1"
                   priority
                   loading="eager"
                 />

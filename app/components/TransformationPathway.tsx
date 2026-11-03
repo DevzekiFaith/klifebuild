@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowRight, ShieldCheck, Hammer, Key, HeartHandshake, RefreshCw, CheckCircle2, Compass } from "lucide-react";
+import { Sprout, ArrowRight, ShieldCheck, Hammer, Key, HeartHandshake, RefreshCw, CheckCircle2, Compass } from "lucide-react";
 
 interface TransformationStage {
   id: string;
@@ -52,7 +52,7 @@ export default function TransformationPathway({
       stepNumber: "STAGE 02",
       title: "DEVELOP",
       subtitle: "Character, Competence & Wisdom",
-      icon: Sparkles,
+      icon: Sprout,
       scripture: "Isaiah 61:3 — 'Trees of righteousness, the planting of the Lord'",
       description:
         "Build character, competence, wisdom and capacity. Strengthen internal foundations so you can sustain external influence and leadership.",
@@ -109,7 +109,7 @@ export default function TransformationPathway({
         className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[550px] opacity-[0.03] pointer-events-none select-none"
       >
         <Image
-          src="/images/logo_icon_nobg.png"
+          src="/lifebuild_icon.svg"
           alt="Lifebuild Overlay"
           fill
           sizes="550px"
