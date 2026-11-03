@@ -64,14 +64,14 @@ export default function Navbar({
         <div className="flex items-center justify-between gap-3">
 
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group shrink-0">
+          <a href="#" className="flex items-center gap-2 group shrink-0">
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
               <Image
-                src="/lifebuild_icon.svg"
+                src="/images/logo_icon_nobg.png"
                 alt="Lifebuild Logo"
                 width={36}
                 height={36}
-                className="w-full h-full object-contain"
+                className="object-contain"
                 priority
                 loading="eager"
               />
