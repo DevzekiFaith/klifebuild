@@ -168,7 +168,7 @@ export default function Home() {
           className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.04] pointer-events-none select-none"
         >
           <Image
-            src="/lifebuild_icon.svg"
+            src="/images/logo_icon_nobg.png"
             alt="Lifebuild Overlay"
             fill
             sizes="500px"

@@ -165,7 +165,7 @@ export default function WeeklyMeeting({ onOpenRegister, onOpenScanner, onOpenNot
         className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] pointer-events-none select-none"
       >
         <Image
-          src="/lifebuild_icon.svg"
+          src="/images/logo_icon_nobg.png"
           alt="LifeBuild Overlay"
           fill
           sizes="500px"

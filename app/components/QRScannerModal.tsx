@@ -112,11 +112,11 @@ https://www.lifebuildglobal.com.ng`;
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4 pr-8">
           <div className="relative w-10 h-10 flex items-center justify-center bg-transparent shrink-0">
             <Image
-              src="/lifebuild_icon.svg"
+              src="/images/logo_icon_nobg.png"
               alt="Lifebuild Logo"
               width={40}
               height={40}
-              className="w-full h-full object-contain"
+              className="object-contain"
             />
           </div>
           <div>
@@ -227,7 +227,7 @@ https://www.lifebuildglobal.com.ng`;
               {/* Background Watermark Overlay */}
               <div className="absolute inset-0 w-32 h-32 m-auto opacity-10 pointer-events-none">
                 <Image
-                  src="/lifebuild_icon.svg"
+                  src="/images/logo_icon_nobg.png"
                   alt="Lifebuild Overlay"
                   fill
                   sizes="128px"

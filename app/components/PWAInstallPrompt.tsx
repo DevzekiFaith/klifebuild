@@ -101,13 +101,13 @@ export default function PWAInstallPrompt({ hasPass, onOpenPass }: PWAInstallProm
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white border border-zinc-200 flex items-center justify-center shrink-0 p-1.5 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 flex items-center justify-center shrink-0 p-1">
                   <Image
-                    src="/lifebuild_icon.svg"
+                    src="/images/logo_icon_nobg.png"
                     alt="LifeBuild App Icon"
                     width={32}
                     height={32}
-                    className="w-full h-full object-contain"
+                    className="object-contain"
                   />
                 </div>
                 <div>

@@ -3,8 +3,7 @@ const CACHE_NAME = "lifebuild-cache-v1";
 const OFFLINE_URLS = [
   "/",
   "/favicon.ico",
-  "/lifebuild_icon.svg",
-  "/images/lifebuild_official_logo.png",
+  "/images/logo_icon_nobg.png",
   "/manifest.json"
 ];
 

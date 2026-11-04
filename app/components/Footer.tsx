@@ -27,11 +27,11 @@ export default function Footer({ onOpenRegister, onOpenPass, onOpenDashboard }: 
             <div className="flex items-center gap-3">
               <div className="relative w-11 h-11 flex items-center justify-center bg-transparent">
                 <Image
-                  src="/lifebuild_icon.svg"
+                  src="/images/logo_icon_nobg.png"
                   alt="Lifebuild Logo"
                   width={44}
                   height={44}
-                  className="w-full h-full object-contain"
+                  className="object-contain"
                 />
               </div>
               <span className="font-heading font-extrabold text-2xl text-black tracking-tight block">

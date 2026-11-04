@@ -70,13 +70,13 @@ export default function SundaySelfCheckInBanner({
         
         {/* Left Side: Live Badge & Description */}
         <div className="flex items-start sm:items-center gap-4">
-          <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-1.5 shrink-0 shadow-md">
+          <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-1 shrink-0 shadow-md">
             <Image
-              src="/lifebuild_icon.svg"
+              src="/images/logo_icon_nobg.png"
               alt="Lifebuild Logo"
               width={36}
               height={36}
-              className="w-full h-full object-contain"
+              className="object-contain"
               priority
               loading="eager"
             />
