@@ -48,9 +48,9 @@ const PILLARS: PlanetPillar[] = [
     name: "01. Rebuilding",
     tagline: "Broken Walls & Systems",
     description: "Reconstructing broken walls, structural foundations, and economic ecosystems to withstand future shocks.",
-    size: 36,
-    orbitRadius: 105,
-    orbitSpeed: 45,
+    size: 34,
+    orbitRadius: 85,
+    orbitSpeed: 32,
     color: "from-amber-900 via-zinc-900 to-black",
     specs: {
       orbitPeriod: "4T Pillar 01",
@@ -63,9 +63,9 @@ const PILLARS: PlanetPillar[] = [
     name: "02. Restoring",
     tagline: "Identity & Calling",
     description: "Unlocking keys to human identity, restoring dignity, spiritual authority, and peace in families and organizations.",
-    size: 32,
-    orbitRadius: 165,
-    orbitSpeed: 70,
+    size: 30,
+    orbitRadius: 130,
+    orbitSpeed: 44,
     color: "from-blue-950 via-zinc-900 to-black",
     specs: {
       orbitPeriod: "4T Pillar 02",
@@ -78,9 +78,9 @@ const PILLARS: PlanetPillar[] = [
     name: "03. Repairing",
     tagline: "Breaches & Community",
     description: "Repairing systemic breaches, unifying builders, and healing character gaps to strengthen community fabric.",
-    size: 34,
-    orbitRadius: 225,
-    orbitSpeed: 95,
+    size: 32,
+    orbitRadius: 175,
+    orbitSpeed: 58,
     color: "from-emerald-950 via-zinc-900 to-black",
     specs: {
       orbitPeriod: "4T Pillar 03",
@@ -93,9 +93,9 @@ const PILLARS: PlanetPillar[] = [
     name: "04. Replenishing",
     tagline: "Abundance & Legacy",
     description: "Unlocking sustainable stewardship, economic overflow, and generational inheritance for decades ahead.",
-    size: 38,
-    orbitRadius: 285,
-    orbitSpeed: 125,
+    size: 36,
+    orbitRadius: 220,
+    orbitSpeed: 72,
     color: "from-yellow-950 via-zinc-900 to-black",
     specs: {
       orbitPeriod: "4T Pillar 04",
@@ -111,7 +111,6 @@ export default function HeroSolarSystem({
   onOpenConference,
 }: HeroSolarSystemProps) {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetPillar>(PILLARS[0]);
-  const [rotationAngle, setRotationAngle] = useState(0);
 
   // Mouse Parallax 3D Tilt Values
   const heroRef = useRef<HTMLDivElement>(null);
@@ -155,21 +154,6 @@ export default function HeroSolarSystem({
     mouseX.set(0);
     mouseY.set(0);
   };
-
-  useEffect(() => {
-    let animationFrameId: number;
-    let lastTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const delta = (currentTime - lastTime) / 1000;
-      lastTime = currentTime;
-      setRotationAngle((prev) => (prev + delta * 6) % 360);
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
 
   return (
     <section
@@ -333,19 +317,67 @@ export default function HeroSolarSystem({
             
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
               
-              {/* Concentric Orbit Rings */}
-              {PILLARS.filter((p) => p.id !== "sun").map((planet) => (
-                <div
-                  key={`ring-${planet.id}`}
-                  className="absolute rounded-full border border-gray-200 pointer-events-none transition-all duration-300"
-                  style={{
-                    width: `${planet.orbitRadius * 2}px`,
-                    height: `${planet.orbitRadius * 2}px`,
-                    borderColor:
-                      selectedPlanet.id === planet.id ? "#111111" : "#e5e7eb",
-                  }}
-                />
-              ))}
+              {/* Concentric Orbit Rings & Orbiting 4T Planet Elements */}
+              {PILLARS.filter((p) => p.id !== "sun").map((planet, idx) => {
+                const isSelected = selectedPlanet.id === planet.id;
+                const startAngle = idx * 90;
+
+                return (
+                  <motion.div
+                    key={`orbit-${planet.id}`}
+                    animate={{ rotate: startAngle + 360 }}
+                    initial={{ rotate: startAngle }}
+                    transition={{
+                      duration: planet.orbitSpeed,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute rounded-full pointer-events-none flex items-center justify-center transition-colors duration-300"
+                    style={{
+                      width: `${planet.orbitRadius * 2}px`,
+                      height: `${planet.orbitRadius * 2}px`,
+                      borderWidth: isSelected ? "2px" : "1px",
+                      borderColor: isSelected ? "#000000" : "#e5e7eb",
+                      transformStyle: "preserve-3d",
+                    }}
+                  >
+                    {/* The Planet itself positioned precisely on the orbit rim */}
+                    <motion.div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedPlanet(planet);
+                      }}
+                      whileHover={{ scale: 1.25 }}
+                      whileTap={{ scale: 1.05 }}
+                      animate={{ rotate: -(startAngle + 360) }}
+                      initial={{ rotate: -startAngle }}
+                      transition={{
+                        duration: planet.orbitSpeed,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer z-20 flex items-center justify-center group"
+                      style={{
+                        width: `${planet.size}px`,
+                        height: `${planet.size}px`,
+                        transform: "translateZ(40px)",
+                      }}
+                      title={planet.name}
+                    >
+                      <div
+                        className={`w-full h-full rounded-full transition-all duration-200 ${
+                          isSelected
+                            ? "border-2 border-black ring-4 ring-black/20 bg-black shadow-xl scale-110"
+                            : "border border-zinc-400 bg-zinc-900 group-hover:border-black group-hover:scale-105"
+                        }`}
+                      />
+                      <span className="absolute -bottom-6 text-[10px] font-mono whitespace-nowrap text-zinc-800 opacity-0 group-hover:opacity-100 transition-opacity font-bold bg-white/95 px-2 py-0.5 rounded shadow-sm border border-gray-200 pointer-events-none select-none">
+                        {planet.name}
+                      </span>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
 
               {/* Central Sun Element (Featuring Official Lifebuild Emblem Icon) */}
               <motion.div
@@ -370,41 +402,6 @@ export default function HeroSolarSystem({
                   loading="eager"
                 />
               </motion.div>
-
-              {/* Orbiting 4T Planet Elements */}
-              {PILLARS.filter((p) => p.id !== "sun").map((planet, idx) => {
-                const angleDeg = (rotationAngle * (100 / planet.orbitSpeed) + idx * 90) % 360;
-                const angleRad = (angleDeg * Math.PI) / 180;
-                const x = Math.cos(angleRad) * planet.orbitRadius;
-                const y = Math.sin(angleRad) * planet.orbitRadius;
-                const isSelected = selectedPlanet.id === planet.id;
-
-                return (
-                  <motion.div
-                    key={planet.id}
-                    onClick={() => setSelectedPlanet(planet)}
-                    whileHover={{ scale: 1.25 }}
-                    whileTap={{ scale: 1.05 }}
-                    className="absolute z-20 cursor-pointer transition-all flex items-center justify-center group"
-                    style={{
-                      transform: `translate(${x}px, ${y}px) translateZ(40px)`,
-                      width: `${planet.size}px`,
-                      height: `${planet.size}px`,
-                    }}
-                  >
-                    <div
-                      className={`w-full h-full rounded-full bg-zinc-900 border transition-transform ${
-                        isSelected
-                          ? "border-black ring-4 ring-black/20 bg-black shadow-lg scale-110"
-                          : "border-zinc-300 group-hover:border-black"
-                      }`}
-                    />
-                    <span className="absolute -bottom-6 text-[10px] font-mono whitespace-nowrap text-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity font-bold bg-white/90 px-1.5 py-0.5 rounded shadow-xs border border-gray-200">
-                      {planet.name}
-                    </span>
-                  </motion.div>
-                );
-              })}
             </div>
 
             {/* Selected Pillar Floating Inspection Box (Positioned safely outside the inner orbit area) */}
