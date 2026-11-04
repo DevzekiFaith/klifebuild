@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Hammer, RefreshCw, HeartHandshake, Shield, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Hammer, RefreshCw, HeartHandshake, Shield, ChevronLeft, ChevronRight } from "lucide-react";
 import gatheringGroupImg from "@/public/images/gathering_rebuilders_group.jpg";
 import gatheringDuoImg from "@/public/images/gathering_rebuilders.jpg";
 
@@ -47,10 +47,10 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
       className="relative w-full bg-white text-zinc-950 py-20 sm:py-28 border-b border-gray-100 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        
+
         {/* 2-Column Responsive Grid matching reference UI */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
+
           {/* Left Column: Narrative & Typography */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
@@ -60,18 +60,17 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
             className="lg:col-span-5 flex flex-col justify-between space-y-8"
           >
             <div className="space-y-6">
-              {/* Interactive Pill Indicator */}
+              {/* Interactive Pill Indicator (Matching Reference Dots Bar - Stable Width) */}
               <div className="inline-flex items-center gap-2 p-1 pl-3 pr-3 rounded-full bg-zinc-100 border border-zinc-200/80 text-zinc-700 select-none">
                 <div className="flex items-center gap-1.5 shrink-0">
                   {GALLERY_SLIDES.map((slide, idx) => (
                     <button
                       key={slide.id}
                       onClick={() => setActiveSlideIndex(idx)}
-                      className={`transition-all duration-300 rounded-full cursor-pointer ${
-                        idx === activeSlideIndex
-                          ? "w-4 h-2 bg-zinc-900"
-                          : "w-2 h-2 bg-zinc-300 hover:bg-zinc-500"
-                      }`}
+                      className={`transition-all duration-300 rounded-full cursor-pointer ${idx === activeSlideIndex
+                        ? "w-4 h-2 bg-zinc-900"
+                        : "w-2 h-2 bg-zinc-300 hover:bg-zinc-500"
+                        }`}
                       title={`View ${slide.title}`}
                     />
                   ))}
@@ -88,22 +87,22 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
 
               {/* Narrative Text */}
               <p className="text-zinc-600 text-base sm:text-lg font-light leading-relaxed">
-                Sometimes we lose direction. Sometimes what we built no longer looks like what we imagined. But the story doesn't have to end there.
+                Sometimes we lose direction. Sometimes what we built no longer looks like what we imagined.
               </p>
 
               {/* Turning Point Quote */}
               <p className="font-serif-headline italic text-lg sm:text-xl text-zinc-900 font-normal border-l-2 border-zinc-900 pl-4">
-                "The Gathering exists to prepare people for the work of rebuilding beyond the gathering."
+                But the story doesn't have to end there.
               </p>
             </div>
 
-            {/* Bottom Callout & Action */}
+            {/* Bottom Callout & Action (Matching 70% Interview rate block in reference) */}
             <div className="pt-4 border-t border-gray-100 space-y-3">
-              <div className="text-xl sm:text-2xl font-serif-headline text-zinc-950 font-bold tracking-tight">
-                Come. Encounter. Connect. Develop. Be commissioned. Go rebuild.
+              <div className="text-2xl sm:text-3xl font-serif-headline text-zinc-950 font-bold tracking-tight">
+                Come. Connect. Build.
               </div>
               <p className="text-xs font-mono uppercase tracking-widest text-zinc-500">
-                2nd Sunday Gathering • Last Sunday Activation • 5:00 PM GMT+1
+                Bi-Weekly Gathering • 2nd &amp; 4th Sunday • 5:00 PM GMT+1 (90 mins)
               </p>
               {onOpenRegister && (
                 <div className="pt-2">
@@ -111,7 +110,7 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
                     onClick={onOpenRegister}
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black text-white text-xs font-mono font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all shadow-sm cursor-pointer"
                   >
-                    <span>Join the Gathering</span>
+                    <span>Join Us</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -128,7 +127,7 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
             className="lg:col-span-7"
           >
             <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-gray-200/90 group bg-zinc-900">
-              
+
               {/* Animated Crossfade between both Nigerian Rebuilder photographs */}
               <AnimatePresence mode="wait">
                 <motion.div
@@ -156,8 +155,8 @@ export default function EmotionalConnectionSection({ onOpenRegister }: Emotional
 
               {/* Top Glassmorphic Overlay Badge (Matching Kiara Washington badge in reference) */}
               <div className="absolute top-5 sm:top-6 left-5 sm:left-6 p-4 rounded-2xl bg-black/55 backdrop-blur-md border border-white/15 text-white max-w-[280px] sm:max-w-xs shadow-lg z-10">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#d4af37] flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3 text-[#d4af37]" />
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-300 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                   Official Invitation
                 </span>
                 <h3 className="font-serif-headline text-lg sm:text-2xl font-normal text-white mt-1 leading-snug">
