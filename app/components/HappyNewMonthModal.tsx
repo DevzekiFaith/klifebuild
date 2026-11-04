@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, Sparkles, ArrowRight, Share2, ShieldCheck, Heart } from "lucide-react";
+import { X, Download, Calendar, ArrowRight, Share2, ShieldCheck, Heart } from "lucide-react";
 import RotatingTagline from "./RotatingTagline";
 
 interface HappyNewMonthModalProps {
@@ -77,7 +77,7 @@ export default function HappyNewMonthModal({
             <div className="space-y-5">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold uppercase tracking-widest">
-                <Sparkles className="w-3.5 h-3.5" />
+                <Calendar className="w-3.5 h-3.5" />
                 <span>Happy New Month • September</span>
               </div>
 

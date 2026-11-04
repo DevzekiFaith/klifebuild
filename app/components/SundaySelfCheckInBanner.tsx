@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { CheckCircle2, QrCode, Clock, MapPin, Globe, Sparkles, ArrowRight, ShieldCheck } from "lucide-react";
+import { CheckCircle2, QrCode, Clock, MapPin, Globe, ArrowRight, ShieldCheck } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 import { recordSundayAttendance } from "../../lib/supabase";
 

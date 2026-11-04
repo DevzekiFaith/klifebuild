@@ -12,7 +12,6 @@ import {
   Send,
   CheckCircle2,
   ThumbsUp,
-  Sparkles,
   Filter,
   Maximize2,
   X,
@@ -496,7 +495,7 @@ export default function LiveReviewSection({ currentMemberName }: LiveReviewSecti
                       {/* Quick Prompts */}
                       <div className="flex flex-wrap gap-1.5 pt-1">
                         <span className="text-[11px] text-zinc-500 flex items-center gap-1 font-mono">
-                          <Sparkles className="w-3 h-3 text-amber-600" />
+                          <MessageSquare className="w-3 h-3 text-zinc-500" />
                           Quick prompts:
                         </span>
                         {quickPrompts.map((p, idx) => (

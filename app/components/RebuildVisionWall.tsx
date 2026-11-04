@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Sparkles, Send, Globe, MapPin, Hammer, Key, HeartHandshake, RefreshCw, X, Plus, CheckCircle2 } from "lucide-react";
+import { Send, Globe, MapPin, Hammer, Key, HeartHandshake, RefreshCw, X, Plus, CheckCircle2 } from "lucide-react";
 import { fetchRebuildingDeclarations, submitRebuildingDeclaration, RebuildingDeclaration } from "../../lib/supabase";
 
 export default function RebuildVisionWall() {
@@ -76,7 +76,7 @@ export default function RebuildVisionWall() {
       case "REPLENISHING":
         return <RefreshCw className="w-3.5 h-3.5 text-yellow-500" />;
       default:
-        return <Sparkles className="w-3.5 h-3.5 text-white" />;
+        return <Globe className="w-3.5 h-3.5 text-white" />;
     }
   };
 

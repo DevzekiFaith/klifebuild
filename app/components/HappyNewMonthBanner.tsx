@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 
 interface HappyNewMonthBannerProps {
   onOpenFlyer: () => void;

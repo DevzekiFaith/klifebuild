@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, CheckCircle2, ShieldCheck, Sparkles, User, Briefcase, Globe, Compass, Hammer } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CheckCircle2, ShieldCheck, User, Briefcase, Globe, Compass, Hammer } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
@@ -226,7 +226,7 @@ export default async function ImpactDetailPage({ params }: { params: Promise<{ s
             <div className="lg:col-span-6 space-y-6">
               
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-800 text-xs font-mono uppercase tracking-widest">
-                <Sparkles className="w-3.5 h-3.5 text-[#3b2262]" />
+                <Compass className="w-3.5 h-3.5 text-[#3b2262]" />
                 <span>Area {data.number} • {data.title}</span>
               </div>
 

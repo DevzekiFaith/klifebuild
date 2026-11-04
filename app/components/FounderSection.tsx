@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, UserCheck, Heart, Sparkles, Target } from "lucide-react";
+import { ArrowUpRight, UserCheck, Heart, Hammer, Target } from "lucide-react";
 import zekiUborOfficialImg from "@/public/images/zeki_ubor_official.jpg";
 
 interface FounderSectionProps {
@@ -201,7 +201,7 @@ export default function FounderSection({ onOpenRegister }: FounderSectionProps) 
                 className="p-6 border border-gray-200 rounded-2xl hover:border-black hover:shadow-md transition-all space-y-1 bg-gray-50/40"
               >
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 font-bold uppercase">
-                  <Sparkles className="w-4 h-4 text-black" />
+                  <Hammer className="w-4 h-4 text-black" />
                   <span>02 / THE 4T FRAMEWORK</span>
                 </div>
                 <h4 className="font-heading font-bold text-base text-black">Rebuilding, Restoring, Repairing, Replenishing</h4>

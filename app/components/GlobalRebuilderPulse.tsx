@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, MapPin, Users, Activity, Sparkles, ArrowRight, ShieldCheck, Clock } from "lucide-react";
+import { Globe, MapPin, Users, Activity, ArrowRight, ShieldCheck, Clock } from "lucide-react";
 
 interface CityHub {
   id: string;

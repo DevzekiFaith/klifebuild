@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { QrCode, Calendar, CheckCircle2, Share2, Sparkles, Check, Copy } from "lucide-react";
+import { QrCode, Calendar, CheckCircle2, Share2, Check, Copy } from "lucide-react";
 import { MemberData } from "./RegistrationForm";
 
 interface MobileQuickDockProps {

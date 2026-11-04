@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { User, Briefcase, Globe, ArrowUpRight, Sparkles, ArrowRight } from "lucide-react";
+import { User, Briefcase, Globe, ArrowUpRight, Compass, ArrowRight } from "lucide-react";
 
 interface AreasOfImpactProps {
   onOpenRegister?: () => void;
@@ -108,7 +108,7 @@ export default function AreasOfImpact({ onOpenRegister }: AreasOfImpactProps) {
           className="max-w-3xl space-y-4"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 border border-gray-200 text-zinc-700 text-xs font-mono uppercase tracking-widest shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#3b2262]" />
+            <Compass className="w-3.5 h-3.5 text-[#3b2262]" />
             <span>Where Rebuilding Happens</span>
           </div>
 
