@@ -24,7 +24,6 @@ import HappyNewMonthModal from "./components/HappyNewMonthModal";
 import ConferenceRegistrationModal from "./components/ConferenceRegistrationModal";
 import MobileQuickDock from "./components/MobileQuickDock";
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
-import GlobalRebuilderPulse from "./components/GlobalRebuilderPulse";
 import RebuilderDiagnosticModal from "./components/RebuilderDiagnosticModal";
 
 import LiveReviewSection from "./components/LiveReviewSection";
@@ -364,9 +363,6 @@ export default function Home() {
           onOpenPass={() => setIsPassOpen(true)}
         />
       </div>
-
-      {/* 07 GLOBAL NETWORK & CITY PULSE */}
-      <GlobalRebuilderPulse onOpenRegister={() => setIsRegisterOpen(true)} />
 
       {/* 08 COMMUNITY / NETWORK & REBUILDER DECLARATIONS */}
       <div id="declarations" className="scroll-mt-20">
