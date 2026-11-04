@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, BookOpen, Download, Save, Trash2, Check, Sparkles } from "lucide-react";
+import { X, BookOpen, Download, Save, Trash2, Check } from "lucide-react";
 
 interface RebuildersNotesModalProps {
   isOpen: boolean;

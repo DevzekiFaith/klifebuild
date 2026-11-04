@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Sparkles, Ticket } from "lucide-react";
+import { QrCode, ShieldCheck, Menu, X, ArrowUpRight, Users, Clock, BookOpen, ChevronDown, Ticket, Compass, ImageIcon } from "lucide-react";
 import RotatingTagline from "./RotatingTagline";
 
 interface NavbarProps {
@@ -136,9 +136,9 @@ export default function Navbar({
                     {onOpenDiagnostic && (
                       <button
                         onClick={() => { setToolsOpen(false); onOpenDiagnostic(); }}
-                        className="w-full px-3 py-2 text-left rounded-xl bg-amber-500/10 hover:bg-amber-500/20 transition-colors text-[10px] font-mono font-bold text-amber-800 flex items-center gap-2 cursor-pointer border border-amber-300/60"
+                        className="w-full px-3 py-2 text-left rounded-xl bg-purple-50/70 hover:bg-purple-100/70 transition-colors text-[10px] font-mono font-bold text-[#3b2262] flex items-center gap-2 cursor-pointer border border-purple-200/60"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                        <Compass className="w-3.5 h-3.5 text-[#3b2262]" />
                         <span>4T Mandate Quiz</span>
                       </button>
                     )}
@@ -158,7 +158,7 @@ export default function Navbar({
                         onClick={() => { setToolsOpen(false); onOpenFlyer(); }}
                         className="w-full px-3 py-2 text-left rounded-xl hover:bg-gray-100 transition-colors text-[10px] font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-[#3b2262]" />
+                        <ImageIcon className="w-3.5 h-3.5 text-[#3b2262]" />
                         <span>September Flyer</span>
                       </button>
                     )}
@@ -201,7 +201,7 @@ export default function Navbar({
                 onClick={onOpenPass}
                 className="px-3 py-1.5 rounded-full border border-zinc-900 bg-zinc-900 text-white text-[10px] font-medium hover:bg-black transition-all flex items-center gap-1 cursor-pointer shrink-0"
               >
-                <ShieldCheck className="w-3 h-3 text-[#d4af37]" />
+                <ShieldCheck className="w-3 h-3 text-[#c4b5fd]" />
                 <span>My Pass</span>
               </button>
             ) : (
@@ -278,9 +278,9 @@ export default function Navbar({
                 {onOpenDiagnostic && (
                   <button
                     onClick={() => { setMobileMenuOpen(false); onOpenDiagnostic(); }}
-                    className="w-full text-left px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-300/60 text-xs font-mono font-bold text-amber-900 flex items-center gap-2 cursor-pointer"
+                    className="w-full text-left px-3 py-2.5 rounded-xl bg-purple-50/70 border border-purple-200/60 text-xs font-mono font-bold text-[#3b2262] flex items-center gap-2 cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    <Compass className="w-3.5 h-3.5 text-[#3b2262]" />
                     4T Mandate Diagnostic
                   </button>
                 )}
@@ -300,7 +300,7 @@ export default function Navbar({
                     onClick={() => { setMobileMenuOpen(false); onOpenFlyer(); }}
                     className="w-full text-left px-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-mono font-semibold text-zinc-800 flex items-center gap-2 cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#3b2262]" />
+                    <ImageIcon className="w-3.5 h-3.5 text-[#3b2262]" />
                     September Flyer
                   </button>
                 )}

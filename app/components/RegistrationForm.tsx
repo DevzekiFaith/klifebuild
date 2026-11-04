@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
-import { X, ArrowUpRight, Sparkles, Building } from "lucide-react";
+import { X, ArrowUpRight, Building } from "lucide-react";
 import { saveMemberRecord } from "../../lib/supabase";
 
 export interface MemberData {

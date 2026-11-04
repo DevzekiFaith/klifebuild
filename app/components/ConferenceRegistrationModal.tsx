@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
-import { X, ArrowUpRight, Sparkles, Ticket } from "lucide-react";
+import { X, ArrowUpRight, Ticket } from "lucide-react";
 import { saveMemberRecord } from "../../lib/supabase";
 import { MemberData } from "./RegistrationForm";
 
@@ -133,8 +133,8 @@ export default function ConferenceRegistrationModal({
                   className="object-contain"
                 />
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/60 text-[#d4af37] text-[10px] font-mono font-bold uppercase tracking-widest backdrop-blur-sm">
-                <Sparkles className="w-3 h-3" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-mono font-bold uppercase tracking-widest backdrop-blur-sm">
+                <Ticket className="w-3 h-3 text-[#c4b5fd]" />
                 <span>4T Annual Gathering • 3-Day Pass</span>
               </div>
             </div>
