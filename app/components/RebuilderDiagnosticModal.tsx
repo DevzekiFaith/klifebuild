@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, Hammer, Key, HeartHandshake, RefreshCw, ArrowRight, Download, Share2, Check, Copy } from "lucide-react";
+import { X, Hammer, Key, HeartHandshake, RefreshCw, ArrowRight, Download, Share2, Check, Copy } from "lucide-react";
 
 interface RebuilderDiagnosticModalProps {
   isOpen: boolean;
@@ -31,8 +31,8 @@ const PROFILES: Record<PillarType, MandateProfile> = {
     tagline: "Called to reconstruct broken structures, policies, and generational foundations.",
     scriptureRef: "Isaiah 58:12",
     scriptureText: "And they that shall be of thee shall build the old waste places: thou shalt raise up the foundations of many generations; and thou shalt be called, The repairer of the breach, The restorer of paths to dwell in.",
-    color: "#f59e0b",
-    accentBg: "rgba(245, 158, 11, 0.15)",
+    color: "#3b2262",
+    accentBg: "rgba(59, 34, 98, 0.15)",
     actionPillars: [
       "Architect structural frameworks in your industry",
       "Reconstruct weakened organisational systems",
@@ -45,8 +45,8 @@ const PROFILES: Record<PillarType, MandateProfile> = {
     tagline: "Called to awaken divine purpose, spiritual authority, and individual calling.",
     scriptureRef: "Isaiah 61:3",
     scriptureText: "To appoint unto them that mourn in Zion, to give unto them beauty for ashes, the oil of joy for mourning, the garment of praise for the spirit of heaviness; that they might be called trees of righteousness.",
-    color: "#3b82f6",
-    accentBg: "rgba(59, 130, 246, 0.15)",
+    color: "#3b2262",
+    accentBg: "rgba(59, 34, 98, 0.15)",
     actionPillars: [
       "Restore wounded leaders back into their divine assignment",
       "Cultivate spiritual discernment and kingdom confidence",
@@ -59,8 +59,8 @@ const PROFILES: Record<PillarType, MandateProfile> = {
     tagline: "Called to mend relational breaches, resolve cultural fractures, and foster covenant unity.",
     scriptureRef: "Nehemiah 4:6",
     scriptureText: "So built we the wall; and all the wall was joined together unto the half thereof: for the people had a mind to work.",
-    color: "#10b981",
-    accentBg: "rgba(16, 185, 129, 0.15)",
+    color: "#3b2262",
+    accentBg: "rgba(59, 34, 98, 0.15)",
     actionPillars: [
       "Heal systemic trust gaps in communities and teams",
       "Bridge divides between leadership and emerging generations",
@@ -73,8 +73,8 @@ const PROFILES: Record<PillarType, MandateProfile> = {
     tagline: "Called to build sustainable kingdom economics, capital multiplication, and generational inheritance.",
     scriptureRef: "Psalm 112:3",
     scriptureText: "Wealth and riches shall be in his house: and his righteousness endureth for ever.",
-    color: "#eab308",
-    accentBg: "rgba(234, 179, 8, 0.15)",
+    color: "#3b2262",
+    accentBg: "rgba(59, 34, 98, 0.15)",
     actionPillars: [
       "Generate ethical capital for transformative kingdom impact",
       "Multiply resources through high-integrity enterprise",
@@ -172,13 +172,13 @@ export default function RebuilderDiagnosticModal({
   const getPillarIcon = (pillar: PillarType) => {
     switch (pillar) {
       case "REBUILDING":
-        return <Hammer className="w-5 h-5 text-amber-500" />;
+        return <Hammer className="w-5 h-5 text-[#3b2262]" />;
       case "RESTORING":
-        return <Key className="w-5 h-5 text-blue-500" />;
+        return <Key className="w-5 h-5 text-[#3b2262]" />;
       case "REPAIRING":
-        return <HeartHandshake className="w-5 h-5 text-emerald-500" />;
+        return <HeartHandshake className="w-5 h-5 text-[#3b2262]" />;
       case "REPLENISHING":
-        return <RefreshCw className="w-5 h-5 text-yellow-500" />;
+        return <RefreshCw className="w-5 h-5 text-[#3b2262]" />;
     }
   };
 
@@ -215,19 +215,19 @@ export default function RebuilderDiagnosticModal({
     ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, 1200, 700);
 
-    // Gold borders
-    ctx.strokeStyle = "#d4af37";
-    ctx.lineWidth = 4;
+    // Border framing
+    ctx.strokeStyle = "#3b2262";
+    ctx.lineWidth = 3;
     ctx.strokeRect(30, 30, 1140, 640);
 
-    // Inner gold border
-    ctx.strokeStyle = "rgba(212, 175, 55, 0.3)";
+    // Inner subtle border
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
     ctx.lineWidth = 1;
     ctx.strokeRect(45, 45, 1110, 610);
 
     // Header badge
-    ctx.fillStyle = "#d4af37";
-    ctx.font = "bold 20px monospace";
+    ctx.fillStyle = "#a1a1aa";
+    ctx.font = "bold 16px monospace";
     ctx.fillText("LIFEBUILD GLOBAL • ISAIAH 58:12 MANDATE", 80, 100);
 
     // Mandate Title
@@ -236,8 +236,8 @@ export default function RebuilderDiagnosticModal({
     ctx.fillText(resultProfile.title, 80, 180);
 
     // Recipient name
-    ctx.fillStyle = "#d4af37";
-    ctx.font = "italic 26px serif";
+    ctx.fillStyle = "#e4e4e7";
+    ctx.font = "italic 24px serif";
     ctx.fillText(`Conferred Upon: ${userName || "Kingdom Rebuilder"}`, 80, 230);
 
     // Tagline
@@ -246,13 +246,13 @@ export default function RebuilderDiagnosticModal({
     ctx.fillText(resultProfile.tagline, 80, 280);
 
     // Scripture box
-    ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.04)";
     ctx.fillRect(80, 320, 1040, 150);
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
     ctx.strokeRect(80, 320, 1040, 150);
 
-    ctx.fillStyle = "#d4af37";
-    ctx.font = "bold 18px monospace";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 16px monospace";
     ctx.fillText(`SCRIPTURAL ANCHOR: ${resultProfile.scriptureRef}`, 110, 360);
 
     ctx.fillStyle = "#e4e4e7";
@@ -292,16 +292,22 @@ export default function RebuilderDiagnosticModal({
       >
         {/* Top Header */}
         <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500/20 to-[#3b2262]/40 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-              <Sparkles className="w-4 h-4" />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/5 border border-zinc-800 flex items-center justify-center p-1.5 shrink-0">
+              <Image
+                src="/images/logo_icon_nobg.png"
+                alt="LifeBuild Global Logo"
+                width={24}
+                height={24}
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#d4af37] font-bold block">
-                30-Second Diagnostic
+              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-bold block">
+                Interactive Mandate Assessment
               </span>
-              <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
-                Discover Your Rebuilder Mandate
+              <h3 className="text-base sm:text-lg font-bold text-white leading-tight font-serif-headline">
+                Discover Which Rebuilder Pillar You Are Called To
               </h3>
             </div>
           </div>
@@ -321,13 +327,13 @@ export default function RebuilderDiagnosticModal({
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                 <span>Step {currentStep + 1} of {QUESTIONS.length}</span>
-                <span className="text-[#d4af37] font-bold">
+                <span className="text-white font-bold">
                   {Math.round(((currentStep + 1) / QUESTIONS.length) * 100)}% Completed
                 </span>
               </div>
               <div className="w-full h-1.5 rounded-full bg-zinc-900 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-amber-500 to-[#d4af37] transition-all duration-300"
+                  className="h-full bg-[#3b2262] transition-all duration-300"
                   style={{ width: `${((currentStep + 1) / QUESTIONS.length) * 100}%` }}
                 />
               </div>
@@ -351,9 +357,9 @@ export default function RebuilderDiagnosticModal({
                   whileHover={{ scale: 1.01, x: 4 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => handleSelectOption(opt.pillar)}
-                  className="w-full p-4 rounded-2xl bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-[#d4af37]/60 text-left transition-all flex items-start gap-3.5 group cursor-pointer"
+                  className="w-full p-4 rounded-2xl bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-500 text-left transition-all flex items-start gap-3.5 group cursor-pointer"
                 >
-                  <div className="w-6 h-6 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-xs font-mono text-zinc-400 group-hover:border-[#d4af37] group-hover:text-[#d4af37] shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-xs font-mono text-zinc-400 group-hover:border-[#3b2262] group-hover:text-white shrink-0 mt-0.5">
                     {String.fromCharCode(65 + idx)}
                   </div>
                   <span className="text-xs sm:text-sm text-zinc-300 group-hover:text-white leading-relaxed">
@@ -375,21 +381,30 @@ export default function RebuilderDiagnosticModal({
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   placeholder="Enter your full name"
-                  className="flex-1 bg-transparent border-b border-zinc-700 focus:border-[#d4af37] outline-none text-xs font-mono text-white px-2 py-1"
+                  className="flex-1 bg-transparent border-b border-zinc-700 focus:border-[#3b2262] outline-none text-xs font-mono text-white px-2 py-1"
                 />
               </div>
 
               {/* The Mandate Card */}
               <div
                 ref={cardRef}
-                className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-zinc-900 to-zinc-950 border-2 border-[#d4af37]/50 shadow-2xl relative overflow-hidden space-y-6"
+                className="p-6 sm:p-8 rounded-3xl bg-zinc-950 border border-zinc-800 shadow-2xl relative overflow-hidden space-y-6"
               >
                 {/* Background watermarks */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[#d4af37]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#3b2262]/20 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -right-6 -bottom-6 w-44 h-44 opacity-5 pointer-events-none select-none">
+                  <Image
+                    src="/images/logo_icon_nobg.png"
+                    alt="Lifebuild Global"
+                    width={176}
+                    height={176}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
 
-                <div className="flex items-start justify-between">
+                <div className="flex items-start justify-between relative z-10">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#d4af37] flex items-center gap-1.5">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-1.5">
                       {getPillarIcon(resultProfile.pillar)}
                       <span>Verified 4T Rebuilder Profile</span>
                     </span>
@@ -397,7 +412,7 @@ export default function RebuilderDiagnosticModal({
                       {resultProfile.title}
                     </h2>
                     {userName && (
-                      <p className="text-xs font-mono text-[#d4af37] italic">
+                      <p className="text-xs font-mono text-zinc-400 italic">
                         Conferred Upon: <strong className="text-white font-bold">{userName}</strong>
                       </p>
                     )}
@@ -408,13 +423,13 @@ export default function RebuilderDiagnosticModal({
                   </div>
                 </div>
 
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-light">
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-light relative z-10">
                   {resultProfile.tagline}
                 </p>
 
                 {/* Scripture Anchor */}
-                <div className="p-4 rounded-2xl bg-zinc-950/70 border border-zinc-800 space-y-1.5">
-                  <div className="text-[10px] font-mono text-[#d4af37] uppercase font-bold">
+                <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 relative z-10">
+                  <div className="text-[10px] font-mono text-zinc-400 uppercase font-bold">
                     Scriptural Anchor • {resultProfile.scriptureRef}
                   </div>
                   <p className="text-xs italic text-zinc-300 font-serif leading-relaxed">
@@ -423,14 +438,14 @@ export default function RebuilderDiagnosticModal({
                 </div>
 
                 {/* 3 Strategic Action Blueprint */}
-                <div className="space-y-2 pt-1">
+                <div className="space-y-2 pt-1 relative z-10">
                   <div className="text-[10px] font-mono text-zinc-400 uppercase font-bold">
                     Strategic Action Blueprint
                   </div>
                   <div className="space-y-1.5">
                     {resultProfile.actionPillars.map((action, i) => (
                       <div key={i} className="flex items-center gap-2 text-xs text-zinc-300 font-mono">
-                        <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                         <span>{action}</span>
                       </div>
                     ))}

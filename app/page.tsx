@@ -29,7 +29,7 @@ import RebuilderDiagnosticModal from "./components/RebuilderDiagnosticModal";
 import LiveReviewSection from "./components/LiveReviewSection";
 import Footer from "./components/Footer";
 import { getStoredAuthRole, AuthRole, logoutAuthRole } from "../lib/supabase";
-import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight, CheckCircle2, Mail, X as CloseIcon } from "lucide-react";
+import { Hammer, Key, HeartHandshake, RefreshCw, ArrowUpRight, ArrowRight, CheckCircle2, Mail, X as CloseIcon } from "lucide-react";
 
 export default function Home() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -225,8 +225,8 @@ export default function Home() {
               className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
             >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-amber-700 transition-colors">
-                  <Hammer className="w-4 h-4 text-amber-800" />
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-[#3b2262] transition-colors">
+                  <Hammer className="w-4 h-4 text-[#3b2262]" />
                   01 / REBUILDING
                 </span>
                 <span>ISAIAH 58:12</span>
@@ -247,8 +247,8 @@ export default function Home() {
               className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
             >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-blue-700 transition-colors">
-                  <Key className="w-4 h-4 text-blue-800" />
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-[#3b2262] transition-colors">
+                  <Key className="w-4 h-4 text-[#3b2262]" />
                   02 / RESTORING
                 </span>
                 <span>ISAIAH 61:3</span>
@@ -269,8 +269,8 @@ export default function Home() {
               className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
             >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-emerald-700 transition-colors">
-                  <HeartHandshake className="w-4 h-4 text-emerald-800" />
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-[#3b2262] transition-colors">
+                  <HeartHandshake className="w-4 h-4 text-[#3b2262]" />
                   03 / REPAIRING
                 </span>
                 <span>NEHEMIAH 4:6</span>
@@ -291,8 +291,8 @@ export default function Home() {
               className="p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-xl transition-all space-y-4 bg-gray-50/40 backdrop-blur-sm group"
             >
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-yellow-700 transition-colors">
-                  <RefreshCw className="w-4 h-4 text-yellow-800" />
+                <span className="font-bold text-black flex items-center gap-1.5 group-hover:text-[#3b2262] transition-colors">
+                  <RefreshCw className="w-4 h-4 text-[#3b2262]" />
                   04 / REPLENISHING
                 </span>
                 <span>PSALMS 112:3</span>
@@ -309,26 +309,47 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-6 sm:p-8 rounded-3xl bg-zinc-950 text-white border border-[#d4af37]/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative overflow-hidden rounded-3xl border border-gray-200/90 bg-gradient-to-br from-purple-50/50 via-white to-gray-50/80 p-8 sm:p-12 shadow-xs transition-all hover:border-black/30 hover:shadow-md"
           >
-            <div className="space-y-1 text-center sm:text-left">
-              <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-wider font-bold">
-                Interactive Mandate Assessment
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold font-serif-headline text-white">
-                Discover Which Rebuilder Pillar You Are Called To.
-              </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 font-light">
-                Take our 30-second assessment to discover whether your primary mandate is Rebuilding, Restoring, Repairing, or Replenishing, and receive your personalized card.
-              </p>
+            {/* Subtle background brand watermark */}
+            <div className="absolute -right-8 -bottom-8 w-64 h-64 opacity-[0.03] pointer-events-none select-none">
+              <Image
+                src="/images/logo_icon_nobg.png"
+                alt="Lifebuild Watermark"
+                fill
+                sizes="256px"
+                className="object-contain filter grayscale"
+              />
             </div>
-            <button
-              onClick={() => setIsDiagnosticOpen(true)}
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-[#d4af37] to-amber-600 text-black font-mono text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity cursor-pointer shrink-0 shadow-lg"
-            >
-              Take 30s Diagnostic
-            </button>
+
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="space-y-3 max-w-2xl text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50/80 border border-purple-200/60 text-[#3b2262] text-[10px] font-mono uppercase tracking-widest font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#3b2262] animate-pulse" />
+                  <span>Interactive Mandate Assessment</span>
+                </div>
+                
+                <h3 className="font-serif-headline text-2xl sm:text-4xl text-zinc-950 font-normal leading-tight tracking-tight">
+                  Discover Which Rebuilder Pillar You Are Called To.
+                </h3>
+                
+                <p className="text-zinc-600 text-xs sm:text-base leading-relaxed font-light">
+                  Take our 30-second assessment to discover whether your primary mandate is Rebuilding, Restoring, Repairing, or Replenishing, and receive your personalized card.
+                </p>
+              </div>
+
+              <div className="shrink-0 flex items-center">
+                <button
+                  onClick={() => setIsDiagnosticOpen(true)}
+                  className="w-full sm:w-auto px-7 py-4 rounded-full bg-black text-white hover:bg-zinc-800 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md cursor-pointer group"
+                >
+                  <span>Take 30s Diagnostic</span>
+                  <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
           </motion.div>
 
         </div>
